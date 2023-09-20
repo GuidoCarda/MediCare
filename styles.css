@@ -1,0 +1,72 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  width: min(1280px, calc(100% - 4rem));
+  margin-inline: auto;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+.row {
+  display: flex;
+}
+
+header > .container.row {
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav {
+}
+
+.nav .nav__list {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+}
+
+/* rutas privadas */
+.nav__list.nav__list-private {
+  display: none;
+}
+
+/* rutas publicas */
+.nav__list.nav__list-public {
+  /* display: none; */
+}
+
+.nav__link {
+  text-decoration: none;
+  font: inherit;
+}
+
+.nav-logo {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+main {
+  min-height: calc(100% - 6rem);
+  background: rgb(163, 163, 191);
+}
+
+/* footer */
+
+.footer {
+  width: 100%;
+  background: rgb(133, 120, 120);
+  height: 3rem;
+  display: grid;
+  place-content: center;
+}
