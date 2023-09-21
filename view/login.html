@@ -37,17 +37,24 @@
       </div>
     </header>
     <main>
-      <section class="container">
-        <h1>Ingreso al sistema</h1>
-        <p>Aun no tenes cuenta? <a href="">registrate</a></p>
-        <form action="" class="login-form">
+      <section class="container" id="login">
+        <header class="login-header">
+          <h1>Ingreso al sistema</h1>
+          <p>Aun no tenes cuenta? <a href="./register.html">registrate</a></p>
+        </header>
+        <form action="#" class="login-form">
           <div class="form-group">
-            <label for="username">Usuario</label>
-            <input type="text" name="username" />
+            <label for="email">Email</label>
+            <input type="email" class="text-input" name="email" id="email" />
           </div>
           <div class="form-group">
-            <label for="password">contraseña</label>
-            <input type="text" name="password" />
+            <label for="password">Contraseña</label>
+            <input
+              type="password"
+              class="text-input"
+              name="password"
+              id="password"
+            />
           </div>
           <button>Iniciar sesion</button>
         </form>
