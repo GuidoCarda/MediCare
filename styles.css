@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap");
+
 *,
 *::before,
 *::after {
@@ -6,14 +8,21 @@
   box-sizing: border-box;
 }
 
-.container {
-  width: min(1280px, calc(100% - 4rem));
-  margin-inline: auto;
-}
-
 html,
 body {
   height: 100%;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+}
+
+button {
+  cursor: pointer;
+}
+.container {
+  width: min(1280px, calc(100% - 4rem));
+  margin-inline: auto;
 }
 
 .row {
@@ -52,21 +61,147 @@ header > .container.row {
 }
 
 .nav-logo {
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   font-weight: bold;
 }
 
 main {
   min-height: calc(100% - 6rem);
-  background: rgb(163, 163, 191);
+  background: #f8f8f8;
 }
 
 /* footer */
 
 .footer {
   width: 100%;
-  background: rgb(133, 120, 120);
+  background: rgb(250, 250, 250);
   height: 3rem;
   display: grid;
   place-content: center;
+}
+
+/* Contact Page */
+
+.container#contact {
+  display: grid;
+  place-items: center;
+  min-height: calc(100vh - 6rem);
+  /* background: black; */
+}
+
+.contact-form {
+  width: min(600px, 100%);
+  background: white;
+  border: 1px solid rgb(225, 225, 225);
+  border-radius: 0.5rem;
+  padding: 2.25rem 2rem;
+}
+
+.contact-form-header {
+  margin-bottom: 2.5rem;
+}
+
+.contact-form-header .contact-form__title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.contact-form-header .contact-form__subtitle {
+  color: rgb(153, 161, 172);
+}
+
+.contact-form-grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-areas:
+    "name email"
+    "subject subject"
+    "message message";
+}
+
+@media screen and (max-width: 760px) {
+  .contact-form-grid {
+    gap: 1.75rem;
+    background: red;
+
+    grid-template-areas:
+      "name"
+      "email"
+      "subject"
+      "message";
+  }
+}
+
+.contact-form-grid .form-group.name {
+  grid-area: name;
+}
+
+.contact-form-grid .form-group.email {
+  grid-area: email;
+}
+
+.contact-form-grid .form-group.subject {
+  grid-area: subject;
+}
+
+.contact-form-grid .form-group.message {
+  grid-area: message;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+.contact-form .form-group label {
+  color: grey;
+}
+
+.text-input {
+  height: 2.5rem;
+}
+
+.contact-form__message {
+  padding-top: 0.75rem;
+  font: inherit;
+}
+
+.text-input,
+.contact-form__message {
+  border: 1px solid rgb(225, 225, 225);
+  border-radius: 0.3rem;
+  padding-inline: 1rem;
+  font-size: inherit;
+  width: 100%;
+  color: rgb(87, 87, 87);
+}
+
+.text-input:focus,
+.contact-form__message:focus {
+  border: 1px solid #5ac070;
+  outline: none;
+}
+
+.contact-form__message {
+  resize: none;
+  height: 6rem;
+  overflow: auto;
+}
+
+.contact-form > footer {
+  width: 100%;
+  margin-top: 2rem;
+  display: flex;
+}
+
+.contact-form > footer > button {
+  background: #5ac070;
+  color: white;
+  font: inherit;
+  font-weight: bold;
+  height: 2.5rem;
+  border-radius: 0.3rem;
+  padding-inline: 2rem;
+  border: none;
+  margin-left: auto;
 }
