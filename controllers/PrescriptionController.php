@@ -1,31 +1,40 @@
 <?php
 
-namespace controller;
+namespace controllers;
 
 class PrescriptionController
 {
-  public function list()
+  public static function list()
   {
-    var_dump("Listar prescripcion");
+    // var_dump("Listar prescripcion");
+    return [
+      'data' => [],
+      'view' => "prescriptions/list"
+    ];
   }
 
-  public function details()
+  public static function details()
   {
-    var_dump("detalles del prescripcion");
+    // var_dump("detalles del prescripcion");
+    return [
+      'data' => [],
+      'view' => 'prescriptions/details'
+    ];
   }
 
-  public function new()
+  public static function new()
   {
     var_dump("alta de prescripcion");
   }
 
-  public function update()
+  public static function edit()
   {
     var_dump("actualizar prescripcion");
   }
 
-  public function delete()
+  public static function delete()
   {
+    // No renderizamos nada, borra y redirecciona
     var_dump("Eliminar prescripcion");
   }
 }

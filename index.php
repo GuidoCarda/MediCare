@@ -1,8 +1,5 @@
 <?php
-ini_set('display_errors', true);
-error_reporting(E_ALL);
-var_dump($_GET);
-
+require 'utils/config.php';
 $routes = require 'utils/routes.php';
 
 require 'controllers/ProfessionalController.php';
@@ -13,4 +10,21 @@ require 'controllers/PrescriptionController.php';
 
 $respuesta = $routes();
 
-var_dump($respuesta);
+if (!isset($respuesta['view'])) {
+  echo 'Routes no retorno la vista';
+  die();
+}
+
+// Obtengo la ruta de la vista en el file system
+$view = VIEWS . '/' . $respuesta['view'] . '.html';
+
+// echo ($view);
+include $view;
+
+if (!file_exists($view)) {
+  echo 'El archivo correspondiente a la ruta no existe o no esta en la direccion proporcionada';
+  die();
+}
+
+// logear lo que devuelve $routes();
+// var_dump($respuesta);

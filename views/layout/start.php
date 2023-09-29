@@ -1,0 +1,1 @@
+<!-- Contendra el inicio para todas las paginas -->

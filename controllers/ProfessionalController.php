@@ -4,28 +4,49 @@ namespace controllers;
 
 class ProfessionalController
 {
-  public function list()
+  public static function list()
   {
-    var_dump("Listar profesional");
+    // tabla de resultados
+    // var_dump("Listar profesional");
+    return [
+      'data' => [],
+      'view' => 'professionals/list',
+    ];
   }
 
-  public function details()
+  public static function details()
   {
-    var_dump("detalles del profesional");
+    // ver detalle
+    // var_dump("detalles del profesional");
+    return [
+      'data' => [],
+      'view' => 'professionals/details',
+    ];
   }
 
-  public function new()
+  public static function new()
   {
-    var_dump("alta de profesional");
+    // formulario de carga
+    // var_dump("alta de profesional");
+    return [
+      'data' => [],
+      'view' => 'professionals/new',
+    ];
   }
 
-  public function update()
+  public static function edit()
   {
-    var_dump("actualizar profesional");
+    // Formulario de edicion
+    // var_dump("actualizar profesional");
+    return [
+      'data' => [],
+      'view' => 'professionals/edit',
+    ];
   }
 
-  public function delete()
+  public static function delete()
   {
+    // No renderizamos nada, borra y redirecciona
     var_dump("Eliminar profesional");
   }
 }
