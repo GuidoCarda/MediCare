@@ -345,3 +345,32 @@ main {
   border: none;
   margin-left: auto;
 }
+
+/* prescriptions-list page */
+
+.container#prescriptions-list {
+  /* background: red; */
+  padding-block: 3rem;
+}
+
+.section-title {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.section-subtitle {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.container#prescriptions-list table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.container#prescriptions-list td,
+.container#prescriptions-list th {
+  height: 2.5rem;
+  border: 1px solid black;
+}

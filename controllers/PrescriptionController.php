@@ -24,12 +24,20 @@ class PrescriptionController
 
   public static function new()
   {
-    var_dump("alta de prescripcion");
+    // var_dump("alta de prescripcion");
+    return [
+      'data' => [],
+      'view' => 'prescriptions/new'
+    ];
   }
 
   public static function edit()
   {
-    var_dump("actualizar prescripcion");
+    // var_dump("actualizar prescripcion");
+    return [
+      'data' => [],
+      'view' => 'prescriptions/edit'
+    ];
   }
 
   public static function delete()

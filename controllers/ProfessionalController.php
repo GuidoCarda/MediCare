@@ -2,12 +2,21 @@
 
 namespace controllers;
 
+use ProfessionalModel;
+
 class ProfessionalController
 {
   public static function list()
   {
+    //llamar al modelo
     // tabla de resultados
     // var_dump("Listar profesional");
+
+    $profesional = new ProfessionalModel();
+    $response = $profesional->getAll();
+    var_dump($response);
+    die();
+
     return [
       'data' => [],
       'view' => 'professionals/list',
@@ -18,6 +27,8 @@ class ProfessionalController
   {
     // ver detalle
     // var_dump("detalles del profesional");
+
+
     return [
       'data' => [],
       'view' => 'professionals/details',
