@@ -14,7 +14,7 @@ CREATE TABLE blood_type(
 
 CREATE TABLE patient(
   id int primary key auto_increment,
-  firstname varchar(50),
+  name varchar(50),
   lastname varchar(50),
   gender enum('Masculino', "Femenino"),
   birth_date date,
@@ -46,7 +46,7 @@ CREATE TABLE specialty(
 
 CREATE TABLE professional(
   id int primary key auto_increment,
-  firstname varchar(50),  
+  name varchar(50),  
   lastname varchar(50),
   email varchar(50),
   license_number varchar(10),

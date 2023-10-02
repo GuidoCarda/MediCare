@@ -21,11 +21,12 @@ if (!isset($response['view'])) {
 $view = VIEWS . '/' . $response['view'] . '.html';
 $data = $response['data'] ?? [];
 
+// die($view);
 
 // echo ($view);
-include(VIEWS . '/layout/start.php');
-include($view);
-include(VIEWS . '/layout/finish.php');
+include( VIEWS . '/layout/start.php' );
+include( $view );
+include( VIEWS . '/layout/finish.php' );
 
 
 if (!file_exists($view)) {

@@ -20,13 +20,61 @@ body {
 button {
   cursor: pointer;
 }
+
 .container {
   width: min(1280px, calc(100% - 4rem));
   margin-inline: auto;
 }
 
+.container:not(header > .container) {
+  padding-block: 3rem;
+}
+
 .row {
   display: flex;
+}
+
+.icon-btn {
+  height: 2.5rem;
+  width: 2.5rem;
+}
+
+.btn {
+  height: 2.5rem;
+  padding-inline: 1rem;
+  border: none;
+  font: inherit;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 0.3rem;
+}
+
+.btn.primary {
+  background-color: #5ac070;
+  color: white;
+}
+
+.btn.cancel {
+  background-color: #f7cfcf;
+  color: rgb(134, 19, 19);
+}
+
+.btn.secondary {
+  background-color: #e1e1e1;
+  color: rgb(21, 21, 21);
+}
+
+.btn.ghost {
+  color: rgb(42, 42, 42);
+  background-color: transparent;
+}
+
+.btn:is(:hover) {
+  opacity: 95%;
+}
+
+.btn:focus-within {
+  outline: 2px solid rgba(220, 220, 220, 0.414);
 }
 
 header > .container.row {
@@ -348,11 +396,6 @@ main {
 
 /* prescriptions-list page */
 
-.container#prescriptions-list {
-  /* background: red; */
-  padding-block: 3rem;
-}
-
 .section-title {
   font-size: 2rem;
   margin-bottom: 1.5rem;
@@ -367,10 +410,71 @@ main {
   width: 100%;
   border-collapse: collapse;
   text-align: center;
+  background: white;
 }
 
 .container#prescriptions-list td,
 .container#prescriptions-list th {
   height: 2.5rem;
   border: 1px solid black;
+}
+
+/* Professionals Form */
+
+.new-form {
+  display: grid;
+  gap: 1rem;
+  /* background: red; */
+}
+
+.new-form > footer {
+  display: flex;
+  margin-top: 1rem;
+  justify-content: end;
+  gap: 1rem;
+}
+
+/* Professionals list */
+
+#professionals-list {
+}
+
+#professionals-list ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-self: start;
+  gap: 1rem;
+}
+
+#professionals-list ul li {
+  flex: 1 1 calc(33% - 1rem);
+}
+
+#professionals-list ul article {
+  border: 1px solid #e1e1e1;
+  background-color: #ffffff;
+  padding: 1rem;
+  border-radius: 0.3rem;
+}
+
+#professionals-list ul article div {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+#professionals-list ul article div h2 {
+  font-size: 1.25rem;
+}
+
+#professionals-list ul article div span {
+  font-size: 0.875rem;
+  padding-top: 2px;
+  padding-inline: 0.5rem;
+  height: 1.5rem;
+  border-radius: 0.3rem;
+  width: max-content;
+  color: white;
+  background: #5ac070;
 }

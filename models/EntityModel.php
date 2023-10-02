@@ -8,11 +8,23 @@
 
 class EntityModel
 {
-  private $connection;
+  private $db;
 
   public function select($query)
   {
     $this->connect();
+    $stmt = $this->db->prepare('select * from blood_type');
+    $stmt->execute();
+    $results = $stmt->fetchAll();
+    var_dump($results);
+    
+    die();
+
+    // $stmt = $this->db->prepare($query);
+    // $stmt->bindParam();
+    // $results = $stmt->execute();
+    // var_dump($results->fetch_all());
+    die('fin query');
   }
 
   public function update($data, $id)
@@ -31,8 +43,8 @@ class EntityModel
   {
     $dsn = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME;
 
-    $this->connection = new PDO($dsn, DB_USER, DB_PASSWORD);
-    $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $this->connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+    $this->db = new PDO($dsn, DB_USER, DB_PASSWORD);
+    $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $this->db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
   }
 }

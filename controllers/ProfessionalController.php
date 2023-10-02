@@ -14,8 +14,8 @@ class ProfessionalController
 
     $profesional = new ProfessionalModel();
     $response = $profesional->getAll();
-    var_dump($response);
-    die();
+    // var_dump($response);
+    // die();
 
     return [
       'data' => [],
@@ -28,7 +28,6 @@ class ProfessionalController
     // ver detalle
     // var_dump("detalles del profesional");
 
-
     return [
       'data' => [],
       'view' => 'professionals/details',
@@ -37,6 +36,7 @@ class ProfessionalController
 
   public static function new()
   {
+
     // formulario de carga
     // var_dump("alta de profesional");
     return [
