@@ -13,7 +13,6 @@ return function () {
   // echo "<br>";
   // var_dump($controller);
 
-
   //Si no existe el controlador devuelvo un error
   if (!class_exists($controller)) {
     return [

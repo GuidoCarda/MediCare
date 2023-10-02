@@ -3,15 +3,24 @@ require 'utils/config.php';
 require 'utils/autoload.php';
 $routes = require 'utils/routes.php';
 
-$respuesta = $routes();
+// $route = $_GET['cat'];
 
-if (!isset($respuesta['view'])) {
+// if( !isset($_SESSION['id']) && $route != 'login' ){
+//   //Si no hay id no esta logueado
+//   header('Location: /medicare/login');
+// }
+
+$response = $routes();
+
+if (!isset($response['view'])) {
   echo 'Routes no retorno la vista';
   die();
 }
 
 // Obtengo la ruta de la vista en el file system
-$view = VIEWS . '/' . $respuesta['view'] . '.html';
+$view = VIEWS . '/' . $response['view'] . '.html';
+$data = $response['data'] ?? [];
+
 
 // echo ($view);
 include(VIEWS . '/layout/start.php');
@@ -24,5 +33,3 @@ if (!file_exists($view)) {
   die();
 }
 
-// logear lo que devuelve $routes();
-// var_dump($respuesta);

@@ -1,4 +1,8 @@
 RewriteEngine On
+
+
+RewriteRule ^login/(start|end)$ index.php?cat=login&a=$1
+
 RewriteRule ^([a-z]+)$ index.php?cat=$1  
 RewriteRule ^([a-z]+)/(new)$ index.php?cat=$1&a=$2  
 RewriteRule ^([a-z]+)/(\d+)$ index.php?cat=$1&id=$2&a=details

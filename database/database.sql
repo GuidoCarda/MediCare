@@ -1,11 +1,16 @@
 CREATE DATABASE medicare;
 USE medicare;
 
-CREATE TABLE user (
+CREATE TABLE `user` (
   id int primary key auto_increment,
   email varchar(50),
   password varchar(50)
-)
+);
+
+CREATE TABLE blood_type(
+  id int primary key auto_increment,
+  denomination varchar(50)
+);
 
 CREATE TABLE patient(
   id int primary key auto_increment,
@@ -16,31 +21,28 @@ CREATE TABLE patient(
   dni varchar(8),
   user_id int,
   blood_type_id int,
-  foreign key (user_id) references user(id),
+  foreign key (user_id) references `user`(id),
   foreign key (blood_type_id) references blood_type(id)
-)
+);
 
-CREATE TABLE blood_type(
-  id int primary key auto_increment,
-  denomination varchar(50)
-)
+
 
 CREATE TABLE frecuency(
   id int primary key auto_increment,
   denomination varchar(50),
   hours_interval int
-)
+);
 
 CREATE TABLE medicine_type(
   id int primary key auto_increment,
   denomination varchar(50),
   unit varchar(50)
-)
+);
 
 CREATE TABLE specialty(
   id int primary key auto_increment,
   denomination varchar(50)
-)
+);
 
 CREATE TABLE professional(
   id int primary key auto_increment,
@@ -49,9 +51,9 @@ CREATE TABLE professional(
   email varchar(50),
   license_number varchar(10),
   phone_number varchar(10),
-  specialty_id varchar(50),
+  specialty_id int,
   foreign key (specialty_id) references specialty(id)
-)
+);
 
 CREATE TABLE patient_professional(
   id int primary key auto_increment,
@@ -60,7 +62,7 @@ CREATE TABLE patient_professional(
   status boolean,
   foreign key (patient_id) references patient(id),
   foreign key (professional_id) references professional(id)
-)
+);
 
 CREATE TABLE medicine(
   id int primary key auto_increment,
@@ -68,7 +70,7 @@ CREATE TABLE medicine(
   drug varchar(50),
   medicine_type_id int,
   foreign key (medicine_type_id) references medicine_type(id)
-)
+);
 
 CREATE TABLE prescription(
   id int primary key auto_increment,
@@ -80,7 +82,7 @@ CREATE TABLE prescription(
   foreign key (professional_id) references professional(id),
   foreign key (patient_id) references patient(id),
   foreign key (frecuency_id) references frecuency(id)
-)
+);
 
 
 -- Primeros inserts
