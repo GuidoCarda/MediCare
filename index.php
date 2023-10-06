@@ -1,11 +1,14 @@
 <?php
 require 'utils/config.php';
 require 'utils/autoload.php';
+require 'utils/functions.php';
+
 $routes = require 'utils/routes.php';
 
 // $route = $_GET['cat'];
 
-// if( !isset($_SESSION['id']) && $route != 'login' ){
+
+// if (!isset($_SESSION['id']) && $route != 'login') {
 //   //Si no hay id no esta logueado
 //   header('Location: /medicare/login');
 // }
@@ -24,13 +27,12 @@ $data = $response['data'] ?? [];
 // die($view);
 
 // echo ($view);
-include( VIEWS . '/layout/start.php' );
-include( $view );
-include( VIEWS . '/layout/finish.php' );
+include(VIEWS . '/layout/start.php');
+include($view);
+include(VIEWS . '/layout/finish.php');
 
 
 if (!file_exists($view)) {
   echo 'El archivo correspondiente a la ruta no existe o no esta en la direccion proporcionada';
   die();
 }
-

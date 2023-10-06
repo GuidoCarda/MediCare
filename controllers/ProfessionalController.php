@@ -18,7 +18,7 @@ class ProfessionalController
     // die();
 
     return [
-      'data' => [],
+      'data' => $response,
       'view' => 'professionals/list',
     ];
   }

@@ -13,18 +13,18 @@ class EntityModel
   public function select($query)
   {
     $this->connect();
-    $stmt = $this->db->prepare('select * from blood_type');
+    $stmt = $this->db->prepare($query);
     $stmt->execute();
     $results = $stmt->fetchAll();
-    var_dump($results);
-    
-    die();
+    // var_dump($results);
+
+    // die();
 
     // $stmt = $this->db->prepare($query);
     // $stmt->bindParam();
     // $results = $stmt->execute();
     // var_dump($results->fetch_all());
-    die('fin query');
+    return $results;
   }
 
   public function update($data, $id)

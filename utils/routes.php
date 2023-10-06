@@ -6,6 +6,14 @@ return function () {
   $id = $_GET['id'] ?? NULL;
   $action = $_GET['a'] ?? 'list'; // Por defecto si no se recibe accion en la url se ejecuta la accion de listar
 
+  // if (!isset($_SESSION['id']) && $category != 'login') {
+  //   //Si no hay id no esta logueado
+  //   header('Location: /medicare/login');
+  // }
+
+  // var_dump($category, $id, $action);
+
+
   // Genero la ruta al controllador que esta solicitandose por URL
   $controller = 'controllers\\' . $category . 'Controller';
 

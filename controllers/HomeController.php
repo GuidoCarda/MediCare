@@ -2,11 +2,13 @@
 
 namespace controllers;
 
-class HomeController{
-  public static function list(){
+class HomeController
+{
+  public static function list()
+  {
     return [
-      'data'=> [],
-      'view'=> 'landing'
+      'data' => [],
+      'view' => 'landing'
     ];
   }
 }
