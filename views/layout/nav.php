@@ -1,30 +1,26 @@
-<?php
-if (!isLogged()) {
-}
 
-?>
 
 <nav class="nav">
-  <ul class="nav__list nav__list-private">
-    <!-- <li class="nav__item">
-      <a class="nav__link" href="/medicare/home"></a>
-    </li> -->
-    <li class="nav__item">
-      <a class="nav__link" href="/medicare/prescription">Medicacion</a>
-    </li>
-    <li class="nav__item">
-      <a class="nav__link" href="/medicare/professional">Profesionales</a>
-    </li>
-  </ul>
-  <ul class="nav__list nav__list-public">
-    <li class="nav__item">
-      <a class="nav__link" href="/medicare/home">Inicio</a>
-    </li>
-    <li class="nav__item">
-      <a class="nav__link" href="/medicare/prescription">Medicacion</a>
-    </li>
-    <li class="nav__item">
-      <a class="nav__link" href="/medicare/professional">Profesionales</a>
-    </li>
-  </ul>
+<?php if(isLogged() ) : ?>
+    <ul class="nav__list ">
+      <li class="nav__item">
+        <a class="nav__link" href="/medicare/home">Inicio</a>
+      </li>
+      <li class="nav__item">
+        <a class="nav__link" href="/medicare/prescription">Medicacion</a>
+      </li>
+      <li class="nav__item">
+        <a class="nav__link" href="/medicare/professional">Profesionales</a>
+      </li>
+    </ul>
+  <?php else : ?>
+    <ul class="nav__list ">
+      <li class="nav__item">
+        <a class="nav__link" href="/medicare/home">Inicio</a>
+      </li>
+      <li class="nav__item">
+        <a class="nav__link" href="/medicare/contact">Contact</a>
+      </li>
+    </ul>
+  <?php endif; ?>
 </nav>

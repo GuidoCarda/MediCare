@@ -95,7 +95,7 @@ header > .container.row {
 
 /* rutas privadas */
 .nav__list.nav__list-private {
-  display: none;
+  /* display: none; */
 }
 
 /* rutas publicas */

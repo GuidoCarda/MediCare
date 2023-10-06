@@ -21,7 +21,7 @@ if (!isset($response['view'])) {
 }
 
 // Obtengo la ruta de la vista en el file system
-$view = VIEWS . '/' . $response['view'] . '.html';
+$view = VIEWS . '/' . $response['view'] . '.php';
 $data = $response['data'] ?? [];
 
 // die($view);

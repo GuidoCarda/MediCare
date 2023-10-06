@@ -2,7 +2,7 @@
 
 namespace controllers;
 
-class LoginController{
+class UserController{
   // Mostrar formulario de login 
   public static function list(){
     return [
@@ -21,5 +21,15 @@ class LoginController{
 
   // Cerrar sesion
   public function end(){
+    
   }
+
+  // Mostrar formulario de registro
+  public function register(){
+    return [
+      "view" => 'register/form'
+    ];
+  }
+  
+  // Registrar usuario
 }

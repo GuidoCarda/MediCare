@@ -11,4 +11,15 @@ class HomeController
       'view' => 'landing'
     ];
   }
+
+  
+  public static function contact()
+  {
+    return [
+      'data' => [],
+      'view' => 'contact'
+    ];
+  }
+
+  
 }

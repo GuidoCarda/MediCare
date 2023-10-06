@@ -6,12 +6,18 @@ return function () {
   $id = $_GET['id'] ?? NULL;
   $action = $_GET['a'] ?? 'list'; // Por defecto si no se recibe accion en la url se ejecuta la accion de listar
 
-  // if (!isset($_SESSION['id']) && $category != 'login') {
-  //   //Si no hay id no esta logueado
-  //   header('Location: /medicare/login');
-  // }
-
   // var_dump($category, $id, $action);
+
+  //Defino las rutas publicas
+  $publicRoutes = Array('home','contact','login','register');
+
+
+  //Si no esta logueado y la ruta no es publica, redirrecciono al login
+  if (!in_array($category, $publicRoutes) && !isset($_SESSION['id'])) {
+    //Si no hay id no esta logueado
+    header('Location: /medicare/login');
+  }
+
 
 
   // Genero la ruta al controllador que esta solicitandose por URL
@@ -25,7 +31,7 @@ return function () {
   if (!class_exists($controller)) {
     return [
       'data' => [
-        'error' => 'clase inexistente',
+        'message' => "clase $controller inexistente",
       ],
       'view' => 'error'
     ];
@@ -39,7 +45,7 @@ return function () {
   if (!method_exists($controller, $action)) {
     return [
       'data' => [
-        'error' => 'el metodo solicitado no existe'
+        'message' => "el metodo $action solicitado no existe en la clase $controller"
       ],
       'view' => 'error'
     ];
