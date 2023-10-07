@@ -1,7 +1,7 @@
 <section class="container" id="professional-new">
   <h1 class="section-title">Profecionales</h1>
   <h2 class="section-subtitle">Formulario de carga</h2>
-  <form class="new-form">
+  <form class="new-form" method="post">
     <div class="form-group">
       <label for="name">Nombre</label>
       <input type="text" class="text-input" name="name" id="name" />

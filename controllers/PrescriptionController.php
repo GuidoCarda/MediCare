@@ -2,6 +2,8 @@
 
 namespace controllers;
 
+use PrescriptionModel;
+
 class PrescriptionController
 {
   public static function list()
@@ -25,6 +27,11 @@ class PrescriptionController
   public static function new()
   {
     // var_dump("alta de prescripcion");
+
+    if($_SERVER['REQUEST_METHOD'] === 'POST') {
+      var_dump($_POST);
+      die();      
+    }
     return [
       'data' => [],
       'view' => 'prescriptions/new'

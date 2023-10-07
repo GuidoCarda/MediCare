@@ -28,6 +28,7 @@ class ProfessionalController
     // ver detalle
     // var_dump("detalles del profesional");
 
+
     return [
       'data' => [],
       'view' => 'professionals/details',
@@ -36,7 +37,10 @@ class ProfessionalController
 
   public static function new()
   {
-
+    if($_SERVER['REQUEST_METHOD'] === 'POST') {
+      var_dump($_POST);
+      die();
+    }
     // formulario de carga
     // var_dump("alta de profesional");
     return [
