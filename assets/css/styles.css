@@ -93,16 +93,6 @@ header > .container.row {
   list-style: none;
 }
 
-/* rutas privadas */
-.nav__list.nav__list-private {
-  /* display: none; */
-}
-
-/* rutas publicas */
-.nav__list.nav__list-public {
-  /* display: none; */
-}
-
 .nav__link {
   text-decoration: none;
   font: inherit;
@@ -449,6 +439,10 @@ main {
 
 #professionals-list ul li {
   flex: 1 1 calc(33% - 1rem);
+}
+#professionals-list ul li > a {
+  text-decoration: none;
+  color: inherit;
 }
 
 #professionals-list ul article {

@@ -14,6 +14,8 @@ $_SESSION['id'] = 1;
 // Path's / Direcciones de diferentes rutas en el sistema de ficheros para su simple acceso
 define('ROOT', dirname(__DIR__));
 define('VIEWS', ROOT . '/views');
+
+
 // var_dump(ROOT);
 // var_dump(VIEWS);
 // die();

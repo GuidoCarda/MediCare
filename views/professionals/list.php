@@ -6,55 +6,54 @@
   <h2 class="section-subtitle">Mis profecionales</h1>
   <ul>
     <li>
-      <article>
-        <div>
-          <h2>Octavio fernandez</h2>
-          <span>neumonologo</span>
-        </div>
-        <p>+31231231</p>
-        <p>octaviofernandez@gmail.com</p>
-      </article>
+      <a href="professional/1">
+        <article>
+          <div>
+            <h2>Octavio fernandez</h2>
+            <span>neumonologo</span>
+          </div>
+          <p>+31231231</p>
+          <p>octaviofernandez@gmail.com</p>
+        </article>
+      </a>
+    </li>
+    <li>
+      <a href="professional/1">
+        <article>
+          <div>
+            <h2>Octavio fernandez</h2>
+            <span>neumonologo</span>
+          </div>
+          <p>+31231231</p>
+          <p>octaviofernandez@gmail.com</p>
+        </article>
+      </a>
+    </li>
+    <li>
+      <a href="professional/1">
+        <article>
+          <div>
+            <h2>Octavio fernandez</h2>
+            <span>neumonologo</span>
+          </div>
+          <p>+31231231</p>
+          <p>octaviofernandez@gmail.com</p>
+        </article>
+      </a>
+    </li>
+    <li>
+      <a href="professional/1">
+        <article>
+          <div>
+            <h2>Octavio fernandez</h2>
+            <span>neumonologo</span>
+          </div>
+          <p>+31231231</p>
+          <p>octaviofernandez@gmail.com</p>
+        </article>
+      </a>
     </li>
    
-    <li>
-      <article>
-        <div>
-          <h2>Octavio fernandez</h2>
-          <span>neumonologo</span>
-        </div>
-        <p>+31231231</p>
-        <p>octaviofernandez@gmail.com</p>
-      </article>
-    </li>
-    <li>
-      <article>
-        <div>
-          <h2>Octavio fernandez</h2>
-          <span>neumonologo</span>
-        </div>
-        <p>+31231231</p>
-        <p>octaviofernandez@gmail.com</p>
-      </article>
-    </li>
-    <li>
-      <article>
-        <div>
-          <h2>Octavio fernandez</h2>
-          <span>neumonologo</span>
-        </div>
-        <p>+31231231</p>
-        <p>octaviofernandez@gmail.com</p>
-      </article>
-    </li>
-    <li>
-      <article>
-        <div>
-          <h2>Octavio fernandez</h2>
-          <span>neumonologo</span>
-        </div>
-        <p>+31231231</p>
-        <p>octaviofernandez@gmail.com</p>
-      </article>
-    </li>
+    
   </ul>
 </section>

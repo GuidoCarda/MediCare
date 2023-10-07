@@ -12,6 +12,9 @@
       <li class="nav__item">
         <a class="nav__link" href="/medicare/professional">Profesionales</a>
       </li>
+      <li class="nav__item">
+        <a class="nav__link" href="/medicare/contact">Contact</a>
+      </li>
     </ul>
   <?php else : ?>
     <ul class="nav__list ">

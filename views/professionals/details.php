@@ -13,7 +13,19 @@
         <p>octaviofernandez@gmail.com</p>
       </article>
 
-      <button class="btn primary" onclick="window.location.href='edit'">
+      <button class="btn primary">
         Modificar
       </button>
 </section>
+
+<script>
+  const url = new URL(window.location);
+  const currentPath = url.pathname;
+
+  document.querySelector('.btn.primary').addEventListener(
+    'click',
+    ()=>{
+      window.location.href = `${currentPath}/edit`;
+    }
+  )
+</script>
