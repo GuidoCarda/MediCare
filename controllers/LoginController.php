@@ -18,31 +18,22 @@ class LoginController{
     $password = $_POST['password'];
     // $password = sha1($_POST['password']);
 
-    // echo 'implementar validacion de datos';
-    // die($email . ' ' . $password);
+    $user = UserModel::checkLogin($email, $password);
 
-    $query = "SELECT * FROM user WHERE email = '$email' AND password = '$password'";
-
-    $Patient = new PatientModel();
-
-    $result = $Patient->select($query);
-
-    // var_dump($result);
-    // die();
-
-    if(count($result) == 0){
-      
+    if(!$user){
       return [
         'data' => [
           'message' => 'Usuario o contraseña incorrectos'
         ],
         'view' => 'login/form'
       ];
+      die();
     }
 
-    $_SESSION['id'] = $result[0]['id'];
-    $_SESSION['name'] = $result[0]['name'];
-    $_SESSION['email'] = $result[0]['email'];
+
+    $_SESSION['id'] = $user['id'];
+    $_SESSION['name'] = $user['name'];
+    $_SESSION['email'] = $user['email'];
 
     header('Location: /medicare/prescription');
   }

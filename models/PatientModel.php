@@ -24,15 +24,13 @@ class PatientModel extends EntityModel{
     $this->table = 'patient';
     $this->alias = 'p';
   }
-  
-  public function setTable($table){
-    $this->table = $table;
-  }
 
-  public function getTable(){
-    return $this->table;
-  }
 
+  public static function createPatient($patientData){
+    $Patient = new PatientModel();
+    $patient_id = $Patient->insert($patientData);
+    return $patient_id;
+  }
 } 
 
 

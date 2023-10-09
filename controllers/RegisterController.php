@@ -1,14 +1,12 @@
 
 <?php 
 
-
-
 class RegisterController {
   public static function list() {
 
-   $entity = new EntityModel();
-   $bloodTypes = $entity->select('SELECT * FROM blood_type');
-    
+    $Entity = new EntityModel();
+    $Entity->setTable('blood_type');
+    $bloodTypes = $Entity->select();
 
     return [
       'data' => [
@@ -16,43 +14,39 @@ class RegisterController {
       ],
       'view' => 'register/form'
     ];
+
   }
 
   public static function start() {
-    $Patient = new PatientModel();
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $Patient->setTable('user');
+    // Chequeo si el usuario ya existe
+    $exists = UserModel::getUserByEmail($email);
 
-    // var_dump($Patient->getTable());
-    // die();
-    $exists = $Patient->select("SELECT * FROM user WHERE email = '$email'");
-
-    if (count($exists) > 0) {
+    // Si existe, devuelvo un mensaje de error
+    if ($exists) {
       return [
         'data' => [
           'message' => 'El usuario ya existe'
         ],
         'view' => 'register/form'
       ];
-    }
 
+      die();      
+    }
+    // Si no existe, lo creo
     $name = $_POST['name'];
     $lastname = $_POST['lastname'];
     $blood_type_id = $_POST['bloodtype'];
     $dni = $_POST['dni'];
     $birthdate = $_POST['birthdate'];
 
-    $userData = [
-      'email' => $email,
-      'password' => $password
-    ];
-    
-    
-    $user_id = $Patient->insert($userData); 
-    
-    // die($user_id);
+    $user_id = UserModel::createUser($email, $password);
+
+    // var_dump($user_id);
+    // die();
+    // Si no se pudo crear el usuario, devuelvo un mensaje de error
     if ($user_id == 0) {
       return [
         'data' => [
@@ -62,9 +56,6 @@ class RegisterController {
       ];
     }
 
-    // die('llego aca');
-    
-    $Patient->setTable('patient');
     $patientData = [
       'user_id' => $user_id,
       'name' => $name,
@@ -74,7 +65,7 @@ class RegisterController {
       'birth_date' => $birthdate
     ];
 
-    $patient_id = $Patient->insert($patientData);
+    $patient_id = PatientModel::createPatient($patientData);
 
     if($patient_id == 0) {
       return [

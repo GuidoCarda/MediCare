@@ -9,24 +9,50 @@
 class EntityModel
 {
   private $db;
-  protected $table;
-  protected $alias; 
+  protected $table = '';
+  protected $alias = ''; 
+  protected $primary = 'id';
 
-  public function select($query)
+  public function select(
+    $columns = '*',
+    $filters = [],
+    $onlyOneResult = false
+  )
   {
+
+    // Genero la primer parte de la query, contiene las columnas, tabla y alias
+    $query = "SELECT $columns FROM $this->table $this->alias";
+
+    // Si se envian filtros, los agrego a la query
+    if(isset($filters['joins'])){
+      $joins = [];
+      // por cada join, genero el string correspondiente
+      foreach($filters['joins'] as $j){
+        $type = strtoupper($j['type'] ?? '');
+        $joins[] = "$type JOIN $j[table] ON $j[on]";
+      }
+      // agrego los joins a la query
+      $query .= ' '.implode('\n', $joins);
+    }
+ 
+    if( isset($filters['where']) ){
+      $query .= ' WHERE ' . $filters['where'];
+    }
+
+    if( isset($filters['order']) ){
+      $query .= ' ORDER BY ' . $filters['order'];
+    }
+
+    // si se reciben remplazos para la query, los almaceno en una variable para luego pasarlos a la funcion execute
+    $replaces_array = $filters['replaces'] ?? NULL;
+
+    // var_dump($query);
+    // var_dump($replaces_array);
+    // die();
     $this->connect();
     $stmt = $this->db->prepare($query);
-    $stmt->execute();
-    $results = $stmt->fetchAll();
-    // var_dump($results);
-
-    // die();
-
-    // $stmt = $this->db->prepare($query);
-    // $stmt->bindParam();
-    // $results = $stmt->execute();
-    // var_dump($results->fetch_all());
-    return $results;
+    $stmt->execute( $replaces_array );
+    return $onlyOneResult ? $stmt->fetch() : $stmt->fetchAll();
   }
 
   public function insert($data)
@@ -44,6 +70,9 @@ class EntityModel
 
     // genero la query
     $query = "INSERT INTO $this->table ( $columns ) VALUES ( $values )";
+
+    // var_dump($replaces);
+    // die();
 
     // conecto a la base de datos
     $this->connect();
@@ -86,6 +115,12 @@ class EntityModel
 
   public function delete($id)
   {
+    $query = "DELETE FROM $this->table WHERE $this->primary = :id LIMIT 1";
+    $this->connect();
+    $stmt = $this->db->prepare($query);
+    $stmt->execute([
+      ':id' => $id
+    ]);
   }
 
   private function connect()
@@ -95,5 +130,13 @@ class EntityModel
     $this->db = new PDO($dsn, DB_USER, DB_PASSWORD);
     $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $this->db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+  }
+
+  public function setTable($table){
+    $this->table = $table;
+  }
+
+  public function getTable(){
+    return $this->table;
   }
 }

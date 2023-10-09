@@ -25,8 +25,6 @@ CREATE TABLE patient(
   foreign key (blood_type_id) references blood_type(id)
 );
 
-
-
 CREATE TABLE frecuency(
   id int primary key auto_increment,
   denomination varchar(50),
@@ -84,7 +82,6 @@ CREATE TABLE prescription(
   foreign key (frecuency_id) references frecuency(id)
 );
 
-
 -- Primeros inserts
 
 INSERT INTO medicine_type (denomination, unit)
@@ -99,7 +96,6 @@ VALUES
   ('Solución Oftálmica', 'Gotas'),
   ('Inhalador', 'Inhalaciones'),
   ('Gotas Orales', 'Gotas');
-
 
 INSERT INTO specialty (denomination)
 VALUES
@@ -134,7 +130,6 @@ VALUES
   ('O+'),
   ('O-');
 
-
 INSERT INTO frecuency (denomination, hours_interval)
 VALUES
   ('Diario', 24),
@@ -160,3 +155,7 @@ SELECT * FROM frecuency;
 SELECT * FROM medicine_type;
 
 SELECT * FROM specialty;
+
+SELECT * FROM patient_professional WHERE patient_id = 1;
+
+SELECT * FROM patient_professional WHERE professional_id = 1;
