@@ -54,7 +54,7 @@ button {
   color: white;
 }
 
-.btn.cancel {
+.btn.danger {
   background-color: #f7cfcf;
   color: rgb(134, 19, 19);
 }
@@ -112,7 +112,7 @@ main {
 
 .footer {
   width: 100%;
-  background: rgb(250, 250, 250);
+  background: white;
   height: 3rem;
   display: grid;
   place-content: center;

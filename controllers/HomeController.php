@@ -1,6 +1,5 @@
 <?php
 
-namespace controllers;
 
 class HomeController
 {
@@ -20,6 +19,4 @@ class HomeController
       'view' => 'contact'
     ];
   }
-
-  
 }

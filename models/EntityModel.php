@@ -9,6 +9,8 @@
 class EntityModel
 {
   private $db;
+  protected $table;
+  protected $alias; 
 
   public function select($query)
   {

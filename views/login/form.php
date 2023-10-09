@@ -1,7 +1,7 @@
 <section class="container" id="login">
   <header class="login-header">
     <h1>Ingreso al sistema</h1>
-    <p>Aun no tenes cuenta? <a href="./register.html">registrate</a></p>
+    <p>Aun no tenes cuenta? <a href="register">registrate</a></p>
   </header>
   <form action="login/start" method="post" class="login-form">
     <div class="form-group">

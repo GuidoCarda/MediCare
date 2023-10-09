@@ -1,8 +1,5 @@
 <?php
 
-namespace controllers;
-
-use PrescriptionModel;
 
 class PrescriptionController
 {

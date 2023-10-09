@@ -1,10 +1,10 @@
 <section class="container" id="register">
   <header class="register-header">
     <h1>Registro al sistema</h1>
-    <p>Ya tenes cuenta? <a href="./login.html">Inicia sesión</a></p>
+    <p>Ya tenes cuenta? <a href="login">Inicia sesión</a></p>
   </header>
 
-  <form action="#" class="register-form">
+  <form action="register/start" class="register-form" method="post">
     <section class="register-form-grid">
       <div class="register-form-section__header">
         <h2>Credenciales de ingreso</h2>

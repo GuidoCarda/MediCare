@@ -20,33 +20,19 @@
         <td>puff</td>
         <td>2</td>
         <td>12 horas</td>
-        <td></td>
+        <td><button class="btn" onclick="window.location.href='/medicare/prescription/1'">edit</button> <button class="btn danger"> delete</button></td>
       </tr>
-      
+
       <tr>
         <td>Neumocort</td>
         <td>Fruticasona fosfato</td>
         <td>puff</td>
         <td>2</td>
         <td>12 horas</td>
-        <td></td>
+        <td><button class="btn">edit</button> <button class="btn danger"> delete</button></td>
       </tr>
-      <tr>
-        <td>Neumocort</td>
-        <td>Fruticasona fosfato</td>
-        <td>puff</td>
-        <td>2</td>
-        <td>12 horas</td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>Neumocort</td>
-        <td>Fruticasona fosfato</td>
-        <td>puff</td>
-        <td>2</td>
-        <td>12 horas</td>
-        <td></td>
-      </tr>
+
+     
     </tbody>
   </table>
 </section>

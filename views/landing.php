@@ -5,8 +5,8 @@
       Nuestra aplicación esta diseñada para brindarte tranquilidad y control en
       el manejo de enfermedades crónicas.
     </p>
-    <button>Registrarse</button>
-    <button>Dejar una consulta</button>
+    <button onclick="window.location.href='/medicare/register'">Registrarse</button>
+    <button onclick="window.location.href='/medicare/contact'">Dejar una consulta</button>
   </div>
   <div></div>
 </section>

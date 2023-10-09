@@ -1,8 +1,6 @@
 <?php
 
-namespace controllers;
 
-use ProfessionalModel;
 
 class ProfessionalController
 {

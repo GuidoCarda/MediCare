@@ -4,7 +4,10 @@ error_reporting(E_ALL);
 date_default_timezone_set("America/Argentina/Buenos_Aires");
 
 session_start();
-$_SESSION['id'] = 1;
+// $_SESSION['id'] = 1;
+
+session_destroy();
+
 
 // define nos permite definir una constante en tiempo de ejecucion.
 // Util para almacenar los pathnames de el filesystem,
