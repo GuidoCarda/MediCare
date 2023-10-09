@@ -5,37 +5,81 @@
 
 class RegisterController {
   public static function list() {
+
+   $entity = new EntityModel();
+   $bloodTypes = $entity->select('SELECT * FROM blood_type');
+    
+
     return [
-      'data' => [],
+      'data' => [
+        'bloodTypes' => $bloodTypes
+      ],
       'view' => 'register/form'
     ];
   }
 
   public static function start() {
-    $name = $_POST['name'];
+    $Patient = new PatientModel();
     $email = $_POST['email'];
-    $password = sha1($_POST['password']);
-    $password2 = sha1($_POST['password2']);
+    $password = $_POST['password'];
 
-    if ($password != $password2) {
+    $Patient->setTable('user');
+
+    // var_dump($Patient->getTable());
+    // die();
+    $exists = $Patient->select("SELECT * FROM user WHERE email = '$email'");
+
+    if (count($exists) > 0) {
       return [
         'data' => [
-          'message' => 'Las contraseñas no coinciden'
+          'message' => 'El usuario ya existe'
         ],
         'view' => 'register/form'
       ];
     }
 
-    $query = "INSERT INTO user (name, email, password) VALUES ('$name', '$email', '$password')";
+    $name = $_POST['name'];
+    $lastname = $_POST['lastname'];
+    $blood_type_id = $_POST['bloodtype'];
+    $dni = $_POST['dni'];
+    $birthdate = $_POST['birthdate'];
 
-    $Patient = new PatientModel();
-
-    $result = $Patient->insert($query);
-
-    if ($result == 0) {
+    $userData = [
+      'email' => $email,
+      'password' => $password
+    ];
+    
+    
+    $user_id = $Patient->insert($userData); 
+    
+    // die($user_id);
+    if ($user_id == 0) {
       return [
         'data' => [
           'message' => 'Error al registrar el usuario'
+        ],
+        'view' => 'register/form'
+      ];
+    }
+
+    // die('llego aca');
+    
+    $Patient->setTable('patient');
+    $patientData = [
+      'user_id' => $user_id,
+      'name' => $name,
+      'lastname' => $lastname,
+      'blood_type_id' => $blood_type_id,
+      'dni' => $dni,
+      'birth_date' => $birthdate
+    ];
+
+    $patient_id = $Patient->insert($patientData);
+
+    if($patient_id == 0) {
+      return [
+        'data' => [
+          'message' => 'Error al registrar el paciente'
         ],
         'view' => 'register/form'
       ];

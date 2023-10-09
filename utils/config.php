@@ -6,7 +6,7 @@ date_default_timezone_set("America/Argentina/Buenos_Aires");
 session_start();
 // $_SESSION['id'] = 1;
 
-session_destroy();
+// session_destroy();
 
 
 // define nos permite definir una constante en tiempo de ejecucion.

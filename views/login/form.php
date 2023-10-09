@@ -3,7 +3,7 @@
     <h1>Ingreso al sistema</h1>
     <p>Aun no tenes cuenta? <a href="register">registrate</a></p>
   </header>
-  <form action="login/start" method="post" class="login-form">
+  <form action="/medicare/login/start" method="post" class="login-form">
     <div class="form-group">
       <label for="email">Email</label>
       <input type="email" class="text-input" name="email" id="email" />

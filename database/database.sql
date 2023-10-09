@@ -147,3 +147,16 @@ VALUES
   ('Cada 4 horas', 4),
   ('Cada 2 horas', 2),
   ('Cada 1 hora', 1);
+
+
+
+-- Common queries 
+
+
+SELECT * FROM blood_type;
+
+SELECT * FROM frecuency;
+
+SELECT * FROM medicine_type;
+
+SELECT * FROM specialty;

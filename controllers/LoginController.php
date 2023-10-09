@@ -14,10 +14,12 @@ class LoginController{
   // Iniciar sesión 
   public static function start(){
     $email = $_POST['email'];
-    $password = sha1($_POST['password']);
+    // TODO: Encriptar contraseña
+    $password = $_POST['password'];
+    // $password = sha1($_POST['password']);
 
-    echo 'implementar validacion de datos';
-    die($email . ' ' . $password);
+    // echo 'implementar validacion de datos';
+    // die($email . ' ' . $password);
 
     $query = "SELECT * FROM user WHERE email = '$email' AND password = '$password'";
 
@@ -25,7 +27,11 @@ class LoginController{
 
     $result = $Patient->select($query);
 
+    // var_dump($result);
+    // die();
+
     if(count($result) == 0){
+      
       return [
         'data' => [
           'message' => 'Usuario o contraseña incorrectos'
@@ -38,7 +44,7 @@ class LoginController{
     $_SESSION['name'] = $result[0]['name'];
     $_SESSION['email'] = $result[0]['email'];
 
-    header('Location: /medicare/home');
+    header('Location: /medicare/prescription');
   }
 
 

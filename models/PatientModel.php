@@ -1,6 +1,10 @@
 <?php 
 
 class PatientModel extends EntityModel{
+
+  protected $table;
+  protected $alias;
+
   private $id;
   private $name;
   private $lastname;
@@ -21,7 +25,13 @@ class PatientModel extends EntityModel{
     $this->alias = 'p';
   }
   
+  public function setTable($table){
+    $this->table = $table;
+  }
 
+  public function getTable(){
+    return $this->table;
+  }
 
 } 
 
