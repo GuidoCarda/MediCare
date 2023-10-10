@@ -13,6 +13,16 @@ class EntityModel
   protected $alias = ''; 
   protected $primary = 'id';
 
+  public function __construct($table = null, $alias = null, $primary = null)
+  {
+    // Si se reciben parametros, los asigno a las propiedades de la clase
+    // De lo contrario se mantienen los valores por defecto
+    $this->table = $table ?? $this->table;
+    $this->alias = $alias ?? $this->alias;
+    $this->primary = $primary ?? $this->primary;
+  }
+
+
   public function select(
     $columns = '*',
     $filters = [],
@@ -32,7 +42,7 @@ class EntityModel
         $joins[] = "$type JOIN $j[table] ON $j[on]";
       }
       // agrego los joins a la query
-      $query .= ' '.implode('\n', $joins);
+      $query .= ' '.implode("\n", $joins);
     }
  
     if( isset($filters['where']) ){

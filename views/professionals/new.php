@@ -1,3 +1,7 @@
+<?php
+?>
+
+
 <section class="container" id="professional-new">
   <h1 class="section-title">Profecionales</h1>
   <h2 class="section-subtitle">Formulario de carga</h2>
@@ -24,10 +28,11 @@
       <label for="specialty">Especialidad</label>
 
       <select class="select" name="specialty" id="specialty" required>
-        <option value="1">Traumatologo</option>
-        <option value="2">Neumonologo</option>
-        <option value="3">Neurologo</option>
-        <option value="4">Psicologo</option>
+        <?php foreach($data['specialties'] as $specialty): ?>
+          <option value="<?php echo $specialty['id']; ?>">
+            <?php echo $specialty['denomination']; ?>
+          </option>
+        <?php endforeach; ?>
       </select>
     </div>
 

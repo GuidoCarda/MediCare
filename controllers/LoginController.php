@@ -19,6 +19,9 @@ class LoginController{
     // $password = sha1($_POST['password']);
 
     $user = UserModel::checkLogin($email, $password);
+    // Obtener datos del paciente logueado, para guardarlos en la sesión
+    $Patient = new PatientModel();
+    $userData = $Patient->getPatientByUserId($user['id']);
 
     if(!$user){
       return [
@@ -34,6 +37,8 @@ class LoginController{
     $_SESSION['id'] = $user['id'];
     $_SESSION['name'] = $user['name'];
     $_SESSION['email'] = $user['email'];
+    // Id del paciente logueado
+    $_SESSION['patient_id'] = $userData['id'];
 
     header('Location: /medicare/prescription');
   }

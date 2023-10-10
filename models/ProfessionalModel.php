@@ -11,14 +11,14 @@ class ProfessionalModel extends EntityModel
   private $specialty_id;
   private $email;
 
-  public function __construct($id = null, $name = null, $lastname = null, $license_number = null, $phone_number = null, $specialty_id = null, $email = null)
+  public function __construct($id = null, $name = null, $lastname = null, $license_number = null,$specialty_id = null, $phone_number = null, $email = null)
   {
     $this->id = $id;
     $this->name = $name;
     $this->lastname = $lastname;
     $this->license_number = $license_number;
-    $this->phone_number = $phone_number;
     $this->specialty_id = $specialty_id;
+    $this->phone_number = $phone_number;
     $this->email = $email;
 
     $this->table = 'professional';
@@ -27,27 +27,95 @@ class ProfessionalModel extends EntityModel
   
   public function getAll()
   {
-    $query = "SELECT p.name, 
-                     p.lastName, 
-                     p.phone_number, 
-                     s.denomination 
-              FROM professional p 
-              INNER JOIN specialty s ON p.specialty_id = s.id";
-    $resultados = $this->select($query);
-    return $resultados;
+    $patient_id = $_SESSION['patient_id']; 
+    $results = $this->select('p.id ,p.name, p.lastName, p.phone_number, p.email, s.denomination AS specialty', 
+      [
+      'joins' => [
+        [
+          'type' => 'inner',
+          'table' => 'patient_professional pp', 'on' => 'p.id = pp.professional_id'
+        ],
+        [
+          'type' => 'inner',
+          'table' => 'specialty s', 'on' => 'p.specialty_id = s.id' 
+        ]
+      ],
+        'where' => 'pp.patient_id = ' . $patient_id,
+    ] );
+
+    return $results;
   }
 
   public function getOne($id)
   {
-    $query = "SELECT p.name, 
-                     p.lastName, 
-                     p.phone_number, 
-                     s.denomination 
-              FROM professional p 
-              INNER JOIN specialty s ON p.specialty_id = s.id
-              WHERE p.id = $id";
-    $resultados = $this->select($query);
-    return $resultados;
+    $results = $this->select(
+      'p.name, p.lastName, p.phone_number, p.email, s.denomination AS specialty',
+      [
+        'joins' => [
+          [
+            'type' => 'inner',
+            'table' => 'specialty s', 'on' => 'p.specialty_id = s.id'
+          ]
+        ],
+        'where' => 'p.id = ' . $id,
+      ],
+      true
+    );
+    return $results;
+  }
+
+  //Chekea si existe un profesional con el mismo numero de matricula
+  public function exists($license_number)
+  {
+    $results = $this->select(
+      'p.id',
+      [
+        'where' => "p.license_number = '$license_number'",
+      ],
+      true
+    );
+    return $results;
+  }
+
+  public function create(){
+    // var_dump($this->name);
+    // var_dump($this->lastname);
+    // var_dump($this->license_number);
+    // var_dump($this->phone_number);
+    // var_dump($this->specialty_id);
+    $exists = $this->exists($this->license_number);
+    // Si existe, no lo creo y hago la relacion 
+    if($exists){
+      echo "Ya existe un profesional con ese numero de matricula";
+      die();
+    }
+
+    // die();
+    $insertId = $this->insert([
+      'name' => $this->name,
+      'lastName' => $this->lastname,
+      'license_number' => $this->license_number,
+      'phone_number' => $this->phone_number,
+      'specialty_id' => $this->specialty_id,
+      'email' => $this->email,
+    ]);
+
+    $this->id = $insertId;
+    return $insertId;
+  }
+
+
+  // Relaciona un profesional con un paciente que lo cree / seleccione
+  public function associateProfessionalWithPatient($professional_id, $patient_id){
+    $PatientProfessional = new EntityModel('patient_professional', 'pp');
+    // $PatientProfessional->table = 'patient_professional';
+    // $PatientProfessional->alias = 'pp';
+    $patientProfessional_id = $PatientProfessional->insert([
+      'patient_id' => $patient_id,
+      'professional_id' => $professional_id,
+    ]);
+
+    return $patientProfessional_id;
   }
 
   

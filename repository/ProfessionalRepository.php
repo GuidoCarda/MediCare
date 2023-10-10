@@ -6,10 +6,7 @@ class ProfessionalRepository
   public static function getById($id)
   {
     // busca por id y retorna el registro si existe
-    $query = '';
-    $Profesional = new ProfessionalModel();
-    $results = $Profesional->SELECT($query);
-    return $results;
+    
   }
 
   public static function getAll()

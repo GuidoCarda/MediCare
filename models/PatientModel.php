@@ -31,6 +31,20 @@ class PatientModel extends EntityModel{
     $patient_id = $Patient->insert($patientData);
     return $patient_id;
   }
+
+  public function getPatientByUserId($user_id){
+    $Patient = new PatientModel();
+    $result = $Patient->select(
+      '*',
+      [
+        'where' => "user_id = :id",
+        'replaces' => [':id' => $user_id]
+      ],
+      true
+    );
+    return $result;
+  }
+  
 } 
 
 

@@ -159,3 +159,24 @@ SELECT * FROM specialty;
 SELECT * FROM patient_professional WHERE patient_id = 1;
 
 SELECT * FROM patient_professional WHERE professional_id = 1;
+
+-- Obtener los datos de todos los profesionales
+SELECT p.id
+       p.name, 
+       p.lastName, 
+       p.phone_number, 
+       s.denomination 
+FROM professional p 
+INNER JOIN specialty s ON p.specialty_id = s.id
+
+
+-- Obtener los datos de todos los profesionales que atienden a un paciente
+SELECT p.id
+       p.name, 
+       p.lastName, 
+       p.phone_number, 
+       s.denomination 
+FROM professional p
+INNER JOIN patient_professional pp ON p.id = pp.professional_id 
+INNER JOIN specialty s ON p.specialty_id = s.id
+WHERE pp.patient_id = 3;

@@ -1,3 +1,8 @@
+<?php
+  $professional = $data['professional'];
+  var_dump($professional);
+?>
+
 <section class="container" id="professional-new">
   <h1 class="section-title">Profecionales</h1>
   <h2 class="section-subtitle">Formulario de carga</h2>

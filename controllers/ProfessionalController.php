@@ -6,15 +6,10 @@ class ProfessionalController
 {
   public static function list()
   {
-    //llamar al modelo
     // tabla de resultados
-    // var_dump("Listar profesional");
-
-    $profesional = new ProfessionalModel();
-    $response = $profesional->getAll();
-    // var_dump($response);
-    // die();
-
+    $Professional = new ProfessionalModel();
+    $response = $Professional->getAll();
+    
     return [
       'data' => $response,
       'view' => 'professionals/list',
@@ -23,12 +18,13 @@ class ProfessionalController
 
   public static function details()
   {
-    // ver detalle
-    // var_dump("detalles del profesional");
-
-
+    // ver detalle de un profesional
+    // obtener el id del profesional a mostrar
+    $id = $_GET['id'];
+    $Professional = new ProfessionalModel();
+    $response = $Professional->getOne($id);
     return [
-      'data' => [],
+      'data' => ['professional' => $response],
       'view' => 'professionals/details',
     ];
   }
@@ -36,23 +32,62 @@ class ProfessionalController
   public static function new()
   {
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
-      var_dump($_POST);
-      die();
+
+      $name = $_POST['name'];
+      $lastName = $_POST['lastname'];
+      $licenseNumber = $_POST['license_number'];
+      $specialtyId = $_POST['specialty'];
+      $email = $_POST['email'];
+      $phoneNumber = $_POST['phone_number'];
+
+      // Valido que no haya campos vacios
+      if(!$name || !$lastName || !$licenseNumber || !$specialtyId || !$email || !$phoneNumber){
+        echo "Faltan datos";
+        die();
+      }
+
+      // var_dump($name, $lastName, $licenseNumber, $specialtyId, $email, $phoneNumber);
+      // die();
+
+
+      $Professional = new ProfessionalModel(null, $name , $lastName , $licenseNumber ,  $specialtyId , $phoneNumber , $email );
+      $professionalId = $Professional->create();
+      $patient_id = $_SESSION['patient_id'];
+      // var_dump($patient_id);
+      // die();
+      $patientProfessional_id = $Professional->associateProfessionalWithPatient($professionalId, $patient_id);
+      
+      if(!$professionalId || !$patientProfessional_id){
+        echo "Error al crear el profesional";
+        die();
+      }
+      header('Location: /medicare/professional');
     }
+
+    // obtener especialidades para popular el select
+    $Specialty = new SpecialtyModel();
+    $specialties = $Specialty->getAll();
+
     // formulario de carga
-    // var_dump("alta de profesional");
     return [
-      'data' => [],
+      'data' => [
+        'specialties' => $specialties
+      ],
       'view' => 'professionals/new',
     ];
   }
 
   public static function edit()
   {
+    $id = $_GET['id'];
+    $Professional = new ProfessionalModel();
+    $professionalData = $Professional->getOne($id);
     // Formulario de edicion
     // var_dump("actualizar profesional");
     return [
-      'data' => [],
+      'data' => [
+        'professional' => $professionalData
+      ],
       'view' => 'professionals/edit',
     ];
   }
