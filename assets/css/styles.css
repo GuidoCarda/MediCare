@@ -17,9 +17,7 @@ body {
   font-family: "Inter", sans-serif;
 }
 
-button {
-  cursor: pointer;
-}
+/* layout  */
 
 .container {
   width: min(1280px, calc(100% - 4rem));
@@ -32,6 +30,11 @@ button {
 
 .row {
   display: flex;
+}
+
+/* buttons */
+button {
+  cursor: pointer;
 }
 
 .icon-btn {
@@ -77,6 +80,49 @@ button {
   outline: 2px solid rgba(220, 220, 220, 0.414);
 }
 
+.badge {
+  display: block;
+  padding-block: 0.3rem;
+  padding-inline: 0.5rem;
+  width: max-content;
+  height: fit-content;
+  border-radius: 0.3rem;
+  background: #5ac070;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  user-select: none;
+  font-weight: bold;
+}
+
+.badge.md {
+  padding-block: 0.5rem;
+  padding-inline: 0.7rem;
+  border-radius: 0.4rem;
+}
+
+.badge.lg {
+  padding-block: 0.7rem;
+  padding-inline: 1rem;
+  border-radius: 0.5rem;
+}
+
+/* Basic text styles */
+
+p {
+  line-height: 1.6;
+}
+
+.section-title {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.section-subtitle {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+/* header */
 header > .container.row {
   height: 3rem;
   display: flex;
@@ -256,7 +302,6 @@ main {
 }
 
 /* Contact Page */
-
 .container#contact {
   display: grid;
   place-items: center;
@@ -384,18 +429,7 @@ main {
   margin-left: auto;
 }
 
-/* prescriptions-list page */
-
-.section-title {
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
-}
-
-.section-subtitle {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-}
-
+/* Prescriptions list page */
 .container#prescriptions-list table {
   width: 100%;
   border-collapse: collapse;
@@ -424,7 +458,7 @@ main {
   gap: 1rem;
 }
 
-/* Professionals list */
+/* Professionals list Page */
 
 #professionals-list {
 }
@@ -471,4 +505,15 @@ main {
   width: max-content;
   color: white;
   background: #5ac070;
+}
+
+/*  Professionals detail page */
+
+#professionals-details {
+}
+
+#professionals-details div {
+  display: flex;
+  gap: 2rem;
+  margin-block: 2rem 1rem;
 }

@@ -79,14 +79,56 @@ class ProfessionalController
 
   public static function edit()
   {
+    if($_SERVER['REQUEST_METHOD'] === 'POST'){
+      // Recuperar los datos del formulario
+      $name = $_POST['name'];
+      $lastName = $_POST['lastname'];
+      $licenseNumber = $_POST['license_number'];
+      $specialtyId = $_POST['specialty'];
+      $email = $_POST['email'];
+      $phoneNumber = $_POST['phone_number'];
+
+      if(!$name || !$lastName || !$licenseNumber || !$specialtyId || !$email || !$phoneNumber){
+        echo "Faltan datos";
+        die();
+      }
+
+      $professionalId = $_GET['id'];
+      $Professional = new ProfessionalModel();
+      $updatedProfessionalId = $Professional->update([
+        'name' => $name,
+        'lastName' => $lastName,
+        'license_number' => $licenseNumber,
+        'specialty_id' => $specialtyId,
+        'email' => $email,
+        'phone_number' => $phoneNumber,
+      ], $professionalId);
+
+      if(!$updatedProfessionalId){
+        echo "Error al actualizar el profesional";
+        die();
+      }
+
+      header('Location: /medicare/professional');
+      die();
+    }
+
+    // Obtener el id del profesional a editar
     $id = $_GET['id'];
+
+    // Obtener los datos del profesional
     $Professional = new ProfessionalModel();
     $professionalData = $Professional->getOne($id);
-    // Formulario de edicion
-    // var_dump("actualizar profesional");
+
+    // Obtener especialidades para popular el select
+    $Specialty = new SpecialtyModel();
+    $specialties = $Specialty->getAll();
+
+    // Retornar el formulario de edicion
     return [
       'data' => [
-        'professional' => $professionalData
+        'professional' => $professionalData,
+        'specialties' => $specialties
       ],
       'view' => 'professionals/edit',
     ];

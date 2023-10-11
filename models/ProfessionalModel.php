@@ -49,7 +49,7 @@ class ProfessionalModel extends EntityModel
   public function getOne($id)
   {
     $results = $this->select(
-      'p.name, p.lastName, p.phone_number, p.email, s.denomination AS specialty',
+      'p.name, p.lastName, p.phone_number, p.license_number, p.email, p.specialty_id, s.denomination AS specialty',
       [
         'joins' => [
           [
@@ -104,7 +104,6 @@ class ProfessionalModel extends EntityModel
     return $insertId;
   }
 
-
   // Relaciona un profesional con un paciente que lo cree / seleccione
   public function associateProfessionalWithPatient($professional_id, $patient_id){
     $PatientProfessional = new EntityModel('patient_professional', 'pp');
@@ -118,5 +117,4 @@ class ProfessionalModel extends EntityModel
     return $patientProfessional_id;
   }
 
-  
 }

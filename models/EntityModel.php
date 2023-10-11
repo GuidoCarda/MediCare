@@ -96,6 +96,8 @@ class EntityModel
 
   public function update($data, $id)
   {
+
+    
     // arreglo de reemplazos
     $replaces = [];
     // arreglo de valores
@@ -108,19 +110,22 @@ class EntityModel
     }
 
     // genero el string de valores
-    $values = implode( " ", $values );
+    $values = implode( " , ", $values );
 
     // genero la query
     $query = "UPDATE $this->table SET $values WHERE id = :id LIMIT 1";
     // agrego el id al arreglo de reemplazos
     $replaces[ ":id" ] = $id;
 
+    // var_dump($query);
+    // die();
     // conecto a la base de datos
     $this->connect();
     // preparo la query
     $stmt = $this->db->prepare($query);
     // ejecuto la query
     $stmt->execute( $replaces );
+    return $stmt->rowCount();
   } 
 
   public function delete($id)

@@ -1,19 +1,20 @@
 <?php
   $professional = $data['professional'];
-  var_dump($professional);
+  $specialties = $data['specialties'];
+  // var_dump($professional);
 ?>
 
 <section class="container" id="professional-new">
   <h1 class="section-title">Profecionales</h1>
   <h2 class="section-subtitle">Formulario de carga</h2>
-  <form class="new-form">
+<form class="new-form" method="post">
     <div class="form-group">
       <label for="name">Nombre</label>
-      <input type="text" class="text-input" name="name" id="name" />
+      <input type="text" class="text-input" value="<?php echo $professional['name']?>" name="name" id="name" />
     </div>
     <div class="form-group">
       <label for="lastname">Apellido</label>
-      <input type="text" class="text-input" name="lastname" id="lastname" />
+      <input type="text" class="text-input" value="<?php echo $professional['lastName']?>" name="lastname" id="lastname" />
     </div>
     <div class="form-group">
       <label for="license_number">Numero matricula</label>
@@ -22,17 +23,30 @@
         class="text-input"
         name="license_number"
         id="license_number"
+        value="<?php echo $professional['license_number']?>"
       />
     </div>
 
     <div class="form-group">
       <label for="specialty">Especialidad</label>
-
-      <select class="select" name="specialty" id="specialty" required>
-        <option value="1">Traumatologo</option>
-        <option value="2">Neumonologo</option>
-        <option value="3">Neurologo</option>
-        <option value="4">Psicologo</option>
+      <select 
+        class="select" 
+        name="specialty" 
+        id="specialty" 
+        value="<?php echo $professional['specialty_id']?>"
+        required
+      >
+        <?php foreach($specialties as $specialty): ?>
+          <?php if($specialty['id'] == $professional['specialty_id']) : ?>
+            <option value="<?php echo $specialty['id']; ?>" selected>
+              <?php echo $specialty['denomination']; ?>
+            </option>
+          <?php else : ?>
+            <option value="<?php echo $specialty['id']; ?>">
+              <?php echo $specialty['denomination']; ?>
+            </option>
+          <?php endif; ?>
+        <?php endforeach; ?>
       </select>
     </div>
 
@@ -40,7 +54,13 @@
 
     <div class="form-group">
       <label for="email">Email</label>
-      <input type="email" class="text-input" name="email" id="email" />
+      <input 
+        type="email" 
+        class="text-input" 
+        name="email" 
+        id="email"
+        value="<?php echo $professional['email']?>" 
+      />
     </div>
 
     <div class="form-group">
@@ -50,6 +70,7 @@
         class="text-input"
         name="phone_number"
         id="phone_number"
+        value="<?php echo $professional['phone_number']?>" 
       />
     </div>
 
@@ -61,7 +82,7 @@
       >
         cancelar
       </button>
-      <button class="btn primary">Cargar</button>
+      <button class="btn primary">Modificar</button>
     </footer>
   </form>
 </section>
