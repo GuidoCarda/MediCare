@@ -57,7 +57,7 @@ CREATE TABLE patient_professional(
   id int primary key auto_increment,
   patient_id int,
   professional_id int,
-  status boolean,
+  status boolean default true,
   foreign key (patient_id) references patient(id),
   foreign key (professional_id) references professional(id)
 );

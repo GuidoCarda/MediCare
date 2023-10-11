@@ -86,8 +86,8 @@ class ProfessionalModel extends EntityModel
     $exists = $this->exists($this->license_number);
     // Si existe, no lo creo y hago la relacion 
     if($exists){
-      echo "Ya existe un profesional con ese numero de matricula";
-      die();
+      // Si ya existe un profecional con esa matricula, retorno el id para hacer la relacion      
+      return $exists['id'];
     }
 
     // die();

@@ -52,10 +52,10 @@ class ProfessionalController
 
       $Professional = new ProfessionalModel(null, $name , $lastName , $licenseNumber ,  $specialtyId , $phoneNumber , $email );
       $professionalId = $Professional->create();
-      $patient_id = $_SESSION['patient_id'];
+      $patientId = $_SESSION['patient_id'];
       // var_dump($patient_id);
       // die();
-      $patientProfessional_id = $Professional->associateProfessionalWithPatient($professionalId, $patient_id);
+      $patientProfessional_id = $Professional->associateProfessionalWithPatient($professionalId, $patientId);
       
       if(!$professionalId || !$patientProfessional_id){
         echo "Error al crear el profesional";

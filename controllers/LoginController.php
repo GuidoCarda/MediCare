@@ -20,8 +20,6 @@ class LoginController{
 
     $user = UserModel::checkLogin($email, $password);
     // Obtener datos del paciente logueado, para guardarlos en la sesión
-    $Patient = new PatientModel();
-    $userData = $Patient->getPatientByUserId($user['id']);
 
     if(!$user){
       return [
@@ -33,6 +31,10 @@ class LoginController{
       die();
     }
 
+    $Patient = new PatientModel();
+    $userData = $Patient->getPatientByUserId($user['id']);
+
+   
 
     $_SESSION['id'] = $user['id'];
     $_SESSION['name'] = $user['name'];
