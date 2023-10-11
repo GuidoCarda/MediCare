@@ -25,6 +25,7 @@ class ProfessionalModel extends EntityModel
     $this->alias = 'p';
   }
   
+  // Retorna todos los profesionales asociados a un paciente
   public function getAll()
   {
     $patient_id = $_SESSION['patient_id']; 
@@ -46,6 +47,7 @@ class ProfessionalModel extends EntityModel
     return $results;
   }
 
+  // Retorna un profesional por id
   public function getOne($id)
   {
     $results = $this->select(
@@ -77,6 +79,7 @@ class ProfessionalModel extends EntityModel
     return $results;
   }
 
+  // Crea un profesional
   public function create(){
     // var_dump($this->name);
     // var_dump($this->lastname);

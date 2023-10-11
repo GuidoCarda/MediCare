@@ -3,9 +3,7 @@
   <button class="btn primary" onclick="window.location.href='prescription/new'">
     Cargar prescripcion
   </button>
-  <button class="btn danger" onclick="window.location.href='login/end'">
-    Cerrar sesion
-  </button>
+ 
   <h2 class="section-subtitle">Mi tratamiento actual</h1>
   <table>
     <tr>
