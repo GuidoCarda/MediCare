@@ -79,27 +79,23 @@ class ProfessionalController
 
   public static function edit()
   {
+    // Obtener el id del profesional a editar
+    $professionalId = $_GET['id'];
+
+
+    // Si el metodo es POST, actualizar el profesional, solo los datos de contacto
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
       // Recuperar los datos del formulario
-      $name = $_POST['name'];
-      $lastName = $_POST['lastname'];
-      $licenseNumber = $_POST['license_number'];
-      $specialtyId = $_POST['specialty'];
       $email = $_POST['email'];
       $phoneNumber = $_POST['phone_number'];
 
-      if(!$name || !$lastName || !$licenseNumber || !$specialtyId || !$email || !$phoneNumber){
+      if(!$email || !$phoneNumber){
         echo "Faltan datos";
         die();
       }
 
-      $professionalId = $_GET['id'];
       $Professional = new ProfessionalModel();
       $updatedProfessionalId = $Professional->update([
-        'name' => $name,
-        'lastName' => $lastName,
-        'license_number' => $licenseNumber,
-        'specialty_id' => $specialtyId,
         'email' => $email,
         'phone_number' => $phoneNumber,
       ], $professionalId);
@@ -112,13 +108,10 @@ class ProfessionalController
       header('Location: /medicare/professional');
       die();
     }
-
-    // Obtener el id del profesional a editar
-    $id = $_GET['id'];
-
+    
     // Obtener los datos del profesional
     $Professional = new ProfessionalModel();
-    $professionalData = $Professional->getOne($id);
+    $professionalData = $Professional->getOne($professionalId);
 
     // Obtener especialidades para popular el select
     $Specialty = new SpecialtyModel();

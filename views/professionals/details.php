@@ -1,7 +1,7 @@
 <?php 
   if(isset($data['professional'])){
     $professional = $data['professional'];
-    var_dump($professional);
+    // var_dump($professional);
   }
 ?>
 

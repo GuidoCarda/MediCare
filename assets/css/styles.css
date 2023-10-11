@@ -398,10 +398,16 @@ main {
   color: rgb(87, 87, 87);
 }
 
-.text-input:focus,
+.text-input:focus:not(:read-only),
 .contact-form__message:focus,
 .select:focus {
   border: 1px solid #5ac070;
+  outline: none;
+}
+
+.text-input:read-only {
+  /* background: red; */
+  cursor: not-allowed;
   outline: none;
 }
 

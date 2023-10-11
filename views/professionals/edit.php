@@ -10,11 +10,25 @@
 <form class="new-form" method="post">
     <div class="form-group">
       <label for="name">Nombre</label>
-      <input type="text" class="text-input" value="<?php echo $professional['name']?>" name="name" id="name" />
+      <input 
+        type="text" 
+        class="text-input" 
+        value="<?php echo $professional['name']?>" 
+        name="name" 
+        id="name"
+        readonly 
+      />
     </div>
     <div class="form-group">
       <label for="lastname">Apellido</label>
-      <input type="text" class="text-input" value="<?php echo $professional['lastName']?>" name="lastname" id="lastname" />
+      <input 
+        type="text" 
+        class="text-input" 
+        value="<?php echo $professional['lastName']?>" 
+        name="lastname" 
+        id="lastname" 
+        readonly
+      />
     </div>
     <div class="form-group">
       <label for="license_number">Numero matricula</label>
@@ -23,35 +37,24 @@
         class="text-input"
         name="license_number"
         id="license_number"
+        readonly
         value="<?php echo $professional['license_number']?>"
       />
     </div>
 
     <div class="form-group">
       <label for="specialty">Especialidad</label>
-      <select 
-        class="select" 
-        name="specialty" 
-        id="specialty" 
-        value="<?php echo $professional['specialty_id']?>"
-        required
-      >
-        <?php foreach($specialties as $specialty): ?>
-          <?php if($specialty['id'] == $professional['specialty_id']) : ?>
-            <option value="<?php echo $specialty['id']; ?>" selected>
-              <?php echo $specialty['denomination']; ?>
-            </option>
-          <?php else : ?>
-            <option value="<?php echo $specialty['id']; ?>">
-              <?php echo $specialty['denomination']; ?>
-            </option>
-          <?php endif; ?>
-        <?php endforeach; ?>
-      </select>
+      <input
+        type="text"
+        class="text-input"
+        name="specialty"
+        id="specialty"
+        readonly
+        value="<?php echo $professional['specialty']?>"
+      />
     </div>
 
     <h2>Datos de contacto</h2>
-
     <div class="form-group">
       <label for="email">Email</label>
       <input 
