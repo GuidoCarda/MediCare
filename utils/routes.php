@@ -24,7 +24,7 @@ return function () {
 
   // Si esta logueado  y la ruta es login o registro, redirrecciono a prescripciones
   if(isset($_SESSION['id'])){
-    if (in_array($category, ['home','login','register'])) {
+    if (in_array($category, ['home','login','register']) && $action != 'contact') {
       header('Location: /medicare/prescription');
     }
   }
