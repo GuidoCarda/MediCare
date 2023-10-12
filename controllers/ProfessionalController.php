@@ -32,7 +32,7 @@ class ProfessionalController
   public static function new()
   {
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
-
+      // Recupero los datos del formulario
       $name = $_POST['name'];
       $lastName = $_POST['lastname'];
       $licenseNumber = $_POST['license_number'];
@@ -46,15 +46,13 @@ class ProfessionalController
         die();
       }
 
-      // var_dump($name, $lastName, $licenseNumber, $specialtyId, $email, $phoneNumber);
-      // die();
-
-
       $Professional = new ProfessionalModel(null, $name , $lastName , $licenseNumber ,  $specialtyId , $phoneNumber , $email );
+      
+      //Crea el profesional, si ya existe retorna el id del profesional existente
       $professionalId = $Professional->create();
       $patientId = $_SESSION['patient_id'];
-      // var_dump($patient_id);
-      // die();
+
+      //Asocia el profesional con el paciente
       $patientProfessional_id = $Professional->associateProfessionalWithPatient($professionalId, $patientId);
       
       if(!$professionalId || !$patientProfessional_id){
@@ -82,29 +80,32 @@ class ProfessionalController
     // Obtener el id del profesional a editar
     $professionalId = $_GET['id'];
 
-
     // Si el metodo es POST, actualizar el profesional, solo los datos de contacto
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
       // Recuperar los datos del formulario
       $email = $_POST['email'];
       $phoneNumber = $_POST['phone_number'];
 
+      // Validar que no haya campos vacios
       if(!$email || !$phoneNumber){
         echo "Faltan datos";
         die();
       }
 
+      // Actualizar el profesional
       $Professional = new ProfessionalModel();
       $updatedProfessionalId = $Professional->update([
         'email' => $email,
         'phone_number' => $phoneNumber,
       ], $professionalId);
 
+      // Si no se actualizo, mostrar error
       if(!$updatedProfessionalId){
         echo "Error al actualizar el profesional";
         die();
       }
 
+      // Redireccionar a la lista de profesionales
       header('Location: /medicare/professional');
       die();
     }
@@ -129,7 +130,14 @@ class ProfessionalController
 
   public static function delete()
   {
-    // No renderizamos nada, borra y redirecciona
-    var_dump("Eliminar profesional");
+    // Obtener el id del profesional a eliminar
+    $professionalId = $_GET['id'];
+    // Actualizar estado profecional a inactivo
+    $Professional = new ProfessionalModel();
+    $Professional->update([
+      'status' => 0,
+    ], $professionalId);
+    // Redireccionar a la lista de profesionales
+    header('Location: /medicare/professional');
   }
 }

@@ -22,36 +22,43 @@ class PrescriptionModel extends EntityModel
     $this->alias = 'p';
   }
 
+  // Obtener todas las prescripciones para el paciente logueado
   public function getAll(){
+    $patientId = $_SESSION['patient_id'];
 
-    $patientId = $_SESSION['id'];
-    $query = "SELECT p.id, 
-                     p.quantity, 
-                     p.created_at, 
-                     pr.name, 
-                     pr.lastName, 
-                     f.denomination 
-              FROM prescription p 
-              INNER JOIN professional pr ON p.professional_id = pr.id 
-              INNER JOIN frequency f ON p.frequency_id = f.id
-              WHERE p.patient_id = $patientId";
-    $resultados = $this->select($query);
-    return $resultados;
+    $results = $this->select(
+      'p.id, p.quantity, p.created_at, pr.name, pr.lastName, f.denomination',
+      [
+        'joins'=>[
+          'type' => 'inner', 'table' => 'professional pr', 'on' => 'p.professional_id = pr.id',
+          'type' => 'inner', 'table' => 'frecuency f', 'on' => 'p.frecuency_id = f.id'
+        ],
+        'where'=> 'p.patient_id = :patientId',
+        'replaces' => [':patientId' => $patientId],
+        'order'=> 'p.created_at'
+      ]
+    );
+    
+    return $results;
   }
   
-
+  // Obtener una prescripcion especifica por el id para el paciente logueado
   public function getOne($id){
-    $query = "SELECT p.id, 
-                     p.quantity, 
-                     p.created_at, 
-                     pr.name, 
-                     pr.lastName, 
-                     f.denomination 
-              FROM prescription p 
-              INNER JOIN professional pr ON p.professional_id = pr.id 
-              INNER JOIN frequency f ON p.frequency_id = f.id
-              WHERE p.id = $id";
-    $resultados = $this->select($query);
-    return $resultados;
+    $patientId = $_SESSION['patient_id'];
+    $results = $this->select('*',
+      [
+        'joins'=>[
+          'type'=> 'inner', 'table'=> 'professional pr', 'on'=> 'p.professional_id = pr.id',
+          'type'=> 'inner', 'table'=> 'frecuency f', 'on' => 'p.frecuency_id = f.id'
+        ],
+        'where' => 'p.id = :prescriptionId AND p.patient_id = :patientId',
+        'replaces' => [':prescriptionId' => $id, ':patientId' => $patientId]
+      ]
+    );
+    return $results;
   }
+
+  // Crear una nueva prescripcion
+  
+
 }

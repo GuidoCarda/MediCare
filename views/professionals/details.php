@@ -25,6 +25,8 @@
     <button class="btn primary">
       Modificar
     </button>
+  
+  
   <?php endif; ?>
 </section>
 

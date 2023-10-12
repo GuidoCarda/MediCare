@@ -29,7 +29,7 @@ class ProfessionalModel extends EntityModel
   public function getAll()
   {
     $patient_id = $_SESSION['patient_id']; 
-    $results = $this->select('p.id ,p.name, p.lastName, p.phone_number, p.email, s.denomination AS specialty', 
+    $results = $this->select('p.id ,p.name, p.lastName, p.phone_number, p.email, pp.status, s.denomination AS specialty', 
       [
       'joins' => [
         [
@@ -51,7 +51,7 @@ class ProfessionalModel extends EntityModel
   public function getOne($id)
   {
     $results = $this->select(
-      'p.name, p.lastName, p.phone_number, p.license_number, p.email, p.specialty_id, s.denomination AS specialty',
+      'p.id, p.name, p.lastName, p.phone_number, p.license_number, p.email, p.specialty_id, s.denomination AS specialty',
       [
         'joins' => [
           [

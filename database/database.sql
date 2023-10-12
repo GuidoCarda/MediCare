@@ -66,6 +66,7 @@ CREATE TABLE medicine(
   id int primary key auto_increment,
   generic_name varchar(50),
   drug varchar(50),
+  dose int,
   medicine_type_id int,
   foreign key (medicine_type_id) references medicine_type(id)
 );
@@ -180,3 +181,28 @@ FROM professional p
 INNER JOIN patient_professional pp ON p.id = pp.professional_id 
 INNER JOIN specialty s ON p.specialty_id = s.id
 WHERE pp.patient_id = 3;
+
+
+-- Obtener las prescriptiones de un paciente
+SELECT p.id, 
+       p.quantity, 
+       p.created_at, 
+       pr.name, 
+       pr.lastName, 
+       f.denomination 
+FROM prescription p 
+INNER JOIN professional pr ON p.professional_id = pr.id 
+INNER JOIN frequency f ON p.frequency_id = f.id
+WHERE p.patient_id = $patientId
+
+-- Obtener una prescription de un paciente
+SELECT p.id, 
+       p.quantity, 
+       p.created_at, 
+       pr.name, 
+       pr.lastName, 
+       f.denomination 
+FROM prescription p 
+INNER JOIN professional pr ON p.professional_id = pr.id 
+INNER JOIN frequency f ON p.frequency_id = f.id
+WHERE p.id = $id AND p.patient_id = $patient_id";
