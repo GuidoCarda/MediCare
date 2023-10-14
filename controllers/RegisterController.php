@@ -19,7 +19,8 @@ class RegisterController {
 
   public static function start() {
     $email = $_POST['email'];
-    $password = $_POST['password'];
+    // $password = $_POST['password'];
+    $password = sha1($_POST['password']);
 
     // Chequeo si el usuario ya existe
     $exists = UserModel::getUserByEmail($email);
