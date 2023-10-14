@@ -75,12 +75,16 @@ class EntityModel
     }
 
     // una vez generado el arreglo de reemplazos, genero los strings para la query
-    $columns = implode( "," , array_keys($data) ); 
+    $columns = implode( ", " , array_keys($data) ); 
     $values = implode(", ", array_keys($replaces) );
 
     // genero la query
     $query = "INSERT INTO $this->table ( $columns ) VALUES ( $values )";
 
+    // var_dump($query);
+    // echo '<br>';
+    // echo '<br>';
+    // echo '<br>';
     // var_dump($replaces);
     // die();
 

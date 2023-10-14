@@ -47,7 +47,7 @@ class ProfessionalModel extends EntityModel
     return $results;
   }
 
-  // Retorna un profesional por id
+  // Retorna los datos de un profesional por id
   public function getOne($id)
   {
     $results = $this->select(

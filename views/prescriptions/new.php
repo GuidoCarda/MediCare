@@ -1,7 +1,17 @@
+<?php
+  $medicineTypes = $data['medicineTypes'];
+  $frequencies = $data['frequencies'];
+  $professionals = $data['professionals'];
+  if(isset($data['message'])){
+    echo "<script>alert('{$data['message']}')</script>";
+  }
+?>
+
+
 <section class="container" id="prescriptions-new">
   <h1 class="section-title">Prescripciones</h1>
   <h2 class="section-subtitle">Nueva prescripcion</h2>
-  <form class="new-form">
+  <form class="new-form" method="post">
     <div class="form-group">
       <label for="generic_name">Nombre comercial</label>
       <input
@@ -15,31 +25,31 @@
       <label for="drug">Droga</label>
       <input type="text" class="text-input" name="drug" id="drug" />
     </div>
+
+    <div class="form-group">
+      <label for="medicine_type">Tipo medicina</label>
+
+      <select class="select" name="medicine_type" id="medicine_type" required>
+        <?php foreach($medicineTypes as $medicineType) : ?>
+          <option value="<?php echo $medicineType['id']; ?>">
+            <?php echo $medicineType['denomination']; ?>
+          </option>
+        <?php endforeach;?>
+      </select>
+    </div>
+
     <div class="form-group">
       <label for="quantity">Cantidad</label>
       <input type="text" class="text-input" name="quantity" id="quantity" />
     </div>
 
     <div class="form-group">
-      <label for="medicine_type">Tipo medicina</label>
-
-      <select class="select" name="medicine_type" id="medicine_type" required>
-        <option value="1">Crema</option>
-        <option value="2">Pastillas</option>
-        <option value="3">Inyectable</option>
-        <option value="4">Jarabe</option>
-      </select>
-    </div>
-
-    <div class="form-group">
       <label for="professional_id">Frecuencia</label>
 
-      <select class="select" name="frecuency_id" id="frecuency_id" required>
-        <option value="1">cada 8 horas</option>
-        <option value="2">cada 12 horas</option>
-        <option value="3">diario</option>
-        <option value="4">dia por medio</option>
-        <option value="5">una vez por semana</option>
+      <select class="select" name="frequency_id" id="frequency_id" required>
+        <?php foreach($frequencies as $frequency) : ?>
+          <option value="<?php echo $frequency['id']; ?>"><?php echo $frequency['denomination']; ?></option>
+        <?php endforeach; ?>      
       </select>
     </div>
 
@@ -52,10 +62,11 @@
         id="professional_id"
         required
       >
-        <option value="1">Octavio fernandez</option>
-        <option value="2">Carlos Ramirez</option>
-        <option value="3">Juan Zosa</option>
-        <option value="4">Lucia Mainer</option>
+      <?php foreach($professionals as $professional) : ?>
+        <option value="<?php echo $professional['id']?>">
+          <?php echo $professional['name'] . ' ' . $professional['lastName'] . ' | ' . $professional['specialty'] ?>
+        </option>
+      <?php endforeach; ?>
       </select>
     </div>
 

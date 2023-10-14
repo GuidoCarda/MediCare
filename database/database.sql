@@ -25,7 +25,7 @@ CREATE TABLE patient(
   foreign key (blood_type_id) references blood_type(id)
 );
 
-CREATE TABLE frecuency(
+CREATE TABLE frequency(
   id int primary key auto_increment,
   denomination varchar(50),
   hours_interval int
@@ -66,7 +66,6 @@ CREATE TABLE medicine(
   id int primary key auto_increment,
   generic_name varchar(50),
   drug varchar(50),
-  dose int,
   medicine_type_id int,
   foreign key (medicine_type_id) references medicine_type(id)
 );
@@ -77,10 +76,12 @@ CREATE TABLE prescription(
   created_at date,
   professional_id int,
   patient_id int,
-  frecuency_id int,
+  frequency_id int,
+  medicine_id int,
   foreign key (professional_id) references professional(id),
   foreign key (patient_id) references patient(id),
-  foreign key (frecuency_id) references frecuency(id)
+  foreign key (frequency_id) references frequency(id),
+  foreign key (medicine_id) references medicine(id)
 );
 
 -- Primeros inserts
@@ -205,4 +206,7 @@ SELECT p.id,
 FROM prescription p 
 INNER JOIN professional pr ON p.professional_id = pr.id 
 INNER JOIN frequency f ON p.frequency_id = f.id
-WHERE p.id = $id AND p.patient_id = $patient_id";
+WHERE p.id = $id AND p.patient_id = $patient_id;
+
+-- Restart auto increment
+ALTER TABLE tablename AUTO_INCREMENT = 1
