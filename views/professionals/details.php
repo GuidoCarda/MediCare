@@ -1,4 +1,6 @@
 <?php 
+
+ 
   if(isset($data['professional'])){
     $professional = $data['professional'];
     // var_dump($professional);
@@ -6,13 +8,12 @@
 ?>
 
 <section class="container" id="professionals-details">
-  <h1 class="section-title">Profecionales</h1>
-  <h2 class="section-subtitle">Mis profecionales </h1>
+  <h1 class="section-title">Profesionales</h1>
+  <h2 class="section-subtitle">Mis profesionales </h1>
 
   <?php if(!isset($professional)): ?>
-    <h2 class="section-subtitle">El profecional buscado no existe</h2>
+    <h2 class="section-subtitle">El profesional buscado no existe</h2>
   <?php else: ?> 
-
     <div class="professional">
       <h2><?php echo $professional['name'] . ' ' . $professional['lastName'] ?></h2>
       <span class="badge"><?php echo $professional['specialty']?></span>

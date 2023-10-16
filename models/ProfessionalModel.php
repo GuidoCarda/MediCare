@@ -81,11 +81,6 @@ class ProfessionalModel extends EntityModel
 
   // Crea un profesional
   public function create(){
-    // var_dump($this->name);
-    // var_dump($this->lastname);
-    // var_dump($this->license_number);
-    // var_dump($this->phone_number);
-    // var_dump($this->specialty_id);
     $exists = $this->exists($this->license_number);
     // Si existe, no lo creo y hago la relacion 
     if($exists){
@@ -93,7 +88,6 @@ class ProfessionalModel extends EntityModel
       return $exists['id'];
     }
 
-    // die();
     $insertId = $this->insert([
       'name' => $this->name,
       'lastName' => $this->lastname,

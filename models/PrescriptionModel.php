@@ -31,6 +31,19 @@ class PrescriptionModel extends EntityModel
     
     return $results;
   }
+
+  public function getById($id){
+    $result = $this->select('*',
+      [
+        'where' => 'id = :id AND patient_id = :patientId',
+        'replaces' => [':id' => $id, ':patientId' => $this->patientId]
+      ], 
+      true
+    );
+
+    return $result;
+  }
+
   
   public function getLatestPerMedicine(){
     $results = $this->select(
@@ -42,7 +55,7 @@ class PrescriptionModel extends EntityModel
           ['type' => 'inner', 'table' => 'medicine m', 'on' => 'p.medicine_id = m.id'],
           ['type' => 'inner', 'table' => 'medicine_type mt', 'on' => 'm.medicine_type_id = mt.id']
         ],
-        'where'=> 'p.patient_id = :patientId AND p.is_active = 1 AND p.id IN (SELECT MAX(p2.id) FROM prescription p2 GROUP BY p2.medicine_id)',
+      'where'=> 'p.patient_id = :patientId AND p.is_active = 1 AND p.id IN (SELECT MAX(p2.id) FROM prescription p2 GROUP BY p2.medicine_id)',
         'replaces' => [':patientId' => $this->patientId],
       ]
     );
@@ -51,9 +64,9 @@ class PrescriptionModel extends EntityModel
   }
   
 
-  // Obtener una prescripcion especifica por el id para el paciente logueado
-  public function getOne($id){
-    $results = $this->select('p.quantity, p.created_at, p.professional_id ,p.frequency_id , pr.name, pr.lastName, s.denomination as specialty, f.denomination as frequency, m.drug, m.generic_name, mt.denomination as medicine_type, mt.unit as medicine_unit',
+  // Obtener una prescripcion especifica con su detalle por el id para el paciente logueado
+  public function getPrescriptionDetail($id){
+    $results = $this->select('p.quantity, p.created_at, p.professional_id ,p.frequency_id, p.medicine_id , pr.name, pr.lastName, s.denomination as specialty, f.denomination as frequency, m.drug, m.generic_name, mt.denomination as medicine_type, mt.unit as medicine_unit',
       [
         'joins'=>[
           ['type'=> 'inner', 'table'=> 'professional pr', 'on'=> 'p.professional_id = pr.id'],
@@ -89,25 +102,14 @@ class PrescriptionModel extends EntityModel
   }
 
   // Crear una nueva prescripcion
-  public function create($quantity, $createdAt, $professionalId, $frequencyId, $medicineId){
-    // var_dump($quantity,$createdAt, $professionalId, $frequencyId, $medicineId);
-    // die();
-    $newPrescriptionId = $this->insert(
-      [
-        'quantity' => $quantity,
-        'created_at' => $createdAt,
-        'patient_id' => $this->patientId,
-        'professional_id' => $professionalId,
-        'frequency_id' => $frequencyId,
-        'medicine_id' => $medicineId
-      ]
-    );
-
+  public function create($data){
+    $data['patient_id'] = $this->patientId;
+    $newPrescriptionId = $this->insert($data);
     return $newPrescriptionId;
   }
 
 
-  public function findExistingPrescription($medicineId){
+  public function findExistingPrescriptionWithMedicine($medicineId){
     $result = $this->select(
       'p.id, p.is_active',
       [
@@ -134,10 +136,4 @@ class PrescriptionModel extends EntityModel
 
     return $result;
   }
-
-  public function createMedicine($medicine){
-    $Medicine = new EntityModel('medicine', 'm');
-    $medicineId = $Medicine->insert($medicine);
-  }
-
 }

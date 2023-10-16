@@ -34,6 +34,7 @@
           class="text-input"
           name="password"
           id="password"
+          minlength="4"
           required
         />
       </div>
@@ -99,3 +100,32 @@
     </footer>
   </form>
 </section>
+
+
+<script>
+  const MS_IN_YEAR = 1000 * 60 * 60 * 24 * 365;
+  const form = document.querySelector('.register-form');
+
+  form.addEventListener('submit', handleSubmit)
+
+  function handleSubmit(e){
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData);
+
+    if(!isValidDni(data.dni)){
+      alert('El dni no es valido, debe contener 8 digitos');
+      return;
+    }
+
+    if(!isValidBirthdate(data.birthdate)){
+      alert('La fecha de nacimiento no es valida, debe ser mayor de edad');
+      return;
+    }
+
+    form.submit();
+  }
+
+  
+
+</script>

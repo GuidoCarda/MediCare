@@ -32,6 +32,19 @@ class PatientModel extends EntityModel{
     return $patient_id;
   }
 
+  public static function getPatientByDni($dni){
+    $Patient = new PatientModel();
+    $result = $Patient->select(
+      '*',
+      [
+        'where' => "dni = :dni",
+        'replaces' => [':dni' => $dni]
+      ],
+      true
+    );
+    return $result;
+  }
+
   public function getPatientByUserId($user_id){
     $Patient = new PatientModel();
     $result = $Patient->select(

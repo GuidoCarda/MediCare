@@ -11,6 +11,7 @@
 </head>
 
 <body>
+  <script src="/medicare/js/utils.js"></script>
   <header>
     <div class="container row">
       <span class="nav-logo">Medicare</span>

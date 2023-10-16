@@ -14,7 +14,7 @@
   <form class="new-form" method="post">
     <div class="form-group">
         <label for="created_at">Fecha</label>
-        <input type="date" class="text-input" name="created_at" id="created_at" />
+        <input type="date" class="text-input" name="created_at" id="created_at" required/>
     </div>
 
     <div class="form-group">
@@ -24,12 +24,12 @@
         class="text-input"
         name="generic_name"
         id="generic_name"
-        
+        required
       />
     </div>
     <div class="form-group">
       <label for="drug">Droga</label>
-      <input type="text" class="text-input" name="drug" id="drug" />
+      <input type="text" class="text-input" name="drug" id="drug" required />
     </div>
 
     <div class="form-group">
@@ -46,7 +46,7 @@
 
     <div class="form-group">
       <label for="quantity">Cantidad</label>
-      <input type="text" class="text-input" name="quantity" id="quantity" />
+      <input type="text" class="text-input" name="quantity" id="quantity" required/>
     </div>
 
     <div class="form-group">
@@ -94,7 +94,30 @@
 </section>
 
 
-<script> 
+<script>
+
+  const form = document.querySelector('.new-form');
+
+  form.addEventListener('submit', handleSubmit);
+
+  function handleSubmit(e){
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData);
+
+    if(!isValidQuantity(data.quantity)){
+      alert('La cantidad debe ser un numero entero positivo');
+      return;
+    }
+
+    form.submit();
+  }
+
+  // function isValidQuantity(quantity){
+  //   const quantityRegex = /^[0-9]+$/;
+  //   return quantityRegex.test(quantity);
+  // }
+  
   const cancelBtn = document.querySelector('#cancel-btn');
 
   cancelBtn.addEventListener('click', ()=>{

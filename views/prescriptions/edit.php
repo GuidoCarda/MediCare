@@ -34,7 +34,8 @@
           id="created_at" 
           value="<?php echo $prescription['created_at']; ?>"
           min="<?php echo $prescription['created_at']; ?>"
-        />
+          required
+          />
     </div>
 
     <div class="form-group">
@@ -81,6 +82,7 @@
         name="quantity" 
         id="quantity"
         value="<?php echo $prescription['quantity']; ?>"
+        required
         />
     </div>
 
@@ -97,17 +99,25 @@
         <?php endforeach; ?>      
       </select>
     </div>
-      <div class="form-group">
+    <div class="form-group">
         <label for="professional_id">Profecional</label>
-        <input 
-        type="text" 
-        class="text-input" 
-        name="professional_id" 
-        id="professional_id"
-        value="<?php echo $prescription['name'] .' '. $prescription['lastName']; ?>"
-        readonly
-        />
-      </div>
+
+        <select
+          class="select"
+          name="professional_id"
+          id="professional_id"
+          required
+        >
+        <?php foreach($professionals as $professional) : ?>
+          <option 
+            value="<?php echo $professional['id']?>" 
+            <?php if($professional['id'] == $prescription['professional_id']){ echo 'selected';} ?>
+          >
+            <?php echo $professional['name'] . ' ' . $professional['lastName'] . ' | ' . $professional['specialty'] ?>
+          </option>
+        <?php endforeach; ?>
+        </select>
+    </div>
 
     <footer>
       <button
@@ -123,6 +133,25 @@
 </section>
 
 <script> 
+
+  const form = document.querySelector('.new-form');
+
+  form.addEventListener('submit', handleSubmit);
+
+  function handleSubmit(e){
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData);
+
+
+    if(!isValidQuantity(data.quantity)){
+      alert('La cantidad debe ser un numero entero positivo');
+      return;
+    }
+
+    form.submit();
+  }
+
   const cancelBtn = document.querySelector('#cancel-btn');
 
   cancelBtn.addEventListener('click', ()=>{

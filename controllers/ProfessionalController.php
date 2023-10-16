@@ -21,10 +21,19 @@ class ProfessionalController
     // ver detalle de un profesional
     // obtener el id del profesional a mostrar
     $id = $_GET['id'];
+    
+    // obtener los datos del profesional
     $Professional = new ProfessionalModel();
     $response = $Professional->getOne($id);
+
+    $data = [];
+
+    if($response){
+      $data = ['professional' => $response];
+    }
+
     return [
-      'data' => ['professional' => $response],
+      'data' => $data,
       'view' => 'professionals/details',
     ];
   }

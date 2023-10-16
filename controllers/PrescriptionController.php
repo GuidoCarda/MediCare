@@ -5,13 +5,9 @@ class PrescriptionController
 {
   public static function list()
   {
-
     $Prescription = new PrescriptionModel();
     // $prescriptions = $Prescription->getAll();
     $prescriptions = $Prescription->getLatestPerMedicine();
-
-    // var_dump($prescriptions);
-    // die();
 
     return [
       'data' => [
@@ -26,13 +22,21 @@ class PrescriptionController
     $prescriptionId = $_GET['id'];
 
     $Prescription = new PrescriptionModel();
-    $prescriptionDetail = $Prescription->getOne($prescriptionId);
+    $prescriptionDetail = $Prescription->getPrescriptionDetail($prescriptionId);
 
+    if(!$prescriptionDetail){
+      return [
+        'data' => [],
+        'view' => 'prescriptions/details'
+      ];
+    }
+
+    // Extraigo el nombre generico y la droga para buscar el historial de prescripciones
     $genericName = $prescriptionDetail['generic_name'];
     $drug = $prescriptionDetail['drug'];
 
+    // Obtengo el historial de prescripciones para esta medicacion
     $prescriptionHistory = $Prescription->getHistory($genericName, $drug);
-   
 
     return [
       'data' => [
@@ -48,12 +52,11 @@ class PrescriptionController
     $Frequency = new EntityModel('frequency', 'f');
     $frequencies = $Frequency->select('*', 'f.id, f.denomination');
 
-    $Professional = new ProfessionalModel();
-    $professionals = $Professional->getAll();
-
     $MedicineType = new EntityModel('medicine_type', 'mt');
     $medicineTypes = $MedicineType->select('*', 'mt.id, mt.denomination, mt.unit');
-
+    
+    $Professional = new ProfessionalModel();
+    $professionals = $Professional->getAll();
 
     if(isPost()) {
       $genericName = $_POST['generic_name'];
@@ -78,9 +81,11 @@ class PrescriptionController
 
       }
 
+      // Verifico si la medicina ya existe
       $Medicine = new MedicineModel();
       $medicineExists = $Medicine->exists($genericName, $drug);
 
+      //Si existe, obtengo el id, sino creo una nueva medicina
       if(isset($medicineExists['id'])){
         $medicineId = $medicineExists['id'];
       }else{
@@ -88,7 +93,16 @@ class PrescriptionController
       }
 
       $Prescription = new PrescriptionModel();
-      $newPrescriptionId = $Prescription->create($quantity, $createdAt, $professionalId, $frequencyId, $medicineId);
+      $prescriptionData = [
+        'quantity'=> $quantity,
+        'created_at' => $createdAt,
+        'professional_id' => $professionalId,
+        'frequency_id' => $frequencyId,
+        'medicine_id' => $medicineId,
+      ];
+      
+      // Creo una nueva prescripcion para el paciente logueado
+      $newPrescriptionId = $Prescription->create($prescriptionData);
 
       if($newPrescriptionId === 0){
         echo 'Algo salio mal al crear la prescripcion';
@@ -116,24 +130,34 @@ class PrescriptionController
     $Frequency = new EntityModel('frequency', 'f');
     $frequencies = $Frequency->select('*', 'f.id, f.denomination');
 
+    $MedicineType = new EntityModel('medicine_type', 'mt');
+    $medicineTypes = $MedicineType->select('*', 'mt.id, mt.denomination, mt.unit');
+    
     $Professional = new ProfessionalModel();
     $professionals = $Professional->getAll();
 
-    $MedicineType = new EntityModel('medicine_type', 'mt');
-    $medicineTypes = $MedicineType->select('*', 'mt.id, mt.denomination, mt.unit');
-
+    
+    // Obtengo el detalle de la prescripcion a editar
     $Prescription = new PrescriptionModel();
-    $prescription = $Prescription->getOne($prescriptionId);
+    $prescription = $Prescription->getPrescriptionDetail($prescriptionId);
 
     if(isPost()){
       $quantity = $_POST['quantity'];
       $createdAt = $_POST['created_at']; 
-      $professionalId = $prescription['professional_id'];
+      $professionalId = $_POST['professional_id'];
       $frecuencyId = $_POST['frequency_id'];
       $medicineId = $prescription['medicine_id'];
 
-      $newPrescriptionId = $Prescription->create($quantity, $createdAt, $professionalId,$frecuencyId, $medicineId);
+      $prescriptionData = [
+        'quantity'=> $quantity,
+        'created_at' => $createdAt,
+        'professional_id' => $professionalId,
+        'frequency_id' => $frecuencyId,
+        'medicine_id' => $medicineId,
+      ];
 
+      $newPrescriptionId = $Prescription->create($prescriptionData);
+      
       if($newPrescriptionId === 0){
         echo 'Algo salio mal al actualizar la prescripcion';
         die();
@@ -156,18 +180,23 @@ class PrescriptionController
 
   public static function delete()
   {
-    $medicineId = $_GET['id'];
+    $prescriptionId = $_GET['id'];
 
     $Prescription = new PrescriptionModel();
-    $affectedRow = $Prescription->update([
-      'is_active' => 0,
-      'created_at' => date('Y-m-d'),
-    ], $medicineId);
-   
-    if(!$affectedRow){
-      echo "Error al suspender la prescripcion";
-      die();
-    }
+    $response = $Prescription->getById($prescriptionId);
+    
+    $prescriptionData = [
+      'quantity'=> $response['quantity'],
+      'created_at' => $response['created_at'],
+      'professional_id' => $response['professional_id'],
+      'frequency_id' => $response['frequency_id'],
+      'medicine_id' => $response['medicine_id'],
+      'is_active' => 0
+    ];
+
+    //Creo un nuevo registro en el que se suspende la prescripcion,
+    //No actualizo el ultimo ya que deseo mantener el historial de prescripciones
+    $suspendedPrescriptionId = $Prescription->create($prescriptionData);
 
     header('Location: /medicare/prescription');
   }
