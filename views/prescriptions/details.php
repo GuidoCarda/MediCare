@@ -1,3 +1,13 @@
+<?php 
+  $prescriptionDetail = $data['prescriptionDetail'] ?? [];
+  $prescriptionHistory = $data['prescriptionHistory'] ?? [];
+
+  //Descarto el primer registro del historial ya que coincide con el detalle del
+  //ultimo registro a mostrarse
+  array_shift($prescriptionHistory);
+  
+?>
+
 <section class="container" id="prescription-details">
   <h1 class="section-title">Prescripcion</h1>
   
@@ -5,26 +15,33 @@
 
   
   <div>
-    <h3>Octavio fernandez</h3>
-    <span>neumonologo</span>
+    <h3><?php echo $prescriptionDetail['name'] . ' '. $prescriptionDetail['lastName'] ?></h3>
+    <span class="badge "><?php echo $prescriptionDetail['specialty'];?></span>
   </div>
   
   <h2 class="section-subtitle">Detalles</h2>
 
-  <p>Fecha: 25/10/2023</p>
-  <p>Nombre comercial: Neumocort</p>
-  <p>Droga: Fruticasona fosfato</p>
-  <p>Tipo: puff</p>
-  <p>Cantidad: 2</p>
-  <p>Frecuencia: 12 horas</p>
-  <p>Estado: Activo</p>
-  <p>Observaciones: </p>
-  <p>Esta prescripcion fue realizada por el profesional Octavio fernandez el dia 25/10/2023</p>
+  <p>Fecha: <?php echo $prescriptionDetail['created_at']?></p>
+  <p>Nombre comercial: <?php echo $prescriptionDetail['generic_name']; ?></p>
+  <p>Droga: <?php echo $prescriptionDetail['drug'] ?></p>
+  <p>Tipo: <?php echo $prescriptionDetail['medicine_type']?></p>
+  <p>Cantidad: <?php echo $prescriptionDetail['quantity'] . ' ' . pluralizeIfNeeded($prescriptionDetail['quantity'],$prescriptionDetail['medicine_unit']) ?> </p>
+  <p>Frecuencia: <?php echo $prescriptionDetail['frequency']?></p>
+  
+  <!-- <p>Estado: Activo</p> -->
 
+
+  <h2 class="section-subtitle">Historial</h2>
+
+  <?php foreach($prescriptionHistory as $record): ?>
+    <p>Fecha: <?php echo $record['created_at']; ?></p>
+    <p>Cantidad: <?php echo $record['quantity'] . ' ' . pluralizeIfNeeded($record['quantity'], $record['medicine_unit']); ?></p>
+    <p>Frecuencia: <?php echo $record['frequency']; ?></p>
+  <?php endforeach; ?>
 
 
 <button class="btn primary">
-  Modificar
+  Actualizar
 </button>
 </section>
 

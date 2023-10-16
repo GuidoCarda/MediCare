@@ -20,5 +20,9 @@ function hasEmptyFields($requiredFields){
   return false;
 }
 
+function pluralizeIfNeeded($number, $str){
+  return $number > 1 ? $str . 's': $str;
+}
+
 
 ?>

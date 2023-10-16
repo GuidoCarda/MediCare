@@ -29,7 +29,6 @@ class EntityModel
     $onlyOneResult = false
   )
   {
-
     // Genero la primer parte de la query, contiene las columnas, tabla y alias
     $query = "SELECT $columns FROM $this->table $this->alias";
 
@@ -49,6 +48,10 @@ class EntityModel
       $query .= ' WHERE ' . $filters['where'];
     }
 
+    if( isset($filters['group']) ){
+      $query .= ' GROUP BY ' . $filters['group'];
+    }
+
     if( isset($filters['order']) ){
       $query .= ' ORDER BY ' . $filters['order'];
     }
@@ -59,6 +62,7 @@ class EntityModel
     // var_dump($query);
     // var_dump($replaces_array);
     // die();
+    
     $this->connect();
     $stmt = $this->db->prepare($query);
     $stmt->execute( $replaces_array );
@@ -100,8 +104,6 @@ class EntityModel
 
   public function update($data, $id)
   {
-
-    
     // arreglo de reemplazos
     $replaces = [];
     // arreglo de valores

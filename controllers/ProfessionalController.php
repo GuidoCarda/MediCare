@@ -31,7 +31,7 @@ class ProfessionalController
 
   public static function new()
   {
-    if($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if(isPost()) {
       // Recupero los datos del formulario
       $name = $_POST['name'];
       $lastName = $_POST['lastname'];
@@ -81,7 +81,7 @@ class ProfessionalController
     $professionalId = $_GET['id'];
 
     // Si el metodo es POST, actualizar el profesional, solo los datos de contacto
-    if($_SERVER['REQUEST_METHOD'] === 'POST'){
+    if(isPost()){
       // Recuperar los datos del formulario
       $email = $_POST['email'];
       $phoneNumber = $_POST['phone_number'];
@@ -94,13 +94,13 @@ class ProfessionalController
 
       // Actualizar el profesional
       $Professional = new ProfessionalModel();
-      $updatedProfessionalId = $Professional->update([
+      $affectedRow = $Professional->update([
         'email' => $email,
         'phone_number' => $phoneNumber,
       ], $professionalId);
 
       // Si no se actualizo, mostrar error
-      if(!$updatedProfessionalId){
+      if(!$affectedRow){
         echo "Error al actualizar el profesional";
         die();
       }

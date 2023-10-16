@@ -57,7 +57,7 @@
       <button
         class="btn secondary"
         type="button"
-        onclick="window.location.href='/medicare/professional'"
+        id="cancel-btn"
       >
         cancelar
       </button>
@@ -65,3 +65,16 @@
     </footer>
   </form>
 </section>
+
+
+<script> 
+  const cancelBtn = document.querySelector('#cancel-btn');
+
+  cancelBtn.addEventListener('click', ()=>{
+    const confirm = window.confirm('¿Estas seguro que deseas cancelar? Los cambios no se guardaran');
+
+    if(confirm){
+      window.location.href='/medicare/professional'
+    }
+  });
+</script>

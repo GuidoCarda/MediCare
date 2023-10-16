@@ -13,12 +13,18 @@
   <h2 class="section-subtitle">Nueva prescripcion</h2>
   <form class="new-form" method="post">
     <div class="form-group">
+        <label for="created_at">Fecha</label>
+        <input type="date" class="text-input" name="created_at" id="created_at" />
+    </div>
+
+    <div class="form-group">
       <label for="generic_name">Nombre comercial</label>
       <input
         type="text"
         class="text-input"
         name="generic_name"
         id="generic_name"
+        
       />
     </div>
     <div class="form-group">
@@ -52,33 +58,50 @@
         <?php endforeach; ?>      
       </select>
     </div>
+    <?php if(empty($professionals)): ?>
+      <p>No hay profesionales cargados</p>
+      <button  type='button' class="btn primary" onclick="window.location.href='/medicare/professional/new'" >Cargar Profesional</button>
+    <?php else: ?>
+      <div class="form-group">
+        <label for="professional_id">Profecional</label>
 
-    <div class="form-group">
-      <label for="professional_id">Profecional</label>
-
-      <select
-        class="select"
-        name="professional_id"
-        id="professional_id"
-        required
-      >
-      <?php foreach($professionals as $professional) : ?>
-        <option value="<?php echo $professional['id']?>">
-          <?php echo $professional['name'] . ' ' . $professional['lastName'] . ' | ' . $professional['specialty'] ?>
-        </option>
-      <?php endforeach; ?>
-      </select>
-    </div>
+        <select
+          class="select"
+          name="professional_id"
+          id="professional_id"
+          required
+        >
+        <?php foreach($professionals as $professional) : ?>
+          <option value="<?php echo $professional['id']?>">
+            <?php echo $professional['name'] . ' ' . $professional['lastName'] . ' | ' . $professional['specialty'] ?>
+          </option>
+        <?php endforeach; ?>
+        </select>
+      </div>
+    <?php endif; ?>
 
     <footer>
       <button
         type="button"
         class="btn secondary"
-        onclick="window.location.href='/medicare/prescription'"
+        id="cancel-btn"
       >
         cancelar
       </button>
-      <button class="btn primary">Cargar</button>
+      <button class="btn primary" <?php if(empty($professionals)){ echo 'disabled';} ?> >Cargar</button>
     </footer>
   </form>
 </section>
+
+
+<script> 
+  const cancelBtn = document.querySelector('#cancel-btn');
+
+  cancelBtn.addEventListener('click', ()=>{
+    const confirm = window.confirm('¿Estas seguro que deseas cancelar? Los cambios no se guardaran');
+
+    if(confirm){
+      window.location.href='/medicare/prescription'
+    }
+  });
+</script>

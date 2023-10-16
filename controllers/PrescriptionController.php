@@ -5,26 +5,46 @@ class PrescriptionController
 {
   public static function list()
   {
-    // var_dump("Listar prescripcion");
+
+    $Prescription = new PrescriptionModel();
+    // $prescriptions = $Prescription->getAll();
+    $prescriptions = $Prescription->getLatestPerMedicine();
+
+    // var_dump($prescriptions);
+    // die();
+
     return [
-      'data' => [],
+      'data' => [
+        'prescriptions'=> $prescriptions
+      ],
       'view' => "prescriptions/list"
     ];
   }
 
   public static function details()
   {
-    // var_dump("detalles del prescripcion");
+    $prescriptionId = $_GET['id'];
+
+    $Prescription = new PrescriptionModel();
+    $prescriptionDetail = $Prescription->getOne($prescriptionId);
+
+    $genericName = $prescriptionDetail['generic_name'];
+    $drug = $prescriptionDetail['drug'];
+
+    $prescriptionHistory = $Prescription->getHistory($genericName, $drug);
+   
+
     return [
-      'data' => [],
+      'data' => [
+        'prescriptionDetail'=> $prescriptionDetail,
+        'prescriptionHistory' => $prescriptionHistory
+      ],
       'view' => 'prescriptions/details'
     ];
   }
 
   public static function new()
   {
-    // var_dump("alta de prescripcion");
-
     $Frequency = new EntityModel('frequency', 'f');
     $frequencies = $Frequency->select('*', 'f.id, f.denomination');
 
@@ -35,14 +55,14 @@ class PrescriptionController
     $medicineTypes = $MedicineType->select('*', 'mt.id, mt.denomination, mt.unit');
 
 
-    if($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if(isPost()) {
       $genericName = $_POST['generic_name'];
+      $createdAt = $_POST['created_at'] === '' ? date('Y-m-d') : $_POST['created_at'];
       $drug = $_POST['drug'];
       $medicineTypeId = $_POST['medicine_type'];
       $quantity = $_POST['quantity'];
       $frequencyId = $_POST['frequency_id'];
       $professionalId = $_POST['professional_id'];
-
 
       // validar que los campos no esten vacios
       if(empty($genericName) || empty($drug) || empty($medicineTypeId) || empty($quantity) || empty($frequencyId) || empty($professionalId)) {
@@ -60,7 +80,6 @@ class PrescriptionController
 
       $Medicine = new MedicineModel();
       $medicineExists = $Medicine->exists($genericName, $drug);
-    
 
       if(isset($medicineExists['id'])){
         $medicineId = $medicineExists['id'];
@@ -68,10 +87,8 @@ class PrescriptionController
         $medicineId = $Medicine->create($genericName, $drug, $medicineTypeId);
       }
 
-
       $Prescription = new PrescriptionModel();
-      $newPrescriptionId = $Prescription->create($quantity, $professionalId, $frequencyId, $medicineId);
-
+      $newPrescriptionId = $Prescription->create($quantity, $createdAt, $professionalId, $frequencyId, $medicineId);
 
       if($newPrescriptionId === 0){
         echo 'Algo salio mal al crear la prescripcion';
@@ -94,16 +111,64 @@ class PrescriptionController
 
   public static function edit()
   {
-    // var_dump("actualizar prescripcion");
+    $prescriptionId = $_GET['id'];
+
+    $Frequency = new EntityModel('frequency', 'f');
+    $frequencies = $Frequency->select('*', 'f.id, f.denomination');
+
+    $Professional = new ProfessionalModel();
+    $professionals = $Professional->getAll();
+
+    $MedicineType = new EntityModel('medicine_type', 'mt');
+    $medicineTypes = $MedicineType->select('*', 'mt.id, mt.denomination, mt.unit');
+
+    $Prescription = new PrescriptionModel();
+    $prescription = $Prescription->getOne($prescriptionId);
+
+    if(isPost()){
+      $quantity = $_POST['quantity'];
+      $createdAt = $_POST['created_at']; 
+      $professionalId = $prescription['professional_id'];
+      $frecuencyId = $_POST['frequency_id'];
+      $medicineId = $prescription['medicine_id'];
+
+      $newPrescriptionId = $Prescription->create($quantity, $createdAt, $professionalId,$frecuencyId, $medicineId);
+
+      if($newPrescriptionId === 0){
+        echo 'Algo salio mal al actualizar la prescripcion';
+        die();
+      }
+
+      header('Location: /medicare/prescription');
+      die();
+    }
+
     return [
-      'data' => [],
+      'data' => [
+        'prescription'=> $prescription,
+        'medicineTypes' => $medicineTypes,
+        'frequencies' => $frequencies,
+        'professionals' => $professionals
+      ],
       'view' => 'prescriptions/edit'
     ];
   }
 
   public static function delete()
   {
-    // No renderizamos nada, borra y redirecciona
-    var_dump("Eliminar prescripcion");
+    $medicineId = $_GET['id'];
+
+    $Prescription = new PrescriptionModel();
+    $affectedRow = $Prescription->update([
+      'is_active' => 0,
+      'created_at' => date('Y-m-d'),
+    ], $medicineId);
+   
+    if(!$affectedRow){
+      echo "Error al suspender la prescripcion";
+      die();
+    }
+
+    header('Location: /medicare/prescription');
   }
 }

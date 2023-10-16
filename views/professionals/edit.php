@@ -5,7 +5,7 @@
 ?>
 
 <section class="container" id="professional-new">
-  <h1 class="section-title">Profecionales</h1>
+  <h1 class="section-title">Profesionales</h1>
   <h2 class="section-subtitle">Formulario de carga</h2>
 <form class="new-form" method="post">
     <div class="form-group">
@@ -81,11 +81,23 @@
       <button
         class="btn secondary"
         type="button"
-        onclick="window.location.href='/medicare/professional'"
-      >
+        id='cancel-btn'
+        >
         cancelar
       </button>
       <button class="btn primary">Modificar</button>
     </footer>
   </form>
 </section>
+
+<script> 
+  const cancelBtn = document.querySelector('#cancel-btn');
+
+  cancelBtn.addEventListener('click', ()=>{
+    const confirm = window.confirm('¿Estas seguro que deseas cancelar? Los cambios no se guardaran');
+
+    if(confirm){
+      window.location.href='/medicare/professional'
+    }
+  });
+</script>
