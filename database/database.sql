@@ -78,11 +78,23 @@ CREATE TABLE prescription(
   patient_id int,
   frequency_id int,
   medicine_id int,
+  is_active boolean default true,
   foreign key (professional_id) references professional(id),
   foreign key (patient_id) references patient(id),
   foreign key (frequency_id) references frequency(id),
   foreign key (medicine_id) references medicine(id)
 );
+
+CREATE TABLE inquiry(
+  id int primary key auto_increment,
+  `name` varchar(50),
+  email varchar(50),
+  `subject` varchar(50),
+  `message` varchar(255),
+  created_at date default (CURRENT_DATE),
+  user_id int,
+  foreign key (user_id) references `user`(id)
+)
 
 -- Primeros inserts
 
@@ -210,3 +222,24 @@ WHERE p.id = $id AND p.patient_id = $patient_id;
 
 -- Restart auto increment
 ALTER TABLE tablename AUTO_INCREMENT = 1
+
+-- obtener la ultima prescripcion por cada medicina de un paciente
+SELECT 
+    p.id, 
+    p.quantity, 
+    p.created_at, 
+    p.medicine_id, 
+    pr.name, 
+    pr.lastName, 
+    f.denomination AS frequency, 
+    m.drug, 
+    m.generic_name, 
+    mt.denomination AS medicine_type, 
+    mt.unit AS medicine_unit 
+FROM prescription p 
+INNER JOIN professional pr ON p.professional_id = pr.id 
+INNER JOIN frequency f ON p.frequency_id = f.id 
+INNER JOIN medicine m ON p.medicine_id = m.id 
+INNER JOIN medicine_type mt ON m.medicine_type_id = mt.id 
+WHERE p.patient_id = 1 
+AND p.id IN (SELECT MAX(p2.id) FROM prescription p2 GROUP BY p2.medicine_id)
