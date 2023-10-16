@@ -52,6 +52,11 @@ button {
   border-radius: 0.3rem;
 }
 
+.btn:disabled {
+  opacity: 50%;
+  cursor: not-allowed;
+}
+
 .btn.primary {
   background-color: #5ac070;
   color: white;
@@ -72,7 +77,7 @@ button {
   background-color: transparent;
 }
 
-.btn:is(:hover) {
+.btn:is(:hover):not(:disabled) {
   opacity: 95%;
 }
 
@@ -92,6 +97,13 @@ button {
   letter-spacing: 1px;
   user-select: none;
   font-weight: bold;
+}
+
+.badge.sm {
+  padding-block: 0.3rem;
+  font-size: 0.8rem;
+  padding-inline: 0.5rem;
+  border-radius: 0.3rem;
 }
 
 .badge.md {
@@ -500,14 +512,19 @@ main {
 
 #professionals-list ul {
   list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  justify-self: start;
-  gap: 1rem;
+  display: grid;
+  gap: 2rem 1rem;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+@media screen and (max-width: 1080px) {
+  #professionals-list ul {
+    grid-template-columns: 1fr;
+  }
 }
 
 #professionals-list ul li {
-  flex: 1 1 calc(33% - 1rem);
+  width: 100%;
 }
 #professionals-list ul li > a {
   text-decoration: none;
@@ -531,17 +548,6 @@ main {
   font-size: 1.25rem;
 }
 
-#professionals-list ul article div span {
-  font-size: 0.875rem;
-  padding-top: 2px;
-  padding-inline: 0.5rem;
-  height: 1.5rem;
-  border-radius: 0.3rem;
-  width: max-content;
-  color: white;
-  background: #5ac070;
-}
-
 /*  Professionals detail page */
 
 #professionals-details {
@@ -551,4 +557,43 @@ main {
   display: flex;
   gap: 2rem;
   margin-block: 2rem 1rem;
+}
+
+/* Configurar estilos al imprimir */
+@media print {
+  main {
+    margin: 0;
+    color: #000;
+    background-color: #fff;
+  }
+
+  header {
+    display: none;
+  }
+
+  .section-title {
+    display: none;
+  }
+
+  .container#prescriptions-list table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    background: white;
+  }
+
+  .container#prescriptions-list td,
+  .container#prescriptions-list th {
+    height: 2.5rem;
+    border: 1px solid black;
+  }
+
+  .btn {
+    display: none;
+  }
+
+  #prescriptions-list table td:last-of-type,
+  #prescriptions-list table th:last-of-type {
+    display: none;
+  }
 }
