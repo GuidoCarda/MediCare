@@ -61,9 +61,9 @@ class PrescriptionController
     $professionals = $Professional->getAll();
 
     if (isPost()) {
-      $genericName = $_POST['generic_name'];
       $createdAt = $_POST['created_at'] === '' ? date('Y-m-d') : $_POST['created_at'];
-      $drug = $_POST['drug'];
+      $genericName = strtolower($_POST['generic_name']);
+      $drug = strtolower($_POST['drug']);
       $medicineTypeId = $_POST['medicine_type'];
       $quantity = $_POST['quantity'];
       $frequencyId = $_POST['frequency_id'];

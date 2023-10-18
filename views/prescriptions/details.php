@@ -6,6 +6,21 @@ $prescriptionHistory = $data['prescriptionHistory'] ?? [];
 //ultimo registro a mostrarse
 array_shift($prescriptionHistory);
 
+function getProfessionalAction($status, $prescriptionIndex)
+{
+  global $prescriptionHistory;
+
+  if ($status === 0) {
+    return 'suspendió';
+  }
+
+  if ($status === 1 && $prescriptionIndex === 0) {
+    return 'Recetó';
+  }
+
+  return 'actualizó';
+}
+
 ?>
 
 <section class="container" id="prescription-details">
@@ -65,14 +80,14 @@ array_shift($prescriptionHistory);
       <?php else : ?>
 
         <ul class="prescription-history">
-          <?php foreach ($prescriptionHistory as $record) : ?>
+          <?php foreach ($prescriptionHistory as $key => $record) : ?>
             <li class="record <?php echo $record['is_active'] === 0 ? 'suspended' : '' ?>">
               <div class="record-header">
                 <a href="/medicare/professional/<?php echo $record['professional_id'] ?>" class="professional">
                   <?php echo $record['name'] . ' ' . $record['lastname']; ?>
                 </a>
                 <span class="badge">
-                  <?php echo $record['is_active'] === 0 ? 'Suspendió' : 'Actualizó' ?>
+                  <?php echo getProfessionalAction($record['is_active'], $key);  ?>
                 </span>
                 <span class="date"><?php echo $record['created_at']; ?></span>
               </div>

@@ -20,3 +20,6 @@ RewriteRule ^([a-z]+)/(new)$ index.php?cat=$1&a=$2
 RewriteRule ^([a-z]+)/(\d+)$ index.php?cat=$1&id=$2&a=details
 # mostrar la pagina que corresponda a la categoria, el id y la accion
 RewriteRule ^([a-z]+)/(\d+)/(edit|delete)$ index.php?cat=$1&id=$2&a=$3  
+
+# Si no ingresa a ninguno de los casos anteriores, mostrar la pagina de inicio
+RewriteRule ^$ index.php?cat=home
