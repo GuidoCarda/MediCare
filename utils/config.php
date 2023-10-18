@@ -18,12 +18,6 @@ session_start();
 define('ROOT', dirname(__DIR__));
 define('VIEWS', ROOT . '/views');
 
-
-// var_dump(ROOT);
-// var_dump(VIEWS);
-// die();
-
-
 // Configuracion Global de coneccion a bd con PDO
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');

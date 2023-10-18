@@ -1,3 +1,4 @@
+//Validar por enteros positivos > 0
 function isValidQuantity(quantity) {
   const quantityRegex = /^[0-9]+$/;
   return quantityRegex.test(quantity);
@@ -30,7 +31,20 @@ function isValidBirthdate(date) {
   return true;
 }
 
+// Validar que sea un documento válido.
 function isValidDni(dni) {
   const dniRegex = /^[0-9]{8}$/;
   return dniRegex.test(dni);
+}
+
+// Validar que sea un numero telefonico válido.
+function isValidPhoneNumber(phone) {
+  const phoneRegex = /^[0-9]{9}$/;
+  return phoneRegex.test(phone);
+}
+
+// Validar que sea un numero de matricula válido.
+function isValidLicenseNumber(license) {
+  const licenseRegex = /^[0-9]{6}$/;
+  return licenseRegex.test(license);
 }

@@ -21,8 +21,8 @@
                 <h2><?php echo $professional['name'] . ' ' . $professional['lastName']; ?></h2>
                 <span class="badge sm"><?php echo $professional['specialty']; ?></span>
               </div>
-              <p><?php echo $professional['phone_number']; ?> </p>
-              <p><?php echo $professional['email']; ?></p>
+              <span class="phone-number">telefono: <?php echo $professional['phone_number']; ?> </span>
+              <span class="email">email: <?php echo $professional['email']; ?></span>
             </article>
           </a>
         </li>

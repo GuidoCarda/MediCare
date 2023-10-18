@@ -154,7 +154,6 @@ header > .container.row {
   height: 2rem;
   display: block;
   border-radius: 0.3rem;
-  /* overflow: hidden; */
 }
 
 .nav__link {
@@ -182,7 +181,9 @@ header > .container.row {
 }
 
 .nav__link.logout {
-  background: #eb7b7b;
+  background: #f4b7b7;
+  border: 1px solid #c05a5a;
+  border-radius: 0.3rem;
   font-weight: bold;
 }
 
@@ -605,6 +606,12 @@ main {
 #professionals-list ul article div h2 {
   font-size: 1.25rem;
 }
+#professionals-list ul article span.email,
+#professionals-list ul article span.phone-number {
+  color: rgb(87, 87, 87);
+  display: block;
+  font-size: 0.9rem;
+}
 
 /*  Professionals detail page */
 
@@ -641,6 +648,15 @@ main {
 
 .data-row + .data-row {
   border-top: 1px solid #e1e1e1;
+}
+
+.no-history {
+  padding-block: 5rem;
+  border-radius: 1rem;
+  border: 2px dashed #e1e1e1;
+  display: grid;
+  place-content: center;
+  color: #a1a1a1;
 }
 
 .prescription-history {
@@ -739,6 +755,40 @@ main {
     gap: 0.5rem;
     padding-block: 1rem;
   }
+}
+
+/* Landing page */
+
+#landing.container.hero {
+  /* background: rgb(212, 212, 212); */
+  padding-block: 10rem;
+}
+
+.hero-title {
+  font-size: 2.5rem;
+  text-wrap: balance;
+  margin-bottom: 1rem;
+  max-width: 30ch;
+}
+
+.hero-desc {
+  font-size: 1.25rem;
+  max-width: 40ch;
+  color: rgb(153, 161, 172);
+  margin-bottom: 1rem;
+}
+
+.about-us {
+  text-align: center;
+  padding-block: 2rem;
+  border-top: 1px solid rgb(220, 207, 207);
+  background: white;
+}
+
+.about-us p {
+  max-width: 60ch;
+  color: rgb(153, 161, 172);
+  margin-inline: auto;
 }
 
 /* Configurar estilos al imprimir */

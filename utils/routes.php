@@ -6,25 +6,18 @@ return function () {
   $id = $_GET['id'] ?? NULL;
   $action = $_GET['a'] ?? 'list'; // Por defecto si no se recibe accion en la url se ejecuta la accion de listar
 
-  // var_dump($category);
-  // echo '<br>';
-  // var_dump($id);
-  // echo '<br>';
-  // var_dump($action);
-  // die();
-
   //Defino las rutas publicas
-  $publicRoutes = Array('home','contact','login','register','error');
+  $publicRoutes = array('home', 'contact', 'login', 'register', 'error');
 
   // Si no esta logueado y la ruta no es publica, redirrecciono al login
-  if (!in_array($category, $publicRoutes) && !isset($_SESSION['id'])  ) {
+  if (!in_array($category, $publicRoutes) && !isset($_SESSION['id'])) {
     //Si no hay id no esta logueado
     header('Location: /medicare/login');
   }
 
   // Si esta logueado  y la ruta es login o registro, redirrecciono a prescripciones
-  if(isset($_SESSION['id'])){
-    if (in_array($category, ['home','login','register']) && $action != 'contact') {
+  if (isset($_SESSION['id'])) {
+    if (in_array($category, ['home', 'login', 'register']) && $action != 'contact') {
       header('Location: /medicare/prescription');
     }
   }

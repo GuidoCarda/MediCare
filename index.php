@@ -1,4 +1,5 @@
 <?php
+
 require 'utils/config.php';
 require 'utils/autoload.php';
 require 'utils/functions.php';
@@ -16,9 +17,6 @@ if (!isset($response['view'])) {
 $view = VIEWS . '/' . $response['view'] . '.php';
 $data = $response['data'] ?? [];
 
-// die($view);
-
-// echo ($view);
 include(VIEWS . '/layout/start.php');
 include($view);
 include(VIEWS . '/layout/finish.php');

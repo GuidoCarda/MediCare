@@ -10,7 +10,7 @@ class EntityModel
 {
   private $db;
   protected $table = '';
-  protected $alias = ''; 
+  protected $alias = '';
   protected $primary = 'id';
 
   public function __construct($table = null, $alias = null, $primary = null)
@@ -27,45 +27,40 @@ class EntityModel
     $columns = '*',
     $filters = [],
     $onlyOneResult = false
-  )
-  {
+  ) {
     // Genero la primer parte de la query, contiene las columnas, tabla y alias
     $query = "SELECT $columns FROM $this->table $this->alias";
 
     // Si se envian filtros, los agrego a la query
-    if(isset($filters['joins'])){
+    if (isset($filters['joins'])) {
       $joins = [];
       // por cada join, genero el string correspondiente
-      foreach($filters['joins'] as $j){
+      foreach ($filters['joins'] as $j) {
         $type = strtoupper($j['type'] ?? '');
         $joins[] = "$type JOIN $j[table] ON $j[on]";
       }
       // agrego los joins a la query
-      $query .= ' '.implode("\n", $joins);
+      $query .= ' ' . implode("\n", $joins);
     }
- 
-    if( isset($filters['where']) ){
+
+    if (isset($filters['where'])) {
       $query .= ' WHERE ' . $filters['where'];
     }
 
-    if( isset($filters['group']) ){
+    if (isset($filters['group'])) {
       $query .= ' GROUP BY ' . $filters['group'];
     }
 
-    if( isset($filters['order']) ){
+    if (isset($filters['order'])) {
       $query .= ' ORDER BY ' . $filters['order'];
     }
 
     // si se reciben remplazos para la query, los almaceno en una variable para luego pasarlos a la funcion execute
     $replaces_array = $filters['replaces'] ?? NULL;
 
-    // var_dump($query);
-    // var_dump($replaces_array);
-    // die();
-    
     $this->connect();
     $stmt = $this->db->prepare($query);
-    $stmt->execute( $replaces_array );
+    $stmt->execute($replaces_array);
     return $onlyOneResult ? $stmt->fetch() : $stmt->fetchAll();
   }
 
@@ -74,30 +69,23 @@ class EntityModel
     // arreglo de reemplazos
     $replaces = [];
     // por cada columna de la tabla genero un reemplazo
-    foreach( $data as $col => $val ){
-      $replaces[ ":$col" ] = $val;
+    foreach ($data as $col => $val) {
+      $replaces[":$col"] = $val;
     }
 
     // una vez generado el arreglo de reemplazos, genero los strings para la query
-    $columns = implode( ", " , array_keys($data) ); 
-    $values = implode(", ", array_keys($replaces) );
+    $columns = implode(", ", array_keys($data));
+    $values = implode(", ", array_keys($replaces));
 
     // genero la query
     $query = "INSERT INTO $this->table ( $columns ) VALUES ( $values )";
-
-    // var_dump($query);
-    // echo '<br>';
-    // echo '<br>';
-    // echo '<br>';
-    // var_dump($replaces);
-    // die();
 
     // conecto a la base de datos
     $this->connect();
     // preparo la query
     $stmt = $this->db->prepare($query);
     // ejecuto la query
-    $stmt->execute( $replaces );
+    $stmt->execute($replaces);
     // devuelvo el id del registro insertado
     return $this->db->lastInsertId();
   }
@@ -110,29 +98,26 @@ class EntityModel
     $values = [];
 
     // por cada columna de la tabla genero un reemplazo y un valor
-    foreach( $data as $col => $val ){
+    foreach ($data as $col => $val) {
       $values[] = "$col = :$col";
-      $replaces[ ":$col" ] = $val;
+      $replaces[":$col"] = $val;
     }
 
     // genero el string de valores
-    $values = implode( " , ", $values );
+    $values = implode(" , ", $values);
 
     // genero la query
     $query = "UPDATE $this->table SET $values WHERE id = :id LIMIT 1";
     // agrego el id al arreglo de reemplazos
-    $replaces[ ":id" ] = $id;
+    $replaces[":id"] = $id;
 
-    // var_dump($query);
-    // die();
-    // conecto a la base de datos
     $this->connect();
     // preparo la query
     $stmt = $this->db->prepare($query);
     // ejecuto la query
-    $stmt->execute( $replaces );
+    $stmt->execute($replaces);
     return $stmt->rowCount();
-  } 
+  }
 
   public function delete($id)
   {
@@ -153,11 +138,13 @@ class EntityModel
     $this->db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
   }
 
-  public function setTable($table){
+  public function setTable($table)
+  {
     $this->table = $table;
   }
 
-  public function getTable(){
+  public function getTable()
+  {
     return $this->table;
   }
 }

@@ -6,10 +6,10 @@ class ProfessionalController
 {
   public static function list()
   {
-    // tabla de resultados
+    // Obtengo los datos de todos los profesionales que atienden al paciente logueado
     $Professional = new ProfessionalModel();
     $response = $Professional->getAll();
-    
+
     return [
       'data' => $response,
       'view' => 'professionals/list',
@@ -21,14 +21,14 @@ class ProfessionalController
     // ver detalle de un profesional
     // obtener el id del profesional a mostrar
     $id = $_GET['id'];
-    
+
     // obtener los datos del profesional
     $Professional = new ProfessionalModel();
     $response = $Professional->getOne($id);
 
     $data = [];
 
-    if($response){
+    if ($response) {
       $data = ['professional' => $response];
     }
 
@@ -40,7 +40,7 @@ class ProfessionalController
 
   public static function new()
   {
-    if(isPost()) {
+    if (isPost()) {
       // Recupero los datos del formulario
       $name = $_POST['name'];
       $lastName = $_POST['lastname'];
@@ -50,21 +50,21 @@ class ProfessionalController
       $phoneNumber = $_POST['phone_number'];
 
       // Valido que no haya campos vacios
-      if(!$name || !$lastName || !$licenseNumber || !$specialtyId || !$email || !$phoneNumber){
+      if (!$name || !$lastName || !$licenseNumber || !$specialtyId || !$email || !$phoneNumber) {
         echo "Faltan datos";
         die();
       }
 
-      $Professional = new ProfessionalModel(null, $name , $lastName , $licenseNumber ,  $specialtyId , $phoneNumber , $email );
-      
+      $Professional = new ProfessionalModel(null, $name, $lastName, $licenseNumber,  $specialtyId, $phoneNumber, $email);
+
       //Crea el profesional, si ya existe retorna el id del profesional existente
       $professionalId = $Professional->create();
       $patientId = $_SESSION['patient_id'];
 
       //Asocia el profesional con el paciente
       $patientProfessional_id = $Professional->associateProfessionalWithPatient($professionalId, $patientId);
-      
-      if(!$professionalId || !$patientProfessional_id){
+
+      if (!$professionalId || !$patientProfessional_id) {
         echo "Error al crear el profesional";
         die();
       }
@@ -90,13 +90,13 @@ class ProfessionalController
     $professionalId = $_GET['id'];
 
     // Si el metodo es POST, actualizar el profesional, solo los datos de contacto
-    if(isPost()){
+    if (isPost()) {
       // Recuperar los datos del formulario
       $email = $_POST['email'];
       $phoneNumber = $_POST['phone_number'];
 
       // Validar que no haya campos vacios
-      if(!$email || !$phoneNumber){
+      if (!$email || !$phoneNumber) {
         echo "Faltan datos";
         die();
       }
@@ -109,7 +109,7 @@ class ProfessionalController
       ], $professionalId);
 
       // Si no se actualizo, mostrar error
-      if(!$affectedRow){
+      if (!$affectedRow) {
         echo "Error al actualizar el profesional";
         die();
       }
@@ -118,7 +118,7 @@ class ProfessionalController
       header('Location: /medicare/professional');
       die();
     }
-    
+
     // Obtener los datos del profesional
     $Professional = new ProfessionalModel();
     $professionalData = $Professional->getOne($professionalId);

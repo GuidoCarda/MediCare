@@ -250,22 +250,21 @@ AND p.id IN (SELECT MAX(p2.id) FROM prescription p2 GROUP BY p2.medicine_id)
 DELIMITER //
 CREATE PROCEDURE restartdb () 
 BEGIN
-  DELETE `user` WHERE 1;
-  ALTER TABLE `user` AUTO_INCREMENT = 1;
-  DELETE patient_professional WHERE 1;
+    DELETE FROM patient_professional WHERE 1;
   ALTER TABLE patient_professional AUTO_INCREMENT = 1;
-  DELETE patient WHERE 1;
-  ALTER TABLE patient AUTO_INCREMENT = 1;
-  DELETE professional WHERE 1;
-  ALTER TABLE professional AUTO_INCREMENT = 1;
-  DELETE prescription WHERE 1;
+  DELETE FROM prescription WHERE 1;
   ALTER TABLE prescription AUTO_INCREMENT = 1;
-  DELETE medicine WHERE 1;
+  DELETE FROM patient WHERE 1;
+  ALTER TABLE patient AUTO_INCREMENT = 1;
+  DELETE FROM `user` WHERE 1;
+  ALTER TABLE `user` AUTO_INCREMENT = 1;
+  DELETE FROM professional WHERE 1;
+  ALTER TABLE professional AUTO_INCREMENT = 1;
+  DELETE FROM medicine WHERE 1;
   ALTER TABLE medicine AUTO_INCREMENT = 1;
-  DELETE inquiry WHERE 1;
+  DELETE FROM inquiry WHERE 1;
   ALTER TABLE inquiry AUTO_INCREMENT = 1;
 END;
-
 //
 DELIMITER ;
 

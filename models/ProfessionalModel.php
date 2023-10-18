@@ -11,7 +11,7 @@ class ProfessionalModel extends EntityModel
   private $specialty_id;
   private $email;
 
-  public function __construct($id = null, $name = null, $lastname = null, $license_number = null,$specialty_id = null, $phone_number = null, $email = null)
+  public function __construct($id = null, $name = null, $lastname = null, $license_number = null, $specialty_id = null, $phone_number = null, $email = null)
   {
     $this->id = $id;
     $this->name = $name;
@@ -24,25 +24,27 @@ class ProfessionalModel extends EntityModel
     $this->table = 'professional';
     $this->alias = 'p';
   }
-  
+
   // Retorna todos los profesionales asociados a un paciente
   public function getAll()
   {
-    $patient_id = $_SESSION['patient_id']; 
-    $results = $this->select('p.id ,p.name, p.lastName, p.phone_number, p.email, pp.status, s.denomination AS specialty', 
+    $patient_id = $_SESSION['patient_id'];
+    $results = $this->select(
+      'p.id ,p.name, p.lastName, p.phone_number, p.email, pp.status, s.denomination AS specialty',
       [
-      'joins' => [
-        [
-          'type' => 'inner',
-          'table' => 'patient_professional pp', 'on' => 'p.id = pp.professional_id'
+        'joins' => [
+          [
+            'type' => 'inner',
+            'table' => 'patient_professional pp', 'on' => 'p.id = pp.professional_id'
+          ],
+          [
+            'type' => 'inner',
+            'table' => 'specialty s', 'on' => 'p.specialty_id = s.id'
+          ]
         ],
-        [
-          'type' => 'inner',
-          'table' => 'specialty s', 'on' => 'p.specialty_id = s.id' 
-        ]
-      ],
         'where' => 'pp.patient_id = ' . $patient_id,
-    ] );
+      ]
+    );
 
     return $results;
   }
@@ -80,10 +82,11 @@ class ProfessionalModel extends EntityModel
   }
 
   // Crea un profesional
-  public function create(){
+  public function create()
+  {
     $exists = $this->exists($this->license_number);
     // Si existe, no lo creo y hago la relacion 
-    if($exists){
+    if ($exists) {
       // Si ya existe un profecional con esa matricula, retorno el id para hacer la relacion      
       return $exists['id'];
     }
@@ -102,10 +105,9 @@ class ProfessionalModel extends EntityModel
   }
 
   // Relaciona un profesional con un paciente que lo cree / seleccione
-  public function associateProfessionalWithPatient($professional_id, $patient_id){
+  public function associateProfessionalWithPatient($professional_id, $patient_id)
+  {
     $PatientProfessional = new EntityModel('patient_professional', 'pp');
-    // $PatientProfessional->table = 'patient_professional';
-    // $PatientProfessional->alias = 'pp';
     $patientProfessional_id = $PatientProfessional->insert([
       'patient_id' => $patient_id,
       'professional_id' => $professional_id,
@@ -113,5 +115,4 @@ class ProfessionalModel extends EntityModel
 
     return $patientProfessional_id;
   }
-
 }

@@ -58,27 +58,34 @@ array_shift($prescriptionHistory);
       </div>
 
       <h2 class="section-subtitle">Historial</h2>
-      <ul class="prescription-history">
-        <?php foreach ($prescriptionHistory as $record) : ?>
-          <li class="record <?php echo $record['is_active'] === 0 ? 'suspended' : '' ?>">
-            <div class="record-header">
-              <a href="/medicare/professional/<?php echo $record['professional_id'] ?>" class="professional">
-                <?php echo $record['name'] . ' ' . $record['lastname']; ?>
-              </a>
-              <span class="badge">
-                <?php echo $record['is_active'] === 0 ? 'Suspendió' : 'Actualizó' ?>
-              </span>
-              <span class="date"><?php echo $record['created_at']; ?></span>
-            </div>
-            <?php if ($record['is_active'] === 1) : ?>
-              <div class="record-footer">
-                <span class="quantity"><?php echo $record['quantity'] . ' ' . pluralizeIfNeeded($record['quantity'], $record['medicine_unit']); ?></span>
-                <span class="frecuency">Frecuencia: <?php echo $record['frequency']; ?></span>
+      <?php if (count($prescriptionHistory) === 0) : ?>
+        <div class="no-history">
+          No hay prescripciones previas para este medicamento
+        </div>
+      <?php else : ?>
+
+        <ul class="prescription-history">
+          <?php foreach ($prescriptionHistory as $record) : ?>
+            <li class="record <?php echo $record['is_active'] === 0 ? 'suspended' : '' ?>">
+              <div class="record-header">
+                <a href="/medicare/professional/<?php echo $record['professional_id'] ?>" class="professional">
+                  <?php echo $record['name'] . ' ' . $record['lastname']; ?>
+                </a>
+                <span class="badge">
+                  <?php echo $record['is_active'] === 0 ? 'Suspendió' : 'Actualizó' ?>
+                </span>
+                <span class="date"><?php echo $record['created_at']; ?></span>
               </div>
-            <?php endif; ?>
-          </li>
-        <?php endforeach; ?>
-      </ul>
+              <?php if ($record['is_active'] === 1) : ?>
+                <div class="record-footer">
+                  <span class="quantity"><?php echo $record['quantity'] . ' ' . pluralizeIfNeeded($record['quantity'], $record['medicine_unit']); ?></span>
+                  <span class="frecuency">Frecuencia: <?php echo $record['frequency']; ?></span>
+                </div>
+              <?php endif; ?>
+            </li>
+          <?php endforeach; ?>
+        </ul>
+      <?php endif; ?>
     <?php endif; ?>
 </section>
 

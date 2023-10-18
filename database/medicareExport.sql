@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-10-2023 a las 06:15:24
--- Versión del servidor: 10.4.24-MariaDB
--- Versión de PHP: 8.1.6
+-- Tiempo de generación: 18-10-2023 a las 05:03:39
+-- Versión del servidor: 10.4.28-MariaDB
+-- Versión de PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -21,6 +21,29 @@ SET time_zone = "+00:00";
 -- Base de datos: `medicare`
 --
 
+DELIMITER $$
+--
+-- Procedimientos
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `restartdb` ()   BEGIN
+    DELETE FROM patient_professional WHERE 1;
+  ALTER TABLE patient_professional AUTO_INCREMENT = 1;
+  DELETE FROM prescription WHERE 1;
+  ALTER TABLE prescription AUTO_INCREMENT = 1;
+  DELETE FROM patient WHERE 1;
+  ALTER TABLE patient AUTO_INCREMENT = 1;
+  DELETE FROM `user` WHERE 1;
+  ALTER TABLE `user` AUTO_INCREMENT = 1;
+  DELETE FROM professional WHERE 1;
+  ALTER TABLE professional AUTO_INCREMENT = 1;
+  DELETE FROM medicine WHERE 1;
+  ALTER TABLE medicine AUTO_INCREMENT = 1;
+  DELETE FROM inquiry WHERE 1;
+  ALTER TABLE inquiry AUTO_INCREMENT = 1;
+END$$
+
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -30,7 +53,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `blood_type` (
   `id` int(11) NOT NULL,
   `denomination` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `blood_type`
@@ -56,7 +79,7 @@ CREATE TABLE `frequency` (
   `id` int(11) NOT NULL,
   `denomination` varchar(50) DEFAULT NULL,
   `hours_interval` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `frequency`
@@ -77,6 +100,22 @@ INSERT INTO `frequency` (`id`, `denomination`, `hours_interval`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `inquiry`
+--
+
+CREATE TABLE `inquiry` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) DEFAULT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  `subject` varchar(50) DEFAULT NULL,
+  `message` varchar(255) DEFAULT NULL,
+  `created_at` date DEFAULT curdate(),
+  `user_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `medicine`
 --
 
@@ -85,7 +124,7 @@ CREATE TABLE `medicine` (
   `generic_name` varchar(50) DEFAULT NULL,
   `drug` varchar(50) DEFAULT NULL,
   `medicine_type_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -97,7 +136,7 @@ CREATE TABLE `medicine_type` (
   `id` int(11) NOT NULL,
   `denomination` varchar(50) DEFAULT NULL,
   `unit` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `medicine_type`
@@ -130,7 +169,7 @@ CREATE TABLE `patient` (
   `dni` varchar(8) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   `blood_type_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -143,7 +182,7 @@ CREATE TABLE `patient_professional` (
   `patient_id` int(11) DEFAULT NULL,
   `professional_id` int(11) DEFAULT NULL,
   `status` tinyint(1) DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -158,8 +197,9 @@ CREATE TABLE `prescription` (
   `professional_id` int(11) DEFAULT NULL,
   `patient_id` int(11) DEFAULT NULL,
   `frequency_id` int(11) DEFAULT NULL,
-  `medicine_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `medicine_id` int(11) DEFAULT NULL,
+  `is_active` tinyint(1) DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -175,7 +215,7 @@ CREATE TABLE `professional` (
   `license_number` varchar(10) DEFAULT NULL,
   `phone_number` varchar(10) DEFAULT NULL,
   `specialty_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -186,7 +226,7 @@ CREATE TABLE `professional` (
 CREATE TABLE `specialty` (
   `id` int(11) NOT NULL,
   `denomination` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `specialty`
@@ -223,7 +263,7 @@ CREATE TABLE `user` (
   `id` int(11) NOT NULL,
   `email` varchar(50) DEFAULT NULL,
   `password` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Índices para tablas volcadas
@@ -240,6 +280,13 @@ ALTER TABLE `blood_type`
 --
 ALTER TABLE `frequency`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `inquiry`
+--
+ALTER TABLE `inquiry`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indices de la tabla `medicine`
@@ -316,6 +363,12 @@ ALTER TABLE `frequency`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
+-- AUTO_INCREMENT de la tabla `inquiry`
+--
+ALTER TABLE `inquiry`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `medicine`
 --
 ALTER TABLE `medicine`
@@ -366,6 +419,12 @@ ALTER TABLE `user`
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `inquiry`
+--
+ALTER TABLE `inquiry`
+  ADD CONSTRAINT `inquiry_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
 --
 -- Filtros para la tabla `medicine`
