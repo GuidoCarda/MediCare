@@ -91,12 +91,11 @@ button {
   padding-inline: 0.5rem;
   width: max-content;
   height: fit-content;
-  border-radius: 0.3rem;
-  background: #5ac070;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  border-radius: 0.5rem;
+  background: #f2fdf4;
+  border: 2px solid #b4d9b9;
+  color: #3c7e44;
   user-select: none;
-  font-weight: bold;
 }
 
 .badge.sm {
@@ -155,7 +154,7 @@ header > .container.row {
   height: 2rem;
   display: block;
   border-radius: 0.3rem;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .nav__link {
@@ -176,7 +175,9 @@ header > .container.row {
 }
 
 .nav__link.login {
-  background: #5ac070;
+  background: #b7f4c4;
+  border: 1px solid #5ac070;
+  border-radius: 0.3rem;
   font-weight: bold;
 }
 
@@ -477,17 +478,54 @@ main {
 }
 
 /* Prescriptions list page */
-.container#prescriptions-list table {
+.prescription-table-container {
+  border: 1px solid rgb(225, 225, 225);
   width: 100%;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+}
+
+.prescription-table-container .prescriptions-table {
+  min-width: 100%;
   border-collapse: collapse;
   text-align: center;
   background: white;
+  white-space: nowrap;
 }
 
-.container#prescriptions-list td,
-.container#prescriptions-list th {
-  height: 2.5rem;
-  border: 1px solid black;
+.prescriptions-table thead {
+  background: rgb(245, 245, 245);
+  color: rgb(30, 30, 30);
+}
+
+.prescriptions-table tr:not(:last-child) {
+  border-bottom: 1px solid rgb(225, 225, 225);
+}
+
+.prescriptions-table td,
+.prescriptions-table th {
+  height: 3rem;
+  padding-inline: 1rem;
+}
+
+.prescriptions-table .edit,
+.prescriptions-table .delete {
+  background-color: transparent;
+  border: none;
+  font-weight: bold;
+}
+
+.prescriptions-table .edit {
+  color: #1f1f1f;
+}
+
+.prescriptions-table .delete {
+  color: #eb7b7b;
+  margin-left: 0.5rem;
+}
+
+.prescriptions-table a {
+  color: inherit;
 }
 
 /* Professionals Form */
@@ -506,6 +544,26 @@ main {
 }
 
 /* Professionals list Page */
+
+.section-header {
+  display: flex;
+  align-items: center;
+  /* background: red; */
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.section-header .section-title {
+  margin-bottom: 0;
+}
+
+@media screen and (max-width: 760px) {
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}
 
 #professionals-list {
 }
@@ -550,13 +608,137 @@ main {
 
 /*  Professionals detail page */
 
-#professionals-details {
+#professional-details {
 }
 
-#professionals-details div {
+#professional-details div.professional,
+#prescription-details div.professional {
   display: flex;
   gap: 2rem;
   margin-block: 2rem 1rem;
+}
+
+#professional-details .contact-data,
+#prescription-details .prescription-data {
+  margin-bottom: 2rem;
+  border-top: 1px solid #e1e1e1;
+}
+
+.data-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding-block: 1rem;
+}
+
+.data-row dd {
+  grid-column: span 2;
+  color: grey;
+}
+
+.data-row dt {
+  font-weight: bold;
+}
+
+.data-row + .data-row {
+  border-top: 1px solid #e1e1e1;
+}
+
+.prescription-history {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  margin-bottom: 2rem;
+}
+.prescription-history .record {
+  padding-block: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  flex-direction: column;
+}
+
+.prescription-history .record .record-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 2rem;
+}
+
+.prescription-history .record .record-footer {
+  color: rgb(112, 112, 112);
+}
+
+.prescription-history .record span + span {
+  margin-left: 0.5rem;
+}
+
+.prescription-history .record .record-header:after {
+  content: "";
+  height: 0.6rem;
+  width: 0.6rem;
+  background: #5ac070;
+  position: absolute;
+  top: 50%;
+  left: calc(0.6rem / 2);
+  transform: translateY(-50%);
+  border-radius: 100%;
+  display: block;
+}
+
+.prescription-history .record .record-header:before {
+  content: "";
+  height: 1.2rem;
+  width: 1.2rem;
+  background: #5ac07075;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 100%;
+  display: block;
+}
+
+.prescription-history .record.suspended .record-header:after,
+.prescription-history .record.suspended .record-header:before {
+  filter: grayscale(1);
+}
+
+.prescription-history .record.suspended .badge {
+  background: #fdf2f2;
+  border: 2px solid #d9b4b4;
+  color: #7e3c3c;
+}
+
+.record + .record {
+  border-top: 1px solid #e1e1e1;
+}
+
+.prescription-history .record .record-header .professional {
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.prescription-history .record .date {
+  color: rgb(67, 67, 67);
+}
+
+@media screen and (max-width: 768px) {
+  #professional-details .professional {
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  #professional-details .contact-data {
+    margin-top: 1rem;
+  }
+
+  .data-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    padding-block: 1rem;
+  }
 }
 
 /* Configurar estilos al imprimir */
@@ -575,25 +757,30 @@ main {
     display: none;
   }
 
-  .container#prescriptions-list table {
+  .prescriptions-table {
     width: 100%;
     border-collapse: collapse;
     text-align: center;
     background: white;
   }
 
-  .container#prescriptions-list td,
-  .container#prescriptions-list th {
+  .prescriptions-table td,
+  .prescriptions-table th {
     height: 2.5rem;
     border: 1px solid black;
   }
 
-  .btn {
+  .edit,
+  .delete {
     display: none;
   }
 
   #prescriptions-list table td:last-of-type,
   #prescriptions-list table th:last-of-type {
+    display: none;
+  }
+
+  button {
     display: none;
   }
 }

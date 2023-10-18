@@ -1,43 +1,85 @@
-<?php 
-  $prescriptionDetail = $data['prescriptionDetail'] ?? [];
-  $prescriptionHistory = $data['prescriptionHistory'] ?? [];
+<?php
+$prescriptionDetail = $data['prescriptionDetail'] ?? [];
+$prescriptionHistory = $data['prescriptionHistory'] ?? [];
 
-  //Descarto el primer registro del historial ya que coincide con el detalle del
-  //ultimo registro a mostrarse
-  array_shift($prescriptionHistory);
-  
+//Descarto el primer registro del historial ya que coincide con el detalle del
+//ultimo registro a mostrarse
+array_shift($prescriptionHistory);
+
 ?>
 
 <section class="container" id="prescription-details">
-  <h1 class="section-title">Prescripcion</h1>
-  <h2 class="section-subtitle">Mi prescripcion </h1>
 
-  <?php if(!$prescriptionDetail): ?>
-    <h2 class="section-subtitle">La prescripcion buscada no existe</h2>
-  <?php else: ?>
-    <div>
-      <h3><?php echo $prescriptionDetail['name'] . ' '. $prescriptionDetail['lastName'] ?></h3>
-      <span class="badge "><?php echo $prescriptionDetail['specialty'];?></span>
-    </div>
-    <h2 class="section-subtitle">Detalles</h2>
-    <p>Fecha: <?php echo $prescriptionDetail['created_at']?></p>
-    <p>Nombre comercial: <?php echo $prescriptionDetail['generic_name']; ?></p>
-    <p>Droga: <?php echo $prescriptionDetail['drug'] ?></p>
-    <p>Tipo: <?php echo $prescriptionDetail['medicine_type']?></p>
-    <p>Cantidad: <?php echo $prescriptionDetail['quantity'] . ' ' . pluralizeIfNeeded($prescriptionDetail['quantity'],$prescriptionDetail['medicine_unit']) ?> </p>
-    <p>Frecuencia: <?php echo $prescriptionDetail['frequency']?></p>
-    <!-- <p>Estado: Activo</p> -->
-    <h2 class="section-subtitle">Historial</h2>
-    <?php foreach($prescriptionHistory as $record): ?>
-      <p>Fecha: <?php echo $record['created_at']; ?></p>
-      <p>Cantidad: <?php echo $record['quantity'] . ' ' . pluralizeIfNeeded($record['quantity'], $record['medicine_unit']); ?></p>
-      <p>Frecuencia: <?php echo $record['frequency']; ?></p>
-      <br>
-    <?php endforeach; ?>
-    <button class="btn primary">
-      Actualizar
-    </button>
-  <?php endif;?>
+  <header class="section-header">
+    <h1 class="section-title">Prescripciones</h1>
+    <?php if ($prescriptionDetail) : ?>
+      <button class="btn primary">
+        Actualizar
+      </button>
+    <?php endif; ?>
+  </header>
+  <h2 class="section-subtitle">Detalles prescripcion </h1>
+    <?php if (!$prescriptionDetail) : ?>
+      <h2 class="section-subtitle">La prescripcion buscada no existe</h2>
+    <?php else : ?>
+      <div class="professional">
+        <h2><?php echo $prescriptionDetail['name'] . ' ' . $prescriptionDetail['lastName'] ?></h2>
+        <span class="badge"><?php echo $prescriptionDetail['specialty'] ?></span>
+      </div>
+
+      <div class="prescription-data">
+        <dl>
+          <div class="data-row">
+            <dt>Ultima actualizacion</dt>
+            <dd><?php echo $prescriptionDetail['created_at'] ?></dd>
+          </div>
+
+          <div class="data-row">
+            <dt>Nombre comercial</dt>
+            <dd><?php echo $prescriptionDetail['generic_name'] ?></dd>
+          </div>
+          <div class="data-row">
+            <dt>Droga</dt>
+            <dd><?php echo $prescriptionDetail['drug'] ?></dd>
+          </div>
+          <div class="data-row">
+            <dt>Tipo medicina</dt>
+            <dd><?php echo $prescriptionDetail['medicine_type'] ?></dd>
+          </div>
+          <div class="data-row">
+            <dt>Cantidad</dt>
+            <dd><?php echo $prescriptionDetail['quantity'] . ' ' . pluralizeIfNeeded($prescriptionDetail['quantity'], $prescriptionDetail['medicine_unit']) ?></dd>
+          </div>
+          <div class="data-row">
+            <dt>Frecuencia</dt>
+            <dd><?php echo $prescriptionDetail['frequency'] ?></dd>
+          </div>
+        </dl>
+      </div>
+
+      <h2 class="section-subtitle">Historial</h2>
+      <ul class="prescription-history">
+        <?php foreach ($prescriptionHistory as $record) : ?>
+          <li class="record <?php echo $record['is_active'] === 0 ? 'suspended' : '' ?>">
+            <div class="record-header">
+              <a href="/medicare/professional/<?php echo $record['professional_id'] ?>" class="professional">
+                <?php echo $record['name'] . ' ' . $record['lastname']; ?>
+              </a>
+              <span class="badge">
+                <?php echo $record['is_active'] === 0 ? 'Suspendió' : 'Actualizó' ?>
+              </span>
+              <span class="date"><?php echo $record['created_at']; ?></span>
+            </div>
+            <?php if ($record['is_active'] === 1) : ?>
+              <div class="record-footer">
+                <span class="quantity"><?php echo $record['quantity'] . ' ' . pluralizeIfNeeded($record['quantity'], $record['medicine_unit']); ?></span>
+                <span class="frecuency">Frecuencia: <?php echo $record['frequency']; ?></span>
+              </div>
+            <?php endif; ?>
+          </li>
+        <?php endforeach; ?>
+      </ul>
+    <?php endif; ?>
 </section>
 
 <script>
@@ -46,7 +88,7 @@
 
   document.querySelector('.btn.primary').addEventListener(
     'click',
-    ()=>{
+    () => {
       window.location.href = `${currentPath}/edit`;
     }
   )
