@@ -46,7 +46,7 @@ function getProfessionalAction($status, $prescriptionIndex)
         <dl>
           <div class="data-row">
             <dt>Ultima actualizacion</dt>
-            <dd><?php echo $prescriptionDetail['created_at'] ?></dd>
+            <dd><?php formatDate($prescriptionDetail['created_at']) ?></dd>
           </div>
 
           <div class="data-row">
@@ -89,7 +89,7 @@ function getProfessionalAction($status, $prescriptionIndex)
                 <span class="badge">
                   <?php echo getProfessionalAction($record['is_active'], $key);  ?>
                 </span>
-                <span class="date"><?php echo $record['created_at']; ?></span>
+                <span class="date"><?php formatDate($record['created_at']); ?></span>
               </div>
               <?php if ($record['is_active'] === 1) : ?>
                 <div class="record-footer">

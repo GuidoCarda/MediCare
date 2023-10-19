@@ -29,7 +29,8 @@ return function () {
   if (!class_exists($controller)) {
     return [
       'data' => [
-        'message' => "clase $controller inexistente",
+        'message' => "Algo salio mal",
+        'status' => '404'
       ],
       'view' => 'error'
     ];

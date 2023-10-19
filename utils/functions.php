@@ -7,22 +7,34 @@ function isLogged()
   return isset($_SESSION['id']);
 }
 
-function isPost(){
+function isPost()
+{
   return $_SERVER['REQUEST_METHOD'] === 'POST';
 }
 
-function hasEmptyFields($requiredFields){
+function hasEmptyFields($requiredFields)
+{
   foreach ($requiredFields as $field) {
-    if(empty($_POST[$field])){
+    if (empty($_POST[$field])) {
       return true;
     }
   }
   return false;
 }
 
-function pluralizeIfNeeded($number, $str){
-  return $number > 1 ? $str . 's': $str;
+function pluralizeIfNeeded($number, $str)
+{
+  return $number > 1 ? $str . 's' : $str;
+}
+
+function formatDate($dateStr)
+{
+  $date = new DateTimeImmutable($dateStr);
+  echo $date->format('d-m-Y');
 }
 
 
+
 ?>
+
+

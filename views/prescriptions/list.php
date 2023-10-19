@@ -4,7 +4,10 @@ $prescriptions = $data['prescriptions'] ?? [];
 
 <section class="container" id="prescriptions-list">
   <header class="section-header">
-    <h1 class="section-title">Prescripciones</h1>
+    <div>
+      <a class='return-link'>Volver al inicio</a>
+      <h1 class="section-title">Prescripciones</h1>
+    </div>
     <button class="btn primary" onclick="window.location.href='prescription/new'">
       Nueva prescripcion
     </button>
@@ -35,7 +38,7 @@ $prescriptions = $data['prescriptions'] ?? [];
                 <td><?php echo $prescription['medicine_type'] ?></td>
                 <td><?php echo $prescription['quantity'] ?></td>
                 <td><?php echo $prescription['frequency'] ?></td>
-                <td><?php echo $prescription['created_at'] ?></td>
+                <td><?php formatDate($prescription['created_at']) ?></td>
                 <td>
                   <button class="edit" onclick="window.location.href='/medicare/prescription/<?php echo $prescription['id'] ?>/edit'">Actualizar</button>
                   <button class="delete" type="button" onclick="window.location.href='/medicare/prescription/<?php echo $prescription['id'] ?>/delete'">Suspender</button>

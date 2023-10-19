@@ -3,7 +3,10 @@
 
 
 <section class="container" id="professional-new">
-  <h1 class="section-title">Profecionales</h1>
+  <div>
+    <a class='return-link'>Volver al inicio</a>
+    <h1 class="section-title">Profecionales</h1>
+  </div>
   <h2 class="section-subtitle">Formulario de carga</h2>
   <form class="new-form" method="post">
     <div class="form-group">

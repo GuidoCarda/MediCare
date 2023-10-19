@@ -56,7 +56,7 @@ if (isPost()) {
         <input class="text-input" id="subject" maxlength="70" required type="text" name="subject" />
       </div>
       <div class="form-group message">
-        <label for="message">Mensage</label>
+        <label for="message">Mensaje</label>
         <textarea class="contact-form__message" id="message" maxlength="255" required name="message"></textarea>
       </div>
     </section>

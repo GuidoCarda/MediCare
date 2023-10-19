@@ -282,6 +282,10 @@ main {
   place-content: center;
 }
 
+.return-link {
+  color: #333333;
+}
+
 /* Login Page */
 
 .container#login {
