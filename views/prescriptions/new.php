@@ -118,7 +118,7 @@ if (isset($data['message'])) {
     const data = Object.fromEntries(formData);
 
     if (!isValidQuantity(data.quantity)) {
-      alert('La cantidad debe ser un numero entero positivo');
+      toastNotification('La cantidad debe ser un numero entero positivo', 'danger')
       return;
     }
 

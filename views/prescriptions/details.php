@@ -101,7 +101,7 @@ function getProfessionalAction($status, $prescriptionIndex)
             <li class="record <?php echo $record['is_active'] === 0 ? 'suspended' : '' ?>">
               <div class="record-header">
                 <a href="/medicare/professional/<?php echo $record['professional_id'] ?>" class="professional">
-                  <?php echo $record['name'] . ' ' . $record['lastname']; ?>
+                  <?= $record['name'] . ' ' . $record['lastname']; ?>
                 </a>
                 <span class="badge">
                   <?php echo getProfessionalAction($record['is_active'], $key);  ?>

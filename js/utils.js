@@ -1,3 +1,5 @@
+const MS_IN_YEAR = 1000 * 60 * 60 * 24 * 365;
+
 //Validar por enteros positivos > 0
 function isValidQuantity(quantity) {
   const quantityRegex = /^[0-9]+$/;
@@ -58,4 +60,18 @@ function handleCancelConfirmation(redirectTo = "/medicare") {
   if (confirm) {
     window.location.href = redirectTo;
   }
+}
+
+// Mostrar notificacion
+function toastNotification(message, type = "success") {
+  const toast = document.getElementById("toast");
+
+  if (toast.classList.contains("show")) return;
+
+  toast.classList.add("show", type);
+  toast.innerText = message;
+
+  setTimeout(() => {
+    toast.classList.remove("show", type);
+  }, 3000);
 }

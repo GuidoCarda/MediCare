@@ -108,12 +108,6 @@ class ProfessionalController
         'phone_number' => $phoneNumber,
       ], $professionalId);
 
-      // Si no se actualizo, mostrar error
-      if (!$affectedRow) {
-        echo "Error al actualizar el profesional";
-        die();
-      }
-
       // Redireccionar a la lista de profesionales
       header('Location: /medicare/professional');
       die();

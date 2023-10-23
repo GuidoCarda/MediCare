@@ -1,7 +1,9 @@
 
 <section class="container" id="register">
   <?php if(isset($data['message'])) : ?>
-    <?php echo $data['message']; ?>
+    <div class="alert danger">
+      <?= $data['message']; ?>
+    </div>
   <?php endif; ?>
   <header class="register-header">
     <h1>Registro al sistema</h1>
@@ -103,7 +105,6 @@
 
 
 <script>
-  const MS_IN_YEAR = 1000 * 60 * 60 * 24 * 365;
   const form = document.querySelector('.register-form');
 
   form.addEventListener('submit', handleSubmit)
@@ -114,12 +115,12 @@
     const data = Object.fromEntries(formData);
 
     if(!isValidDni(data.dni)){
-      alert('El dni no es valido, debe contener 8 digitos');
+      toastNotification('El dni no es valido. Debe contener 8 digitos', 'danger')
       return;
     }
 
     if(!isValidBirthdate(data.birthdate)){
-      alert('La fecha de nacimiento no es valida, debe ser mayor de edad');
+      toastNotification('La fecha de nacimiento no es valida, debe ser mayor de edad', 'danger')
       return;
     }
 

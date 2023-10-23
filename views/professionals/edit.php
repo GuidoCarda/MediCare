@@ -76,7 +76,7 @@ if (!$professional) {
     const data = Object.fromEntries(formData);
 
     if (!isValidPhoneNumber(data.phone_number)) {
-      alert('El numero de telefono no es valido, numero hasta 9 digitos');
+      toastNotification('El numero de telefono no es valido, numero hasta 9 digitos', 'danger')
       return;
     }
 

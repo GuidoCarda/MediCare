@@ -78,16 +78,15 @@
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
 
-
-    // Valido que sea un numero telefonico valido
-    if (!isValidPhoneNumber(data.phone_number)) {
-      alert('El numero de telefono no es valido, debe contener 9 digitos');
+    // Valido que sea un numero de matricula valido (hasta 6 digitos)
+    if (!isValidLicenseNumber(data.license_number)) {
+      toastNotification('El numero de matricula no es valido, numero hasta 6 digitos', 'danger')
       return;
     }
 
-    // Valido que sea un numero de matricula valido (hasta 6 digitos)
-    if (!isValidLicenseNumber(data.license_number)) {
-      alert('El numero de matricula no es valido, numero hasta 6 digitos');
+    // Valido que sea un numero telefonico valido
+    if (!isValidPhoneNumber(data.phone_number)) {
+      toastNotification('El numero de telefono no es valido, debe contener 9 digitos', 'danger')
       return;
     }
 

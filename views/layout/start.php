@@ -16,7 +16,11 @@
     window.addEventListener("DOMContentLoaded", () => {
       const navToggle = document.querySelector('.nav-toggle');
       const nav = document.querySelector('.nav');
-      navToggle.addEventListener('click', () => nav.classList.toggle('nav--visible'))
+      navToggle.addEventListener('click', () => {
+        nav.classList.toggle('nav--visible')
+        document.body.classList.toggle('no-scroll');
+      })
+      
     })
   </script>
   <header>
@@ -29,3 +33,4 @@
     </div>
   </header>
   <main>
+    <div id="toast"></div>

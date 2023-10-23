@@ -15,6 +15,11 @@ body {
 
 body {
   font-family: "Inter", sans-serif;
+  overflow-x: hidden;
+}
+
+body.no-scroll {
+  overflow: hidden;
 }
 
 /* layout  */
@@ -151,6 +156,7 @@ header > .container.row {
   border-radius: 0.3rem;
   position: absolute;
   right: 0;
+  border: none;
   cursor: pointer;
 }
 
@@ -239,23 +245,35 @@ header > .container.row {
   }
 
   .nav {
-    top: 3rem;
-    width: 100%;
-    background: white;
-    position: absolute;
-    padding: 1.25rem 1rem;
-    margin-top: 1rem;
-    border-radius: 0.4rem;
-    opacity: 0;
     height: 0;
+    width: calc(100% + 4rem);
+
+    position: absolute;
+    top: 3rem;
+    left: -2rem;
+    bottom: 0;
+    right: -2rem;
+
+    padding: 1.25rem 2rem;
+    margin-top: 1rem;
+
+    opacity: 0;
     visibility: hidden;
+    /* background: rgba(255, 255, 255, 0.859); */
+    background: white;
+
+    transform: translateX(100%);
+    backdrop-filter: blur(10px);
+
     transition: opacity 250ms;
+    transition: transform 250ms;
   }
 
   .nav.nav--visible {
     opacity: 1;
     visibility: visible;
-    height: auto;
+    height: calc(100vh - 4rem);
+    transform: translateX(0%);
   }
 
   .nav .nav__list {
@@ -264,6 +282,12 @@ header > .container.row {
   }
   .nav__item {
     height: 3rem;
+  }
+  .nav__link:hover:not(.logout) {
+    background: #f7f7f7;
+    cursor: pointer;
+    border-radius: 0.3rem;
+    border: 1px solid rgb(220, 220, 220);
   }
 }
 
@@ -280,6 +304,16 @@ main {
   height: 3rem;
   display: grid;
   place-content: center;
+}
+
+@media screen and (max-width: 768px) {
+  header > .container.row {
+    height: 4rem;
+  }
+
+  main {
+    min-height: calc(100% - 7rem);
+  }
 }
 
 .return-link {
@@ -850,9 +884,17 @@ main {
 }
 
 .prescription-history .record .record-header .professional {
+  display: block;
+  padding: 2px 4px;
+  border-radius: 0.3rem;
+
   color: black;
   font-weight: bold;
   text-decoration: none;
+}
+
+.prescription-history .record .record-header .professional:hover {
+  background: rgb(233, 233, 233);
 }
 
 .prescription-history .record .date {
@@ -953,4 +995,44 @@ main {
   button {
     display: none;
   }
+}
+
+.alert {
+  background: white;
+  padding: 1rem 2rem;
+  max-width: max-content;
+  border: 1px solid #a1a1a1;
+  border-radius: 0.3rem;
+}
+
+.alert.danger {
+  background: rgb(255, 203, 203);
+  color: rgb(83, 18, 18);
+  border-color: rgb(254, 123, 123);
+}
+
+#toast {
+  z-index: 10;
+  max-width: 24rem;
+  border-radius: 0.4rem;
+  border: 1px solid black;
+  padding: 1rem 1.5rem;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-inline: auto;
+  top: 5rem;
+  background: white;
+  display: none;
+  text-align: center;
+}
+
+#toast.show {
+  display: block;
+}
+
+#toast.danger {
+  background: rgb(255, 203, 203);
+  color: rgb(83, 18, 18);
+  border-color: rgb(254, 123, 123);
 }
