@@ -27,6 +27,9 @@ if (isPost()) {
   }
 }
 
+$formTitle = isLogged() ? 'Dejanos tu mensaje' : 'Dejanos tu mensaje';
+$formDescription = isLogged() ? 'Para conocer tu inconveniente o necesidad sobre el sistema' : 'Para poder brindarte el mejor asesoramiento';
+
 ?>
 
 <section class="container" id="contact">
@@ -37,9 +40,9 @@ if (isPost()) {
       </div>
     <?php endif; ?>
     <header class="contact-form-header">
-      <h2 class="contact-form__title">Dejanos tu mensaje</h2>
+      <h2 class="contact-form__title"><?php echo $formTitle ?></h2>
       <p class="contact-form__subtitle">
-        Para poder brindarte el mejor asesoramiento
+        <?php echo $formDescription ?>
       </p>
     </header>
     <section class="contact-form-grid">

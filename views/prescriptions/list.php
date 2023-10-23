@@ -4,10 +4,7 @@ $prescriptions = $data['prescriptions'] ?? [];
 
 <section class="container" id="prescriptions-list">
   <header class="section-header">
-    <div>
-      <a class='return-link'>Volver al inicio</a>
-      <h1 class="section-title">Prescripciones</h1>
-    </div>
+    <h1 class="section-title">Prescripciones</h1>
     <button class="btn primary" onclick="window.location.href='prescription/new'">
       Nueva prescripcion
     </button>

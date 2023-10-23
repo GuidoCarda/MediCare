@@ -8,7 +8,18 @@ if (!$professional) {
 ?>
 
 <section class="container" id="professional-new">
-  <h1 class="section-title">Profesionales</h1>
+  <div>
+    <a href="/medicare/professional" class="return-link" >
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-narrow-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+          <path d="M5 12l14 0" />
+          <path d="M5 12l4 4" />
+          <path d="M5 12l4 -4" />
+        </svg>
+       <span>Volver</span>
+    </a>
+    <h1 class="section-title">Profesionales</h1>
+  </div>
   <h2 class="section-subtitle">Formulario de carga</h2>
 
   <form class="new-form" method="post">
@@ -52,8 +63,12 @@ if (!$professional) {
 
 <script>
   const form = document.querySelector('.new-form');
+  const cancelBtn = document.querySelector('#cancel-btn');
 
+  // Si el usuario hace submit, valido los datos del formulario
   form.addEventListener('submit', handleSubmit);
+  // Si el usuario hace click en cancelar, le pregunto si esta seguro que desea cancelar la carga.
+  cancelBtn.addEventListener('click', () => handleCancelConfirmation('/medicare/professional'));
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -68,13 +83,4 @@ if (!$professional) {
     form.submit();
   }
 
-  const cancelBtn = document.querySelector('#cancel-btn');
-
-  cancelBtn.addEventListener('click', () => {
-    const confirm = window.confirm('¿Estas seguro que deseas cancelar? Los cambios no se guardaran');
-
-    if (confirm) {
-      window.location.href = '/medicare/professional'
-    }
-  });
 </script>

@@ -48,3 +48,14 @@ function isValidLicenseNumber(license) {
   const licenseRegex = /^[0-9]{6}$/;
   return licenseRegex.test(license);
 }
+
+// Confirmar si desea cancelar la operación. Si es así, redirigir a la página indicada.
+function handleCancelConfirmation(redirectTo = "/medicare") {
+  const confirm = window.confirm(
+    "¿Estas seguro que deseas cancelar? Los cambios no se guardaran"
+  );
+
+  if (confirm) {
+    window.location.href = redirectTo;
+  }
+}

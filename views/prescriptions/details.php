@@ -8,16 +8,22 @@ array_shift($prescriptionHistory);
 
 function getProfessionalAction($status, $prescriptionIndex)
 {
+  // global me permite acceder a variables fuera del scope de la funcion
   global $prescriptionHistory;
+  // cantidad de prescripciones en el historial
+  $historyLength = count($prescriptionHistory);
 
+  // Si el estado es 0, significa que el profesional suspendio la prescripcion
   if ($status === 0) {
     return 'suspendió';
   }
 
-  if ($status === 1 && $prescriptionIndex === 0) {
-    return 'Recetó';
+  // Si es la primer prescripcion del historial, significa que el profesional receto por primera vez
+  if($historyLength > 0 && $prescriptionIndex === $historyLength - 1) {
+    return 'Receto';
   }
 
+  // Si no es la primer prescripcion, significa que el profesional actualizo la prescripcion
   return 'actualizó';
 }
 
@@ -26,7 +32,18 @@ function getProfessionalAction($status, $prescriptionIndex)
 <section class="container" id="prescription-details">
 
   <header class="section-header">
-    <h1 class="section-title">Prescripciones</h1>
+    <div>
+      <a href="/medicare/prescription" class="return-link" >
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-narrow-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M5 12l14 0" />
+            <path d="M5 12l4 4" />
+            <path d="M5 12l4 -4" />
+          </svg>
+        <span>Volver</span>
+      </a>
+      <h1 class="section-title">Prescripciones</h1>
+    </div>
     <?php if ($prescriptionDetail) : ?>
       <button class="btn primary">
         Actualizar

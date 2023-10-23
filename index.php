@@ -16,7 +16,6 @@ if (!isset($response['view'])) {
 // Obtengo la ruta de la vista en el file system
 $view = VIEWS . '/' . $response['view'] . '.php';
 $data = $response['data'] ?? [];
-
 include(VIEWS . '/layout/start.php');
 include($view);
 include(VIEWS . '/layout/finish.php');
@@ -25,3 +24,5 @@ if (!file_exists($view)) {
   echo 'El archivo correspondiente a la ruta no existe o no esta en la direccion proporcionada';
   die();
 }
+
+
