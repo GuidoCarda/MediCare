@@ -25,13 +25,14 @@ class PatientModel extends EntityModel{
     $this->alias = 'p';
   }
 
-
+  // Creo un paciente en la base de datos
   public static function createPatient($patientData){
     $Patient = new PatientModel();
     $patient_id = $Patient->insert($patientData);
     return $patient_id;
   }
 
+  // Consulto si existe un paciente con el dni ingresado
   public static function getPatientByDni($dni){
     $Patient = new PatientModel();
     $result = $Patient->select(
@@ -45,6 +46,7 @@ class PatientModel extends EntityModel{
     return $result;
   }
 
+  // Obtengo los datos de un paciente en base a el id de usuario
   public function getPatientByUserId($user_id){
     $Patient = new PatientModel();
     $result = $Patient->select(

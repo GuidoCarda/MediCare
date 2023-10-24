@@ -68,7 +68,7 @@ class ProfessionalModel extends EntityModel
     return $results;
   }
 
-  //Chekea si existe un profesional con el mismo numero de matricula
+  //Consulto si existe un profesional con el mismo numero de matricula
   public function exists($license_number)
   {
     $results = $this->select(

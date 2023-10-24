@@ -7,10 +7,12 @@ class SpecialtyModel extends EntityModel{
   private $id;
   private $denomination;
 
+  // Obtener todas las especialidades
   public function getAll(){
     return $this->select('id, denomination');
   }
 
+  // Obtener una especialidad por su id
   public function getById($id){
     return $this->select(
       'id, denomination',

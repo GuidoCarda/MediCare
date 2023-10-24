@@ -33,6 +33,7 @@ class PrescriptionModel extends EntityModel
     return $results;
   }
 
+  // Obtengo el detalle de una prescripcion por su id para el paciente logueado
   public function getById($id)
   {
     $result = $this->select(
@@ -47,7 +48,7 @@ class PrescriptionModel extends EntityModel
     return $result;
   }
 
-
+  // Obtengo el detalle de la ultima prescripcion ACTIVA por cada medicacion para el paciente logueado
   public function getLatestPerMedicine()
   {
     $results = $this->select(
@@ -118,6 +119,7 @@ class PrescriptionModel extends EntityModel
   }
 
 
+  // Valido si existe una prescripcion activa para un medicamento para el paciente logueado
   public function findExistingPrescriptionWithMedicine($medicineId)
   {
     $result = $this->select(
@@ -133,6 +135,7 @@ class PrescriptionModel extends EntityModel
     return $result;
   }
 
+  // Valido si existe la medicacion en la base de datos. Utilizo nombre generico + droga
   public function medicineExists($genericName, $drug)
   {
     $Medicine = new EntityModel('medicine', 'm');

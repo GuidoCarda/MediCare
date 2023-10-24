@@ -17,7 +17,7 @@ class MedicineModel extends EntityModel{
     return $newMedicineId;
   }
 
-  // Verificar si existe una medicina
+  // Consulto si existe una medicina
   public function exists($genericName, $drug){
     $result = $this->select(
       '*',

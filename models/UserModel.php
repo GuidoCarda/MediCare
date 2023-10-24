@@ -22,6 +22,7 @@ class UserModel extends EntityModel{
   }
   
 
+  // Consulto si existe un usuario con el email y contraseña ingresados
   public static function checkLogin($email, $password){
     $User = new UserModel();
     $result = $User->select(
@@ -36,18 +37,21 @@ class UserModel extends EntityModel{
     return $result;
   }
 
+  // Creo un usuario en la base de datos
   public static function createUser($email, $password){
     $User = new UserModel();
     $newUserId =  $User->insert(['email' => $email, 'password' => $password]);
     return $newUserId; 
   }
 
+  // Obtengo los datos de un usuario en base a su id
   public static function getUserById($userId){
     $User = new UserModel();
     $result = $User->select();
     return $result;
   }
 
+  // Obtengo los datos de un usuario en base a su email
   public static function getUserByEmail($email){
     $User = new UserModel();
     $result = $User->select(

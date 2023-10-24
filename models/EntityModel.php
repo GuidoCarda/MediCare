@@ -22,7 +22,13 @@ class EntityModel
     $this->primary = $primary ?? $this->primary;
   }
 
-
+  /** 
+   * Ejecuta una query en la base de datos
+   * @param string $columns columnas a seleccionar
+   * @param array $filters filtros para la query
+   * @param bool $onlyOneResult indica si se debe devolver un solo resultado
+   * @return array resultado de la query
+   * */
   public function select(
     $columns = '*',
     $filters = [],
@@ -64,6 +70,11 @@ class EntityModel
     return $onlyOneResult ? $stmt->fetch() : $stmt->fetchAll();
   }
 
+  /**
+   * Inserta un registro en la base de datos
+   * @param array $data arreglo con los datos a insertar
+   * @return int id del registro insertado
+   */
   public function insert($data)
   {
     // arreglo de reemplazos
@@ -90,6 +101,12 @@ class EntityModel
     return $this->db->lastInsertId();
   }
 
+  /**
+   * Actualiza un registro en base a un id
+   * @param array $data arreglo con los datos a actualizar
+   * @param int $id id del registro a actualizar
+   * @return int cantidad de registros actualizados
+   */
   public function update($data, $id)
   {
     // arreglo de reemplazos
@@ -119,6 +136,7 @@ class EntityModel
     return $stmt->rowCount();
   }
 
+  // Elimino un registro en base a un id
   public function delete($id)
   {
     $query = "DELETE FROM $this->table WHERE $this->primary = :id LIMIT 1";
@@ -128,6 +146,7 @@ class EntityModel
       ':id' => $id
     ]);
   }
+
 
   private function connect()
   {

@@ -19,7 +19,7 @@ body {
 }
 
 body.no-scroll {
-  overflow: hidden;
+  overflow-y: scroll;
 }
 
 /* layout  */
@@ -259,7 +259,6 @@ header > .container.row {
 
     opacity: 0;
     visibility: hidden;
-    /* background: rgba(255, 255, 255, 0.859); */
     background: white;
 
     transform: translateX(100%);
@@ -274,6 +273,7 @@ header > .container.row {
     visibility: visible;
     height: calc(100vh - 4rem);
     transform: translateX(0%);
+    z-index: 10;
   }
 
   .nav .nav__list {
@@ -645,6 +645,12 @@ main {
 .prescriptions-table th {
   height: 3rem;
   padding-inline: 1rem;
+}
+
+.prescriptions-table
+  :is(td:nth-child(1), td:nth-child(2), th:nth-child(1), th:nth-child(2)) {
+  /* background: red; */
+  text-align: start;
 }
 
 .prescriptions-table .edit,
