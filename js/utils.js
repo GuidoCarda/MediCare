@@ -108,9 +108,3 @@ function toastNotification(message, type = "success") {
     toast.classList.remove("show", type);
   }, 3000);
 }
-
-function test() {
-  console.log("scrollY: ", window.scrollY);
-  console.log("innerHeight: ", window.innerHeight);
-  // console.log("scrollY - innerHeight : ", window.innerHeight );
-}

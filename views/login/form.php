@@ -1,9 +1,9 @@
 <section class="container" id="login">
-  <?php if(isset($data['message'])) : ?>
-    <div class="alert danger">
+  <?php if (isset($data['message'])) : ?>
+    <div class="alert alert-danger">
       <?php echo $data['message']; ?>
     </div>
-    <?php endif; ?>
+  <?php endif; ?>
   <header class="login-header">
     <h1>Ingreso al sistema</h1>
     <p>Aun no tenes cuenta? <a href="/medicare/register">registrate</a></p>

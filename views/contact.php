@@ -31,14 +31,14 @@ $formTitle = isLogged() ? 'Dejanos tu mensaje' : 'Dejanos tu mensaje';
 $formDescription = isLogged() ? 'Para conocer tu inconveniente o necesidad sobre el sistema' : 'Para poder brindarte el mejor asesoramiento';
 
 ?>
-
 <section class="container" id="contact">
+  <?php if (isset($message)) : ?>
+    <div class="alert alert-success">
+      <?php echo $message; ?>
+    </div>
+  <?php endif; ?>
   <form method="post" class="contact-form">
-    <?php if (isset($message)) : ?>
-      <div class="alert alert-success">
-        <?php echo $message; ?>
-      </div>
-    <?php endif; ?>
+
     <header class="contact-form-header">
       <h2 class="contact-form__title"><?php echo $formTitle ?></h2>
       <p class="contact-form__subtitle">

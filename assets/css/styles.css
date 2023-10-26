@@ -8,13 +8,18 @@
   box-sizing: border-box;
 }
 
+@font-face {
+  font-family: "SF";
+  src: url("../assets/fonts/SF-Pro.ttf");
+}
+
 html,
 body {
   height: 100%;
 }
 
 body {
-  font-family: "Inter", sans-serif;
+  font-family: "SF", sans-serif;
   overflow-x: hidden;
 }
 
@@ -444,6 +449,42 @@ main {
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
 }
+
+.register-form .form-group.password {
+  /* background: red; */
+}
+
+.register-form .form-group.password {
+  position: relative;
+}
+
+.register-form .form-group.password .text-input {
+  padding-right: 3rem;
+}
+
+.register-form .form-group.password .toggle-password-btn {
+  height: 2.5rem;
+  width: 2.5rem;
+  position: absolute;
+  display: grid;
+  place-content: center;
+  right: 0;
+  top: 23px;
+  background: none;
+  border: none;
+  border-left: 1px solid rgb(209, 209, 209);
+  outline: none;
+}
+
+.register-form .form-group.password .toggle-password-btn svg {
+  color: grey;
+  height: 1.25rem;
+}
+
+.register-form .form-group.password .toggle-password-btn svg:last-child {
+  display: none;
+}
+
 @media screen and (max-width: 760px) {
   .register-form-grid {
     gap: 1.75rem;
@@ -1003,6 +1044,7 @@ main {
   }
 }
 
+/* Notifications  */
 .alert {
   background: white;
   padding: 1rem 2rem;
@@ -1011,10 +1053,16 @@ main {
   border-radius: 0.3rem;
 }
 
-.alert.danger {
+.alert.alert-danger {
   background: rgb(255, 203, 203);
   color: rgb(83, 18, 18);
   border-color: rgb(254, 123, 123);
+}
+
+.alert.alert-success {
+  color: rgb(23, 83, 18);
+  background: #b7f4c4;
+  border: 1px solid #5ac070;
 }
 
 #toast {
@@ -1041,4 +1089,33 @@ main {
   background: rgb(255, 203, 203);
   color: rgb(83, 18, 18);
   border-color: rgb(254, 123, 123);
+}
+
+/* Error page */
+
+.container#error-page {
+  height: calc(100vh - 7rem);
+  display: grid;
+  text-align: center;
+  place-content: center;
+  place-items: center;
+  padding-block: 5rem;
+}
+
+.container#error-page h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.container#error-page p {
+  font-size: 1.25rem;
+  color: #797979;
+}
+
+.container#error-page a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  width: max-content;
+  margin-top: 2rem;
 }
