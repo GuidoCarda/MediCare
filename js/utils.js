@@ -95,14 +95,22 @@ function handleCancelConfirmation(redirectTo = "/medicare") {
  * @param {string} type Tipo de notificacion (success, error, warning)
  */
 function toastNotification(message, type = "success") {
+  const startingPoint = Math.floor(window.scrollY) + 32;
   const toast = document.getElementById("toast");
 
   if (toast.classList.contains("show")) return;
 
   toast.classList.add("show", type);
+  toast.style.top = `${startingPoint}px`;
   toast.innerText = message;
 
   setTimeout(() => {
     toast.classList.remove("show", type);
   }, 3000);
+}
+
+function test() {
+  console.log("scrollY: ", window.scrollY);
+  console.log("innerHeight: ", window.innerHeight);
+  // console.log("scrollY - innerHeight : ", window.innerHeight );
 }
