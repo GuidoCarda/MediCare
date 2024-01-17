@@ -6,6 +6,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="/medicare/assets/img/medicare.svg">
   <title>Medicare</title>
   <link rel="stylesheet" href="/medicare/assets/css/styles.css" />
 </head>
