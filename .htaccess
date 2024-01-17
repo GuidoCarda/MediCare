@@ -8,18 +8,27 @@ RewriteRule ^login/(start|end)$ index.php?cat=login&a=$1
 RewriteRule ^register/(start)$ index.php?cat=register&a=$1
 
 # mostrar la pagina de contacto
+
 RewriteRule ^contact$ index.php?cat=home&a=contact
 
 ### Luego defino los casos generales
 
 # mostrar la pagina que corresponda a la categoria
-RewriteRule ^([a-z]+)$ index.php?cat=$1  
-# mostrar la pagina que corresponda a la categoria y la accion
-RewriteRule ^([a-z]+)/(new)$ index.php?cat=$1&a=$2  
-# mostrar la pagina que corresponda a la categoria y el id
-RewriteRule ^([a-z]+)/(\d+)$ index.php?cat=$1&id=$2&a=details
-# mostrar la pagina que corresponda a la categoria, el id y la accion
-RewriteRule ^([a-z]+)/(\d+)/(edit|delete)$ index.php?cat=$1&id=$2&a=$3  
 
-# Si no ingresa a ninguno de los casos anteriores, mostrar la pagina de inicio
-RewriteRule ^$ index.php?cat=home
+RewriteRule ^([a-z]+)$ index.php?cat=$1
+
+# mostrar la pagina que corresponda a la categoria y la accion
+
+RewriteRule ^([a-z]+)/(new)$ index.php?cat=$1&a=$2
+
+# mostrar la pagina que corresponda a la categoria y el id
+
+RewriteRule ^([a-z]+)/(\d+)$ index.php?cat=$1&id=$2&a=details
+
+# mostrar la pagina que corresponda a la categoria, el id y la accion
+
+RewriteRule ^([a-z]+)/(\d+)/(edit|delete)$ index.php?cat=$1&id=$2&a=$3
+
+# Si no ingresa a ninguno de los casos anteriores, mostrar la pagina de error
+
+RewriteRule ^(.\*)$ error.php [L]

@@ -29,7 +29,7 @@ return function () {
   if (!class_exists($controller)) {
     return [
       'data' => [
-        'message' => "Algo salio mal",
+        'message' => "La ruta solicitada no existe o surgio un inconveniente en la carga",
         'status' => '404'
       ],
       'view' => 'error'

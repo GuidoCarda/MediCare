@@ -21,7 +21,7 @@
         nav.classList.toggle('nav--visible')
         document.body.classList.toggle('no-scroll');
       })
-      
+
     })
   </script>
   <header>

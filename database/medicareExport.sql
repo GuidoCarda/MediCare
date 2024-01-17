@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-10-2023 a las 05:03:39
+-- Tiempo de generación: 20-10-2023 a las 01:55:30
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -126,6 +126,16 @@ CREATE TABLE `medicine` (
   `medicine_type_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `medicine`
+--
+
+INSERT INTO `medicine` (`id`, `generic_name`, `drug`, `medicine_type_id`) VALUES
+(1, 'tafirol', 'paracetamol', 1),
+(2, 'procolaran', 'ivabradina', 1),
+(3, 'losacor', 'losartan', 1),
+(4, 'sinlip 20', 'rosuvastatina', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -171,6 +181,15 @@ CREATE TABLE `patient` (
   `blood_type_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `patient`
+--
+
+INSERT INTO `patient` (`id`, `name`, `lastname`, `gender`, `birth_date`, `dni`, `user_id`, `blood_type_id`) VALUES
+(1, 'Cuenta', 'Ejemplo', NULL, '2001-03-05', '12345678', 1, 1),
+(2, 'Guido', 'Cardarelli', NULL, '2001-02-05', '43237440', 2, 3),
+(3, 'Ricardo', 'Gomez', NULL, '1960-01-02', '44444444', 3, 6);
+
 -- --------------------------------------------------------
 
 --
@@ -183,6 +202,18 @@ CREATE TABLE `patient_professional` (
   `professional_id` int(11) DEFAULT NULL,
   `status` tinyint(1) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `patient_professional`
+--
+
+INSERT INTO `patient_professional` (`id`, `patient_id`, `professional_id`, `status`) VALUES
+(1, 2, 1, 1),
+(2, 2, 2, 1),
+(3, 2, 3, 1),
+(4, 3, 3, 1),
+(5, 1, 4, 1),
+(6, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -201,6 +232,24 @@ CREATE TABLE `prescription` (
   `is_active` tinyint(1) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `prescription`
+--
+
+INSERT INTO `prescription` (`id`, `quantity`, `created_at`, `professional_id`, `patient_id`, `frequency_id`, `medicine_id`, `is_active`) VALUES
+(1, 1, '2022-02-02', 2, 2, 3, 1, 1),
+(2, 2, '2023-02-05', 3, 2, 1, 2, 1),
+(3, 1, '2023-05-05', 3, 2, 6, 2, 1),
+(4, 1, '2023-05-05', 3, 2, 6, 2, 0),
+(5, 2, '2023-08-05', 3, 2, 5, 2, 1),
+(6, 3, '2023-08-10', 3, 2, 5, 2, 1),
+(7, 5, '2023-08-25', 3, 2, 3, 2, 1),
+(8, 1, '2023-10-01', 3, 3, 1, 3, 1),
+(9, 1, '2023-10-03', 3, 3, 5, 3, 1),
+(10, 1, '2023-10-01', 1, 1, 1, 4, 1),
+(11, 1, '2023-10-03', 1, 1, 5, 4, 1),
+(12, 1, '2023-10-03', 1, 1, 5, 4, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -216,6 +265,16 @@ CREATE TABLE `professional` (
   `phone_number` varchar(10) DEFAULT NULL,
   `specialty_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `professional`
+--
+
+INSERT INTO `professional` (`id`, `name`, `lastname`, `email`, `license_number`, `phone_number`, `specialty_id`) VALUES
+(1, 'Juan ', 'Gomez', 'juangomez@gmail.com', '123456', '155919351', 1),
+(2, 'Ana', 'Lopez', 'analopez@gmail.com', '222222', '156774565', 2),
+(3, 'David', 'Perez', 'davidp@gmail.com', '333333', '156933454', 5),
+(4, 'Rodrigo', 'Cardarelli', 'rodrigo@gmail.com', '435234', '412234453', 15);
 
 -- --------------------------------------------------------
 
@@ -264,6 +323,15 @@ CREATE TABLE `user` (
   `email` varchar(50) DEFAULT NULL,
   `password` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `user`
+--
+
+INSERT INTO `user` (`id`, `email`, `password`) VALUES
+(1, 'test@test.com', 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3'),
+(2, 'guido@gmail.com', 'adfc8f0aec273eace2629141317c1eac53923f28'),
+(3, 'ricardo@gmail.com', 'd4e7430f1534a12df46cedd1ac369935436dbb94');
 
 --
 -- Índices para tablas volcadas
@@ -372,7 +440,7 @@ ALTER TABLE `inquiry`
 -- AUTO_INCREMENT de la tabla `medicine`
 --
 ALTER TABLE `medicine`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `medicine_type`
@@ -384,25 +452,25 @@ ALTER TABLE `medicine_type`
 -- AUTO_INCREMENT de la tabla `patient`
 --
 ALTER TABLE `patient`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `patient_professional`
 --
 ALTER TABLE `patient_professional`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `prescription`
 --
 ALTER TABLE `prescription`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `professional`
 --
 ALTER TABLE `professional`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `specialty`
@@ -414,7 +482,7 @@ ALTER TABLE `specialty`
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Restricciones para tablas volcadas
